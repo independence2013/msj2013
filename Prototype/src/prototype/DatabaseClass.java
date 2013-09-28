@@ -1,6 +1,5 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ * Code for starting the database connection and svaing songs to the database
  */
 package prototype;
 
