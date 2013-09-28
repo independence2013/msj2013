@@ -129,13 +129,13 @@ class DatabaseClass {
         else{ //if artist wasn't registered before
             pstmt = con.prepareStatement("INSERT INTO SONGTABLE (TITLE, ARTISTID, SLENGTH, LYRICS) VALUES (?,?,?,?)"); //FIXED
             pstmt.setString(1, title); //not only insert into the maintable but also insert into the artists table to register new artist
-            pstmt.setInt(2, artistid + 1); //add one to the greatest (last inputted) artist id to get new artist id (IDs will be increments of one
-            pstmt.setInt(3, length);
-            pstmt.setString(4, cleanedly);
+            pstmt.setInt(2, artistid + 1); //add one to the greatest (last inputted) artist id to get new artist id (IDs will be in increments of one)
+            pstmt.setInt(3, length); //isert length of songs in seconds
+            pstmt.setString(4, cleanedly); //insert cleaned lyrics
             
-            pstmt2 = con.prepareStatement("INSERT INTO ARTISTS (ARTISTNAME, ARTISTID) VALUES (?,?)");
+            pstmt2 = con.prepareStatement("INSERT INTO ARTISTS (ARTISTNAME, ARTISTID) VALUES (?,?)"); //put the artist and his/her id into the artist table
             pstmt2.setString(1, artist);
-            pstmt2.setInt(2, artistid + 1); //duplicate of the second setInt for the second statement that is unioned to the first
+            pstmt2.setInt(2, artistid + 1); //duplicate of the earlier "artistid + 1" for the artist table
             pstmt2.addBatch();
             pstmt2.executeBatch();
         }
