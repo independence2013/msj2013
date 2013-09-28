@@ -150,8 +150,22 @@ class DatabaseClass {
         }
     }
     
-    public static String retrievelyrics(){ //get lyrics that have not been analyzed
+    public static String retrievelyrics(Connection con) throws SQLException{ //get lyrics that have not been analyzed
         String lyrics = "";
+        Statement stmt = null;
+        String query =
+                "SELECT TITLE,ARTISTID,LYRICS FROM SONGTABLE WHERE ANALYZEDFLAG = '0'"; //find the song with lyrics that haven't been analyzed
+        try {
+            stmt = con.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+            if(rs.next()) { //get the first song in the resultset
+               lyrics = rs.getString("LYRICS");
+            }
+        } catch (SQLException e) {
+            System.err.println(e);
+        } finally {
+            if (stmt != null) { stmt.close(); }
+        }
         return lyrics;
     }
     
