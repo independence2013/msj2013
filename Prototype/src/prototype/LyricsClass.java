@@ -25,7 +25,8 @@ import org.jsoup.Jsoup;
 class LyricsClass {
     //grab lyrics from internet
     public static String webgrab(String title, String artist){
-        title = title + " ";
+        title = title + " "; //add space after title so it is separated from the title
+        //gets rid of secondary artists
         int andindex = 0;
         andindex = artist.indexOf(" & "); //looks for the & symbol (so additional artists dont confuse the azlyrics search)
         if(andindex != -1){
@@ -37,6 +38,7 @@ class LyricsClass {
                 artist = artist.substring(0,andindex);
             }
         }
+        //
         final WebClient webClient = new WebClient();
         webClient.setJavaScriptEnabled(false); //disable javascript; speeds up page loads by A TON and gets rid of any errors that could occur when loading them
         String lyrics = null;
