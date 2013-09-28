@@ -48,7 +48,7 @@ class DatabaseClass {
     
     //function saves song, artist, song length, and length id to database
     public static void saveto(Connection con, String title, String artist, int length, String cleanedly) throws SQLException{ 
-        //gets rid of secondary artists
+        //gets rid of secondary artists (could be a problem if one artist has and as part of their name)
         int andindex = 0;
         andindex = artist.indexOf(" & "); //looks for the & symbol (so additional artists dont confuse the azlyrics search)
         if(andindex != -1){

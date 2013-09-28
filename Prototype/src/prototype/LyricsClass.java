@@ -22,12 +22,12 @@ import org.jsoup.Jsoup;
  * @author Jeffrey
  */
 class LyricsClass {
-    //grab lyrics from internet
+    //grab lyrics from internet (azlyrics.com)
     public static String webgrab(String title, String artist){
         title = title + " "; //add space after title so it is separated from the title
-        //gets rid of secondary artists
+        //gets rid of secondary artists (could be a problem if one artist has and as part of their name)
         int andindex = 0;
-        andindex = artist.indexOf(" & "); //looks for the & symbol (so additional artists dont confuse the azlyrics search)
+        andindex = artist.indexOf(" & "); //looks for the & symbol (so additional artists don't confuse the azlyrics search)
         if(andindex != -1){
             artist = artist.substring(0,andindex);
         }
