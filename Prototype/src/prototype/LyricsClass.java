@@ -1,6 +1,5 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ * Code for retrieving the lyrics and cleaning the lyrics
  */
 package prototype;
 
