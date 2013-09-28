@@ -1,6 +1,5 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ * Main code
  */
 package prototype;
 
@@ -39,7 +38,7 @@ public class Prototype {
         Connection connection = demo2.startconnection();
         
         String filedir;
-        for(int i = 0; i<allfiles.length; i++){ //loop where there are files that haven't ben run through
+        for(int i = 0; i<allfiles.length; i++){ //loop where there are files that haven't been run through
             if(allfiles[i].isFile()){ //if it is a file
                 filedir = allfiles[i].getAbsolutePath(); //get absoulte path of the files
                 //System.out.println(filedir); //debug
