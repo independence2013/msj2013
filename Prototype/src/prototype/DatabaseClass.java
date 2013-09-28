@@ -119,14 +119,14 @@ class DatabaseClass {
         PreparedStatement pstmt;
         PreparedStatement pstmt2;
         if(!artistpre){ //if artist was already registered
-            pstmt = con.prepareStatement("INSERT INTO SONGTABLE (TITLE, ARTISTID, SLENGTH, LYRICS) VALUES (?,?,?,?)");
+            pstmt = con.prepareStatement("INSERT INTO SONGTABLE (TITLE, ARTISTID, SLENGTH, LYRICS, ANALYZEDFLAG) VALUES (?,?,?,?,'0')"); //all analyzedflags are initialized as zero
             pstmt.setString(1, title); //only insert the song and artist id into the maintable
             pstmt.setInt(2, artistid);
             pstmt.setInt(3, length); //write lengthid to database (length is in divisons of 15)
             pstmt.setString(4, cleanedly);
         }
         else{ //if artist wasn't registered before
-            pstmt = con.prepareStatement("INSERT INTO SONGTABLE (TITLE, ARTISTID, SLENGTH, LYRICS) VALUES (?,?,?,?)"); //FIXED
+            pstmt = con.prepareStatement("INSERT INTO SONGTABLE (TITLE, ARTISTID, SLENGTH, LYRICS, ANALYZEDFLAG) VALUES (?,?,?,?,'0')"); //FIXED
             pstmt.setString(1, title); //not only insert into the maintable but also insert into the artists table to register new artist
             pstmt.setInt(2, artistid + 1); //add one to the greatest (last inputted) artist id to get new artist id (IDs will be in increments of one)
             pstmt.setInt(3, length); //isert length of songs in seconds
@@ -150,7 +150,7 @@ class DatabaseClass {
         }
     }
     
-    public static String retrievelyrics(){
+    public static String retrievelyrics(){ //get lyrics that have not been analyzed
         String lyrics = "";
         return lyrics;
     }
