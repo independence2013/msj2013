@@ -49,6 +49,19 @@ class DatabaseClass {
     
     //function saves song, artist, song length, and length id to database
     public static void saveto(Connection con, String title, String artist, int length, String cleanedly) throws SQLException{ 
+        //gets rid of secondary artists
+        int andindex = 0;
+        andindex = artist.indexOf(" & "); //looks for the & symbol (so additional artists dont confuse the azlyrics search)
+        if(andindex != -1){
+            artist = artist.substring(0,andindex);
+        }
+        else{ //if you dont find the symbol
+            andindex = artist.indexOf(" and "); //look for the word "and"
+            if(andindex != -1){
+                artist = artist.substring(0,andindex);
+            }
+        }
+        //
         int artistid = 0;
         boolean artistpre = false;
         Statement stmt = null;
@@ -70,7 +83,7 @@ class DatabaseClass {
         if(artistid != 0){ //if the artist was registered check to see if the song was already registered
             Statement stmt2 = null;
             String query2 =
-                "SELECT TITLE,ARTISTID FROM ARTISTS WHERE TITLE = '" + title + "' AND ARTISTID = '" + artistid + "'"; //check to see if the song is already registered
+                "SELECT TITLE,ARTISTID FROM SONGTABLE WHERE TITLE = '" + title + "' AND ARTISTID = '" + artistid + "'"; //check to see if the song is already registered
             try {
                 stmt2 = con.createStatement();
                 ResultSet rs = stmt2.executeQuery(query2);
@@ -105,6 +118,7 @@ class DatabaseClass {
         con.setAutoCommit(false); //disable autocommit
         
         PreparedStatement pstmt;
+        PreparedStatement pstmt2;
         if(!artistpre){ //if artist was already registered
             pstmt = con.prepareStatement("INSERT INTO SONGTABLE (TITLE, ARTISTID, SLENGTH, LYRICS) VALUES (?,?,?,?)");
             pstmt.setString(1, title); //only insert the song and artist id into the maintable
@@ -113,13 +127,17 @@ class DatabaseClass {
             pstmt.setString(4, cleanedly);
         }
         else{ //if artist wasn't registered before
-            pstmt = con.prepareStatement("INSERT INTO SONGTABLE (TITLE, ARTISTID, SLENGTH, LYRICS) VALUES (?,?,?,?) INSERT INTO ARTISTS (ARTISTNAME, ARTISTID) VALUES (?,?)"); //FIX
+            pstmt = con.prepareStatement("INSERT INTO SONGTABLE (TITLE, ARTISTID, SLENGTH, LYRICS) VALUES (?,?,?,?)"); //FIXED
             pstmt.setString(1, title); //not only insert into the maintable but also insert into the artists table to register new artist
             pstmt.setInt(2, artistid + 1); //add one to the greatest (last inputted) artist id to get new artist id (IDs will be increments of one
             pstmt.setInt(3, length);
             pstmt.setString(4, cleanedly);
-            pstmt.setString(5, artist);
-            pstmt.setInt(6, artistid + 1); //duplicate of the second setInt for the second statement that is unioned to the first
+            
+            pstmt2 = con.prepareStatement("INSERT INTO ARTISTS (ARTISTNAME, ARTISTID) VALUES (?,?)");
+            pstmt2.setString(1, artist);
+            pstmt2.setInt(2, artistid + 1); //duplicate of the second setInt for the second statement that is unioned to the first
+            pstmt2.addBatch();
+            pstmt2.executeBatch();
         }
         pstmt.addBatch();
         try {
