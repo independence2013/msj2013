@@ -29,9 +29,9 @@ class DatabaseClass {
 	Connection connection = null;
  
 	try {
-		connection = DriverManager.getConnection(
-				"jdbc:oracle:thin:@localhost:1521:orcl", "sys as sysdba",
-				"oracle10g");
+            connection = DriverManager.getConnection(
+			"jdbc:oracle:thin:@localhost:1521:orcl", "sys as sysdba",
+			"oracle10g");
 	} catch (SQLException e) {
 		System.out.println("Connection Failed! Check output console");
 		e.printStackTrace();
@@ -150,8 +150,8 @@ class DatabaseClass {
         }
     }
     
-    public static String retrievelyrics(Connection con) throws SQLException{ //get lyrics that have not been analyzed
-        String lyrics = "";
+    public static String[] retrievelyrics(Connection con) throws SQLException{ //get a song that has not been analyzed
+        String[] song = new String[3];
         Statement stmt = null;
         String query =
                 "SELECT TITLE,ARTISTID,LYRICS FROM SONGTABLE WHERE ANALYZEDFLAG = '0'"; //find the song with lyrics that haven't been analyzed
@@ -159,14 +159,32 @@ class DatabaseClass {
             stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery(query);
             if(rs.next()) { //get the first song in the resultset
-               lyrics = rs.getString("LYRICS");
+               song[0] = rs.getString("TITLE"); //first element is the title
+               song[1] = rs.getString("ARTISTID"); //ARTISTID IS SAVED AS A STRING (remember to convert to int later if needed)
+               song[2] = rs.getString("LYRICS");
+               //System.out.println(song[1]); //debug
             }
         } catch (SQLException e) {
             System.err.println(e);
         } finally {
             if (stmt != null) { stmt.close(); }
         }
-        return lyrics;
+        return song; //returns an array
+    }
+    
+    public static void writescore(Connection con, String title, String artistid, int valence, int arousal) throws SQLException{ //writes a song's final scores to the database and makes the song's analyzedflag 1
+        Statement stmt = null;
+        //inser the final scores for the song and change the analyzedflag
+        String query =
+                "INSERT INTO SONGTABLE (ANALYZEDFLAG, VALENCE, AROUSAL) VALUES ('1','" + valence + "','" + arousal + "') WHERE TITLE = '" + title + "' AND ARTISTID = '" + artistid + "'";
+        try {
+            stmt = con.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+        } catch (SQLException e) {
+            System.err.println(e);
+        } finally {
+            if (stmt != null) { stmt.close(); }
+        }
     }
     
 }
