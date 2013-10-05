@@ -69,7 +69,7 @@ public class Prototype {
                 demo2.saveto(connection, title, artist, length, cleaned);
             }
         }
-        System.out.println(demo2.retrievelyrics(connection)); //print out the first lyrics the database that hasn't been analyzed
+        String[] song = demo2.retrievelyrics(connection); //print out the first lyrics the database that hasn't been analyzed
         /*
          * Psuedocode:
          * while there are songs that haven't been analyzed{
