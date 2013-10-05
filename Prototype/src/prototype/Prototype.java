@@ -69,7 +69,7 @@ public class Prototype {
                 demo2.saveto(connection, title, artist, length, cleaned);
             }
         }
-        String[] song = demo2.retrievelyrics(connection); //print out the first lyrics the database that hasn't been analyzed
+        String[] song = demo2.retrievelyrics(connection); //retrieve a song that hasn't been analyzed
         /*
          * Psuedocode:
          * while there are songs that haven't been analyzed{
@@ -78,6 +78,17 @@ public class Prototype {
          *      -make the analyzedflag of that song 1 
          * }
          */
+        
+        /* //Psuedocode implementation
+        while(song[0] != null){
+            int valence = 0;
+            int arousal = 0;
+            //analyze
+            demo2.writescore(connection, song[0], song[1], valence, arousal);
+            song[0] = null;
+            song = demo2.retrievelyrics(connection);
+        }
+        */
         System.out.println("Done!");
     }
 }
