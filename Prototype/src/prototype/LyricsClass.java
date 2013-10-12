@@ -63,7 +63,7 @@ class LyricsClass {
         
             //Below code was when trying to optimize the run time because the loading of pages took very long
             //Wanted to use the URL library to get last page to speed up page loading
-            //No longer used after javascript was disabled (javascript was slwing down the loading, loads now take ~3 seconds)
+            //No longer used after javascript was disabled (javascript was slowing down the loading, loads now take ~3 seconds)
         
             //System.out.println(link.asXml());
             /*
