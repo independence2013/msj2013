@@ -70,6 +70,9 @@ public class Prototype {
             }
         }
         String[] song = demo2.retrievelyrics(connection); //retrieve a song that hasn't been analyzed
+        //System.out.println(song[0]); //debug
+        //System.out.println(song[1]);
+        //System.out.println(song[2]);
         /*
          * Psuedocode:
          * while there are songs that haven't been analyzed{
