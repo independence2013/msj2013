@@ -35,7 +35,7 @@ public class Prototype {
         
         LyricsClass demo1 = new LyricsClass();
         DatabaseClass demo2 = new DatabaseClass();
-        Connection connection = demo2.startconnection();
+        Connection connection = demo2.startconnection(); //get the connection to the database
         
         String filedir;
         for(int i = 0; i<allfiles.length; i++){ //loop where there are files that haven't been run through
@@ -75,17 +75,17 @@ public class Prototype {
          * while there are songs that haven't been analyzed{
          *      -get an unanalyzed song
          *      -analyze it
-         *      -make the analyzedflag of that song 1 
+         *      -save analysis to database and make make the analyzedflag of that song 1
          * }
          */
         
         /* //Psuedocode implementation
-        while(song[0] != null){
+        while(song[0].equals("0"){
             int valence = 0;
             int arousal = 0;
             //analyze
             demo2.writescore(connection, song[0], song[1], valence, arousal);
-            song[0] = null;
+            song[0] = "0";
             song = demo2.retrievelyrics(connection);
         }
         */
