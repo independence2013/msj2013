@@ -150,7 +150,8 @@ class DatabaseClass {
         }
     }
     
-    public static String[] retrievelyrics(Connection con) throws SQLException{ //get a song that has not been analyzed
+    //get a song that has not been analyzed
+    public static String[] retrievelyrics(Connection con) throws SQLException{
         String[] song = new String[3];
         song[0] = "0";
         Statement stmt = null;
@@ -173,7 +174,8 @@ class DatabaseClass {
         return song; //returns an array
     }
     
-    public static void writescore(Connection con, String title, String artistid, int valence, int arousal) throws SQLException{ //writes a song's final scores to the database and makes the song's analyzedflag 1
+    //writes a song's final scores to the database and makes the song's analyzedflag 1
+    public static void writescore(Connection con, String title, String artistid, int valence, int arousal) throws SQLException{
         Statement stmt = null;
         //inser the final scores for the song and change the analyzedflag
         String query =
@@ -186,6 +188,31 @@ class DatabaseClass {
         } finally {
             if (stmt != null) { stmt.close(); } //close connection
         }
+    }
+    
+    //gets the keywords from the database and saves them to an array
+    public static Keywords[] getkeywords(Connection con) throws SQLException{
+        int i = 0;
+        Keywords[] keywords = new Keywords[1034]; //initalizes an array with the keywords datatype
+        Statement stmt = null;
+        String query =
+                "SELECT DESCRIPTION, VALENCEAVERAGE, AROUSALAVERAGE, DOMINANCEAVERAGE FROM KEYWORDS"; //get the keywords and their mood scores
+        try {
+            stmt = con.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+            while(rs.next()){ //loop through the words and save them to the array
+                keywords[i].keyword = rs.getString("DESCRIPTION");
+                keywords[i].valence = rs.getInt("VALENCEAVERAGE");
+                keywords[i].arousal = rs.getInt("AROUSALAVERAGE");
+                keywords[i].dominance = rs.getInt("DOMINANCEAVERAGE");
+                i++; //increment i
+            }
+        } catch (SQLException e) {
+            System.err.println(e);
+        } finally {
+            if (stmt != null) { stmt.close(); } //close connection
+        }
+        return keywords;
     }
     
 }
