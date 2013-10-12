@@ -39,9 +39,9 @@ class DatabaseClass {
 	}
  
 	if (connection != null) {
-		System.out.println("Connected!");
+		System.out.println("Connected.");
 	} else {
-		System.out.println("Failed to make connection!");
+		System.out.println("Failed to make connection.");
 	}
         return connection;
     }
