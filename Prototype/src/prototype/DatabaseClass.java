@@ -152,6 +152,7 @@ class DatabaseClass {
     
     public static String[] retrievelyrics(Connection con) throws SQLException{ //get a song that has not been analyzed
         String[] song = new String[3];
+        song[0] = "0";
         Statement stmt = null;
         String query =
                 "SELECT TITLE,ARTISTID,LYRICS FROM SONGTABLE WHERE ANALYZEDFLAG = '0'"; //find the song with lyrics that haven't been analyzed
@@ -167,7 +168,7 @@ class DatabaseClass {
         } catch (SQLException e) {
             System.err.println(e);
         } finally {
-            if (stmt != null) { stmt.close(); }
+            if (stmt != null) { stmt.close(); } //close connection
         }
         return song; //returns an array
     }
@@ -183,7 +184,7 @@ class DatabaseClass {
         } catch (SQLException e) {
             System.err.println(e);
         } finally {
-            if (stmt != null) { stmt.close(); }
+            if (stmt != null) { stmt.close(); } //close connection
         }
     }
     
