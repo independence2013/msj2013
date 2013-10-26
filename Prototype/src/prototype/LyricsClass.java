@@ -116,7 +116,6 @@ class LyricsClass {
         return lyrics;
     }
     
-    
     //cleanup function
     public static String cleanup(String raw_html){
         boolean ChorusVar = false;
