@@ -82,8 +82,8 @@ public class Prototype {
          * }
          */
         
-        /* //Psuedocode implementation
-        while(song[0].equals("0"){
+        /*//Psuedocode implementation
+        while(song[0].equals("0")){
             int valence = 0;
             int arousal = 0;
             //analyze
