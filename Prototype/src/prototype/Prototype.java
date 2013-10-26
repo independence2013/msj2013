@@ -10,9 +10,9 @@ import java.util.logging.Logger;
 import org.jaudiotagger.audio.*;
 import org.jaudiotagger.audio.exceptions.*;
 import org.jaudiotagger.tag.*;
-import java.io.FilenameFilter;
 import java.sql.Connection;
 import java.sql.SQLException;
+//import java.io.FilenameFilter;
 
 /**
  * @author Jeffrey
