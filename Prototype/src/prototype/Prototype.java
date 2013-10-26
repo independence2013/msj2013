@@ -69,6 +69,7 @@ public class Prototype {
                 demo2.saveto(connection, title, artist, length, cleaned);
             }
         }
+        Keywords[] keywords = demo2.getkeywords(connection); //fill an array with the keywords from the database (to be passed as an argument for the lyrics analyzer)
         String[] song = demo2.retrievelyrics(connection); //retrieve a song that hasn't been analyzed
         //System.out.println(song[0]); //debug
         //System.out.println(song[1]);
