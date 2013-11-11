@@ -35,6 +35,7 @@ public class Prototype {
         
         LyricsClass demo1 = new LyricsClass();
         DatabaseClass demo2 = new DatabaseClass();
+        LyricsAnalyzer demo3 = new LyricsAnalyzer();
         Connection connection = demo2.startconnection(); //get the connection to the database
         
         String filedir;
