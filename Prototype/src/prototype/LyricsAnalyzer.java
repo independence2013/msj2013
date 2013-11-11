@@ -40,7 +40,7 @@ public class LyricsAnalyzer {
             //}
         int totalfound = 0;
         int[] scores = new int[2]; //index 0 is the valence, index 1 is the arousal
-        //VERY inefficient search algorithm, goes thorugh every element in the keywrods array, time increases linearly O(n)
+        //VERY inefficient search algorithm, goes thorugh every element in the keywords array, time increases linearly O(n)
         for(int i = 0; i<keywords.length; i++){ //loop for each keyword 
             int timesfound = 0;
             int index = 0;
