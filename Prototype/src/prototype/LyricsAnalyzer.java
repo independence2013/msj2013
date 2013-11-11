@@ -10,15 +10,15 @@ package prototype;
  */
 public class LyricsAnalyzer {
     //Analyze song lyrics
-    public static int[] wordcollector(String[] song, Keywords[] keywords) {
-        //String lyrics = song[2]; //create a string that holds the lyrics (index 0 has the title, index 1 has the artist)
-        
+    public static int[] wordanalyze(String[] song, Keywords[] keywords) {
+        String lyrics = song[2]; //create a string that holds the lyrics (index 0 has the title, index 1 has the artist)
+        /*
         String lyrics = "You walked in, Caught my attention." + //debug 
                     " I've never seen A man with so much dimension." + 
                     " It's the way you walk, The way you talk, The way you" + 
                     " make me feel inside, It's in your smile, It's in your" + 
                     " eyes, I don't wanna wait for tonight."; 
-        
+        */
         //try {
             lyrics = lyrics.toLowerCase(); //make lyrics all lowercase
             lyrics = lyrics.replaceAll("[^a-z' ]", ""); //get rid of punctuation except for apostrophes
