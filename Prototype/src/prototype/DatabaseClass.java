@@ -179,7 +179,7 @@ class DatabaseClass {
         Statement stmt = null;
         //inser the final scores for the song and change the analyzedflag
         String query =
-                "INSERT INTO SONGTABLE (ANALYZEDFLAG, VALENCE, AROUSAL) VALUES ('1','" + valence + "','" + arousal + "') WHERE TITLE = '" + title + "' AND ARTISTID = '" + artistid + "'";
+                "INSERT INTO SONGTABLE (ANALYZEDFLAG,VALENCE,AROUSAL) VALUES ('1','" + valence + "','" + arousal + "') WHERE TITLE = '" + title + "' AND ARTISTID = '" + artistid + "'";
         try {
             stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery(query);
@@ -200,7 +200,7 @@ class DatabaseClass {
         try {
             stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery(query);
-            while(rs.next()){ //loop through the words and save them to the array
+            while(rs.next()){ //loop through the keywords and save them to the array
                 keywords[i].keyword = rs.getString("DESCRIPTION");
                 keywords[i].valence = rs.getInt("VALENCEAVERAGE");
                 keywords[i].arousal = rs.getInt("AROUSALAVERAGE");
