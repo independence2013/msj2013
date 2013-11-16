@@ -86,18 +86,14 @@ public class Prototype {
          *      -save analysis to database and make make the analyzedflag of that song 1
          * }
          */
-        int[] scores = new int[2];
+        float[] scores = new float[2];
         //Psuedocode implementation
         while(!song[0].equals("0")){
-            int valence = 0;
-            int arousal = 0;
             scores = demo3.wordanalyze(song, keywords);
-            break;
-            /*
+            //break
             demo2.writescore(connection, song[0], song[1], scores[0], scores[1]);
             song[0] = "0";
-            song = demo2.retrievelyrics(connection);
-            */
+            song = demo2.retrievelyrics(connection);   
         }
         System.out.println(scores[0]);
         System.out.println(scores[1]);
