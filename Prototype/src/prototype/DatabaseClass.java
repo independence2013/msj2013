@@ -193,7 +193,7 @@ class DatabaseClass {
     //gets the keywords from the database and saves them to an array
     public static Keywords[] getkeywords(Connection con) throws SQLException{
         int i = 0;
-        Keywords[] keywords = new Keywords[1034]; //initalizes an array with the keywords datatype
+        Keywords[] keywords = new Keywords[1034]; //initalizes an array with the keywords object
         Statement stmt = null;
         String query =
                 "SELECT DESCRIPTION, VALENCEAVERAGE, AROUSALAVERAGE, DOMINANCEAVERAGE FROM KEYWORDS"; //get the keywords and their mood scores
