@@ -194,6 +194,9 @@ class DatabaseClass {
     public static Keywords[] getkeywords(Connection con) throws SQLException{
         int i = 0;
         Keywords[] keywords = new Keywords[1034]; //initalizes an array with the keywords object
+        for(int x=0;x<1034;x++){ //is there a better way of doing this?
+            keywords[x] = new Keywords();
+        }
         Statement stmt = null;
         String query =
                 "SELECT DESCRIPTION, VALENCEAVERAGE, AROUSALAVERAGE, DOMINANCEAVERAGE FROM KEYWORDS"; //get the keywords and their mood scores
