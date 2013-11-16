@@ -10,7 +10,7 @@ package prototype;
  */
 public class LyricsAnalyzer {
     //Analyze song lyrics
-    public static int[] wordanalyze(String[] song, Keywords[] keywords) {
+    public static float[] wordanalyze(String[] song, Keywords[] keywords) {
         String lyrics = song[2]; //create a string that holds the lyrics (index 0 has the title, index 1 has the artist)
         /*
         String lyrics = "You walked in, Caught my attention." + //debug 
@@ -39,7 +39,7 @@ public class LyricsAnalyzer {
             //    e.printStackTrace();
             //}
         int totalfound = 0;
-        int[] scores = new int[2]; //index 0 is the valence, index 1 is the arousal
+        float[] scores = new float[2]; //index 0 is the valence, index 1 is the arousal
         //VERY inefficient search algorithm, goes thorugh every element in the keywords array (but is still ok)
         for(int i = 0; i<keywords.length; i++){ //loop for each keyword 
             int timesfound = 0;
@@ -59,6 +59,8 @@ public class LyricsAnalyzer {
             scores[1] = scores[1] + (keywords[i].arousal * timesfound); //adds up all the arousal
             totalfound = totalfound + timesfound; //add up total number of keywords found
         }
+        System.out.println(totalfound);
+        System.out.println(song[0]);
         scores[0] = scores[0]/totalfound; //basic averaging for valence and arousal
         scores[1] = scores[1]/totalfound;
         return scores;
