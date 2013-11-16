@@ -12,7 +12,7 @@ import org.jaudiotagger.audio.exceptions.*;
 import org.jaudiotagger.tag.*;
 import java.sql.Connection;
 import java.sql.SQLException;
-//import java.io.FilenameFilter;
+import java.io.FilenameFilter;
 
 /**
  * @author Jeffrey
@@ -25,12 +25,15 @@ public class Prototype {
     public static void main(String[] args) throws SQLException {
         String mdir = "F:\\Jeffrey\\Desktop\\sciproj\\Prototype\\Songs"; //directory for songs
         File musicdir = new File(mdir);
-        File[] allfiles = musicdir.listFiles(//new FilenameFilter(){ //only list mp3 files in the directory (removed after realizing all files will work)
-            //@Override
-            //public boolean accept(File dir, String name){
-            //return name.toLowerCase().endsWith(".mp3");
-            //}
-            //}
+        File[] allfiles = musicdir.listFiles(new FilenameFilter(){ //use filter to make sure we don't read any album art files (.jpg)
+            @Override
+            public boolean accept(File dir, String name){
+                if(name.toLowerCase().endsWith(".jpg")){
+                    return false;
+                }
+                return true;
+            }
+            }
         );
         
         LyricsClass demo1 = new LyricsClass();
@@ -85,7 +88,7 @@ public class Prototype {
          */
         int[] scores = new int[2];
         //Psuedocode implementation
-        while(song[0].equals("0")){
+        while(!song[0].equals("0")){
             int valence = 0;
             int arousal = 0;
             scores = demo3.wordanalyze(song, keywords);
