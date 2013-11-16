@@ -24,7 +24,7 @@ public class LyricsAnalyzer {
             lyrics = lyrics.replaceAll("[^a-z' ]", ""); //get rid of punctuation except for apostrophes
             //String[] splitwords = lyricsforanalyzing.split(" "); //split lyrics at every space so every word is in a separate array index
             //(above is unneeded for String search, may change later though)
-            /* //debug?
+            /* //debug??
             PrintWriter out = new PrintWriter("cutlyrics.txt");    
             for (String result : splitwords) {
                 System.out.println(result);
@@ -40,7 +40,7 @@ public class LyricsAnalyzer {
             //}
         int totalfound = 0;
         int[] scores = new int[2]; //index 0 is the valence, index 1 is the arousal
-        //VERY inefficient search algorithm, goes thorugh every element in the keywords array, time increases linearly O(n)
+        //VERY inefficient search algorithm, goes thorugh every element in the keywords array (but is still ok)
         for(int i = 0; i<keywords.length; i++){ //loop for each keyword 
             int timesfound = 0;
             int index = 0;
