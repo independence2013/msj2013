@@ -175,14 +175,23 @@ class DatabaseClass {
     }
     
     //writes a song's final scores to the database and makes the song's analyzedflag 1
-    public static void writescore(Connection con, String title, String artistid, int valence, int arousal) throws SQLException{
+    public static void writescore(Connection con, String title, String artistid, float valence, float arousal) throws SQLException{
         Statement stmt = null;
-        //inser the final scores for the song and change the analyzedflag
-        String query =
-                "INSERT INTO SONGTABLE (ANALYZEDFLAG,VALENCE,AROUSAL) VALUES ('1','" + valence + "','" + arousal + "') WHERE TITLE = '" + title + "' AND ARTISTID = '" + artistid + "'";
+        //insert the final scores for the song and change the analyzedflag
+        //String query =
+        //       "INSERT INTO SONGTABLE (ANALYZEDFLAG,VALENCE,AROUSAL) VALUES ('1','" + valence + "','" + arousal + "') WHERE TITLE = '" + title + "' AND ARTISTID = '" + artistid + "'";
         try {
             stmt = con.createStatement();
-            ResultSet rs = stmt.executeQuery(query);
+            stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,
+                   ResultSet.CONCUR_UPDATABLE);
+            ResultSet uprs = stmt.executeQuery(
+            "SELECT ANALYZEDFLAG,VALENCE,AROUSAL FROM SONGTABLE WHERE TITLE = '" + title + "' AND ARTISTID = '" + artistid + "'"); //get row with the song
+            while (uprs.next()) {
+                uprs.updateInt("ANALYZEDFLAG", 1); //change analyzedflag to 1
+                uprs.updateFloat("VALENCE", valence); //write in valence
+                uprs.updateFloat("AROUSAL", arousal); //write in arousal
+                uprs.updateRow(); //update database
+            }
         } catch (SQLException e) {
             System.err.println(e);
         } finally {
@@ -203,9 +212,9 @@ class DatabaseClass {
             while(rs.next()){ //loop through the keywords and save them to the array
                 keywords[i] = new Keywords(); //set that array index to the keywords class
                 keywords[i].keyword = rs.getString("DESCRIPTION");
-                keywords[i].valence = rs.getInt("VALENCEAVERAGE");
-                keywords[i].arousal = rs.getInt("AROUSALAVERAGE");
-                keywords[i].dominance = rs.getInt("DOMINANCEAVERAGE");
+                keywords[i].valence = rs.getFloat("VALENCEAVERAGE");
+                keywords[i].arousal = rs.getFloat("AROUSALAVERAGE");
+                keywords[i].dominance = rs.getFloat("DOMINANCEAVERAGE");
                 i++; //increment i
             }
         } catch (SQLException e) {
