@@ -90,13 +90,13 @@ public class Prototype {
         //Psuedocode implementation
         while(!song[0].equals("0")){
             scores = demo3.wordanalyze(song, keywords);
-            //break
+            //break;
+            System.out.println(scores[0]);
+            System.out.println(scores[1]);
             demo2.writescore(connection, song[0], song[1], scores[0], scores[1]);
             song[0] = "0";
             song = demo2.retrievelyrics(connection);   
         }
-        System.out.println(scores[0]);
-        System.out.println(scores[1]);
         System.out.println("Done!");
     }
 }
