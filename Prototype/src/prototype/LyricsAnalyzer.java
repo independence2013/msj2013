@@ -88,28 +88,29 @@ public class LyricsAnalyzer {
                     System.out.print(keywords[i].valence + " " + keywords[i].arousal  + " "); //debug
                     System.out.println(index);
                 }
-                if((keywords[i].valence == 1)&&(keywords[i].valence == 1)){ //mood:
+                //there must be a better way of doing this
+                if((keywords[i].valence == 1)&&(keywords[i].valence == 1)&&(keywords[i].arousal == 1)&&(keywords[i].arousal == 1)){ //mood:
                     
                 }
-                if((keywords[i].valence == 1)&&(keywords[i].valence == 1)){ //mood:
+                if((keywords[i].valence == 1)&&(keywords[i].valence == 1)&&(keywords[i].arousal == 1)&&(keywords[i].arousal == 1)){ //mood:
                     
                 }
-                if((keywords[i].valence == 1)&&(keywords[i].valence == 1)){ //mood:
+                if((keywords[i].valence == 1)&&(keywords[i].valence == 1)&&(keywords[i].arousal == 1)&&(keywords[i].arousal == 1)){ //mood:
                     
                 }
-                if((keywords[i].valence == 1)&&(keywords[i].valence == 1)){ //mood:
+                if((keywords[i].valence == 1)&&(keywords[i].valence == 1)&&(keywords[i].arousal == 1)&&(keywords[i].arousal == 1)){ //mood:
                     
                 }
-                if((keywords[i].valence == 1)&&(keywords[i].valence == 1)){ //mood:
+                if((keywords[i].valence == 1)&&(keywords[i].valence == 1)&&(keywords[i].arousal == 1)&&(keywords[i].arousal == 1)){ //mood:
                     
                 }
-                if((keywords[i].valence == 1)&&(keywords[i].valence == 1)){ //mood:
+                if((keywords[i].valence == 1)&&(keywords[i].valence == 1)&&(keywords[i].arousal == 1)&&(keywords[i].arousal == 1)){ //mood:
                     
                 }
-                if((keywords[i].valence == 1)&&(keywords[i].valence == 1)){ //mood:
+                if((keywords[i].valence == 1)&&(keywords[i].valence == 1)&&(keywords[i].arousal == 1)&&(keywords[i].arousal == 1)){ //mood:
                     
                 }
-                if((keywords[i].valence == 1)&&(keywords[i].valence == 1)){ //mood:
+                if((keywords[i].valence == 1)&&(keywords[i].valence == 1)&&(keywords[i].arousal == 1)&&(keywords[i].arousal == 1)){ //mood:
                     
                 }
             }
