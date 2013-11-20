@@ -10,7 +10,7 @@ package prototype;
  */
 public class LyricsAnalyzer {
     //Analyze song lyrics
-    public static float[] wordanalyze(String[] song, Keywords[] keywords) {
+    public static float[] wordanalyze(String[] song, Keywords[] keywords) { //first prototype
         String lyrics = song[2]; //create a string that holds the lyrics (index 0 has the title, index 1 has the artist)
         /*
         String lyrics = "You walked in, Caught my attention." + //debug 
@@ -51,6 +51,10 @@ public class LyricsAnalyzer {
                 if(index == -1){ //if none found
                     break;
                 }
+                else{
+                    System.out.print(keywords[i].valence + " " + keywords[i].arousal  + " "); //debug
+                    System.out.println(index);
+                }
                 timesfound = timesfound + 1; //increment number of times the word was found
                 lastindex = index;
                 //System.out.println(line);
@@ -59,10 +63,56 @@ public class LyricsAnalyzer {
             scores[1] = scores[1] + (keywords[i].arousal * timesfound); //adds up all the arousal
             totalfound = totalfound + timesfound; //add up total number of keywords found
         }
-        System.out.println(totalfound);
+        //System.out.println(totalfound); //debug
         System.out.println(song[0]);
         scores[0] = scores[0]/totalfound; //basic averaging for valence and arousal
         scores[1] = scores[1]/totalfound;
         return scores;
+    }
+    
+    public static void analysis2(String song[], Keywords[] keywords){ //second prototype
+        String lyrics = song[2];
+        lyrics = lyrics.toLowerCase(); //make lyrics all lowercase
+        lyrics = lyrics.replaceAll("[^a-z' ]", ""); //get rid of punctuation except for apostrophes
+        float[] scores = new float[9]; //first 8 numbers are scores for 8 individual moods , the last one is confidence
+        for(int i = 0; i<keywords.length; i++){ //loop for each keyword 
+            int index = 0;
+            int lastindex = -1;
+            int wordlength = keywords[i].keyword.length();
+            while((lyrics.length()-index)>=wordlength){
+                index = lyrics.indexOf(keywords[i].keyword,lastindex+1); //search the line and return the index of where the keyword was found
+                if(index == -1){ //if none found
+                    break;
+                }
+                else{
+                    System.out.print(keywords[i].valence + " " + keywords[i].arousal  + " "); //debug
+                    System.out.println(index);
+                }
+                if((keywords[i].valence == 1)&&(keywords[i].valence == 1)){ //mood:
+                    
+                }
+                if((keywords[i].valence == 1)&&(keywords[i].valence == 1)){ //mood:
+                    
+                }
+                if((keywords[i].valence == 1)&&(keywords[i].valence == 1)){ //mood:
+                    
+                }
+                if((keywords[i].valence == 1)&&(keywords[i].valence == 1)){ //mood:
+                    
+                }
+                if((keywords[i].valence == 1)&&(keywords[i].valence == 1)){ //mood:
+                    
+                }
+                if((keywords[i].valence == 1)&&(keywords[i].valence == 1)){ //mood:
+                    
+                }
+                if((keywords[i].valence == 1)&&(keywords[i].valence == 1)){ //mood:
+                    
+                }
+                if((keywords[i].valence == 1)&&(keywords[i].valence == 1)){ //mood:
+                    
+                }
+            }
+        }
     }
 }
