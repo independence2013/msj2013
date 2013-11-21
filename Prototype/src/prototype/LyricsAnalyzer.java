@@ -4,6 +4,7 @@
 package prototype;
 
 //import java.io.PrintWriter;
+import java.lang.Math;
 
 /**
  * @author Mitchell
@@ -70,12 +71,14 @@ public class LyricsAnalyzer {
         return scores;
     }
     
-    public static void analysis2(String song[], Keywords[] keywords){ //second prototype
+    public static float[] analysis2(String song[], Keywords[] keywords){ //second prototype
         String lyrics = song[2];
         lyrics = lyrics.toLowerCase(); //make lyrics all lowercase
         lyrics = lyrics.replaceAll("[^a-z' ]", ""); //get rid of punctuation except for apostrophes
         float[] scores = new float[9]; //first 8 numbers are scores for 8 individual moods , the last one is confidence
+        int[] found = new int[8];
         for(int i = 0; i<keywords.length; i++){ //loop for each keyword 
+            int distance = (int) Math.sqrt(Math.pow((keywords[i].valence-5),2) + Math.pow((keywords[i].arousal-5),2));
             int index = 0;
             int lastindex = -1;
             int wordlength = keywords[i].keyword.length();
@@ -89,31 +92,44 @@ public class LyricsAnalyzer {
                     System.out.println(index);
                 }
                 //there must be a better way of doing this
-                if((keywords[i].valence == 1)&&(keywords[i].valence == 1)&&(keywords[i].arousal == 1)&&(keywords[i].arousal == 1)){ //mood:
-                    
+                //words with integer values will go into multiple categories (but highly unlikely)
+                if((keywords[i].valence >= 6)&&(keywords[i].valence <= 9)&&(keywords[i].arousal >= 6)&&(keywords[i].arousal <= 9)){ //mood: Pleasant, high energy
+                    scores[0] = scores[0]+distance;
+                    found[0]++;
                 }
-                if((keywords[i].valence == 1)&&(keywords[i].valence == 1)&&(keywords[i].arousal == 1)&&(keywords[i].arousal == 1)){ //mood:
-                    
+                if((keywords[i].valence >= 6)&&(keywords[i].valence <= 9)&&(keywords[i].arousal >= 4)&&(keywords[i].arousal <= 6)){ //mood: Very pleasant, average energy
+                    scores[1] = scores[1]+distance;
+                    found[1]++;
                 }
-                if((keywords[i].valence == 1)&&(keywords[i].valence == 1)&&(keywords[i].arousal == 1)&&(keywords[i].arousal == 1)){ //mood:
-                    
+                if((keywords[i].valence >= 6)&&(keywords[i].valence <= 9)&&(keywords[i].arousal >= 1)&&(keywords[i].arousal <= 4)){ //mood: Pleasant, low energy
+                    scores[2] = scores[2]+distance;
+                    found[2]++;
                 }
-                if((keywords[i].valence == 1)&&(keywords[i].valence == 1)&&(keywords[i].arousal == 1)&&(keywords[i].arousal == 1)){ //mood:
-                    
+                if((keywords[i].valence >= 4)&&(keywords[i].valence <= 6)&&(keywords[i].arousal >= 1)&&(keywords[i].arousal <= 4)){ //mood: Neutral, low energy (calm)
+                    scores[3] = scores[3]+distance;
+                    found[3]++;
                 }
-                if((keywords[i].valence == 1)&&(keywords[i].valence == 1)&&(keywords[i].arousal == 1)&&(keywords[i].arousal == 1)){ //mood:
-                    
+                if((keywords[i].valence >= 1)&&(keywords[i].valence <= 4)&&(keywords[i].arousal >= 1)&&(keywords[i].arousal <= 4)){ //mood: Unpleasant, low energy
+                    scores[4] = scores[4]+distance;
+                    found[4]++;
                 }
-                if((keywords[i].valence == 1)&&(keywords[i].valence == 1)&&(keywords[i].arousal == 1)&&(keywords[i].arousal == 1)){ //mood:
-                    
+                if((keywords[i].valence >= 1)&&(keywords[i].valence <= 4)&&(keywords[i].arousal >= 4)&&(keywords[i].arousal <= 6)){ //mood: Very unplesant, average energy
+                    scores[5] = scores[5]+distance;
+                    found[5]++;
                 }
-                if((keywords[i].valence == 1)&&(keywords[i].valence == 1)&&(keywords[i].arousal == 1)&&(keywords[i].arousal == 1)){ //mood:
-                    
+                if((keywords[i].valence >= 1)&&(keywords[i].valence <= 4)&&(keywords[i].arousal >= 6)&&(keywords[i].arousal <= 9)){ //mood: Unpleasant, high energy
+                    scores[6] = scores[6]+distance;
+                    found[6]++;
                 }
-                if((keywords[i].valence == 1)&&(keywords[i].valence == 1)&&(keywords[i].arousal == 1)&&(keywords[i].arousal == 1)){ //mood:
-                    
+                if((keywords[i].valence >= 4)&&(keywords[i].valence <= 6)&&(keywords[i].arousal >= 6)&&(keywords[i].arousal <= 9)){ //mood: Neutral, high energy (surprised)
+                    scores[7] = scores[7]+distance;
+                    found[7]++;
                 }
             }
         }
+        for(int a = 0; a<8; a++){ //get average distance for each mood category
+            scores[a] = scores[a]/(float) found[a];
+        }
+        return scores;
     }
 }
