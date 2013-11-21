@@ -11,7 +11,7 @@ import java.lang.Math;
  */
 public class LyricsAnalyzer {
     //Analyze song lyrics
-    public static float[] wordanalyze(String[] song, Keywords[] keywords) { //first prototype
+    public static float[] analysis(String[] song, Keywords[] keywords) { //first prototype
         String lyrics = song[2]; //create a string that holds the lyrics (index 0 has the title, index 1 has the artist)
         /*
         String lyrics = "You walked in, Caught my attention." + //debug 
@@ -125,11 +125,34 @@ public class LyricsAnalyzer {
                     scores[7] = scores[7]+distance;
                     found[7]++;
                 }
+                lastindex = index;
             }
         }
-        for(int a = 0; a<8; a++){ //get average distance for each mood category
-            scores[a] = scores[a]/(float) found[a];
+        int largest = 0;
+        int large = 0;
+        for(int b = 0; b<8; b++){
+            if(found[b]>largest){
+                largest = found[b];
+                large = b;
+            }
         }
+        float confidence = 0;
+        Float temp;
+        for(int a = 0; a<8; a++){ //get average distance for each mood category
+            scores[a] = scores[a]/(float) found[a]; //will divide by zero if no words are found in a category
+            temp = scores[a];
+            if(temp.isNaN()){ //if divied by zero (not a number)
+                scores[a] = 0; //set to zero
+            }
+            if(a==large){
+                confidence = confidence + scores[a];
+            }
+            if(a!=large){
+                confidence = confidence - scores[a];
+            }
+            System.out.println(scores[a]);
+        }
+        System.out.println(confidence);
         return scores;
     }
 }
