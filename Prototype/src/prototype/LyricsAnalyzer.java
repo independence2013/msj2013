@@ -130,11 +130,22 @@ public class LyricsAnalyzer {
         }
         int largest = 0;
         int large = 0;
+        int large1 = 0;
+        int large_1 = 0;
         for(int b = 0; b<8; b++){
             if(found[b]>largest){
                 largest = found[b];
                 large = b;
             }
+        }
+        //System.out.println(large); //debug
+        large1 = large+1; //get moods adjacent to the most prevalent mood
+        large_1 = large-1;
+        if(large1 == 8){ //if large was 7 and now is 8
+            large1 = 0; //get the mood "above" it (needs to loop back to beginning of array)
+        }
+        if(large_1 == -1){ //if large was 0 and now is -1
+            large_1 = 7; //get the mood "below" it (needs to loop back to end of array)
         }
         float confidence = 0;
         Float temp;
@@ -144,15 +155,17 @@ public class LyricsAnalyzer {
             if(temp.isNaN()){ //if divied by zero (not a number)
                 scores[a] = 0; //set to zero
             }
-            if(a==large){
-                confidence = confidence + scores[a];
+            if(a==large||a==large1||a==large_1){ //add to confidence if the values are near the most apparent mood
+                confidence = confidence + found[a];
             }
-            if(a!=large){
-                confidence = confidence - scores[a];
+            else{ //subtract if the mood is not near the most appeared mood
+                confidence = confidence - found[a];
             }
             System.out.println(scores[a]);
         }
+        scores[8] = confidence; //final array index is for the confidence of the results
         System.out.println(confidence);
+        System.out.println(song[0]);
         return scores;
     }
 }
