@@ -69,7 +69,7 @@ public class Prototype {
                 String lyrics = demo1.webgrab(title, artist); //put title and artist into function that retrieves lyrics; html is returned as a string
                 //System.out.println(lyrics); //lyrics is the String to remove tags from
                 String cleaned = demo1.cleanup(lyrics);
-                System.out.println(cleaned); //print out results
+                System.out.println(cleaned); //print out results; debug
                 demo2.saveto(connection, title, artist, length, cleaned);
             }
         }
@@ -90,12 +90,12 @@ public class Prototype {
         //Psuedocode implementation
         while(!song[0].equals("0")){
             scores = demo3.analysis2(song, keywords);
-            break;
-            //System.out.println(scores[0]);
+            //break;
+            //System.out.println(scores[0]); //no longer relevant to the 8 scores and confidence
             //System.out.println(scores[1]);
-            //demo2.writescore(connection, song[0], song[1], scores[0], scores[1]);
-            //song[0] = "0";
-            //song = demo2.retrievelyrics(connection);   
+            demo2.writescore(connection, song[0], song[1], 0, 0); //scores are substituted with zeros for now
+            song[0] = "0";
+            song = demo2.retrievelyrics(connection);   
         }
         System.out.println("Done!");
     }
