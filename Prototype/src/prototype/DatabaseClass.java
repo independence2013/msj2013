@@ -184,15 +184,16 @@ class DatabaseClass {
             "SELECT ANALYZEDFLAG,MOOD1,MOOD2,MOOD3,MOOD4,MOOD5,MOOD6,MOOD7,MOOD8,CONFIDENCE FROM SONGTABLE WHERE TITLE = '" + title + "' AND ARTISTID = '" + artistid + "'"); //get row with the song
             while (uprs.next()) {
                 uprs.updateInt("ANALYZEDFLAG", 1); //change analyzedflag to 1
-                uprs.updateFloat("MOOD1", mood[0]); //write in 
-                uprs.updateFloat("MOOD2", mood[1]); //write in
-                uprs.updateFloat("MOOD3", mood[2]);
-                uprs.updateFloat("MOOD4", mood[3]);
-                uprs.updateFloat("MOOD5", mood[4]);
-                uprs.updateFloat("MOOD6", mood[5]);
-                uprs.updateFloat("MOOD7", mood[6]);
-                uprs.updateFloat("MOOD8", mood[7]);
+                uprs.updateFloat("MOOD0", mood[0]); //write in 
+                uprs.updateFloat("MOOD1", mood[1]); //write in
+                uprs.updateFloat("MOOD2", mood[2]);
+                uprs.updateFloat("MOOD3", mood[3]);
+                uprs.updateFloat("MOOD4", mood[4]);
+                uprs.updateFloat("MOOD5", mood[5]);
+                uprs.updateFloat("MOOD6", mood[6]);
+                uprs.updateFloat("MOOD7", mood[7]);
                 uprs.updateFloat("CONFIDENCE", mood[8]);
+                uprs.updateFloat("OVERALL", mood[9]);
                 uprs.updateRow(); //update database
             }
         } catch (SQLException e) {
