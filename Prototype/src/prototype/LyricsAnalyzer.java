@@ -72,7 +72,7 @@ public class LyricsAnalyzer {
         String lyrics = song[2];
         lyrics = lyrics.toLowerCase(); //make lyrics all lowercase
         lyrics = lyrics.replaceAll("[^a-z' ]", ""); //get rid of punctuation except for apostrophes
-        float[] scores = new float[9]; //first 8 numbers are scores for 8 individual moods , the last one is confidence
+        float[] scores = new float[10]; //first 8 numbers are scores for 8 individual moods , the last one is confidence
         int[] found = new int[8];
         for(int i = 0; i<keywords.length; i++){ //loop for each keyword 
             int distance = (int) Math.sqrt(Math.pow((keywords[i].valence-5),2) + Math.pow((keywords[i].arousal-5),2)); //get distance from center of valence-arousal graph (5,5)
@@ -125,18 +125,24 @@ public class LyricsAnalyzer {
                 lastindex = index;
             }
         }
-        int largest = 0;
-        int large = 0;
-        int large1 = 0;
+        int overall = 0; //mood number that is most prevalent (in terms of times occured and average "strength") in song
+        float largestoverall = 0; //holds index of mood that is most prevalent
+        int largestfound = 0;
+        int large = 0; //holds index of mood that occured the most
+        int large1 = 0; //large1 and large_1 holds indexes of the moods adjacent tp large
         int large_1 = 0;
         for(int b = 0; b<8; b++){
-            if(found[b]>largest){
-                largest = found[b];
-                large = b;
+            if(found[b]*scores[b]>largestoverall){
+                largestoverall = found[b]*scores[b];
+                overall = b; //index of mood that is most prevalent is recorded
+            }
+            if(found[b]>largestfound){
+                largestfound = found[b];
+                large = b; //index of mood that occured the most times is recorded
             }
         }
         //System.out.println(large); //debug
-        large1 = large+1; //get moods adjacent to the most prevalent mood
+        large1 = large+1; //get moods adjacent to the mood that occured the most
         large_1 = large-1;
         if(large1 == 8){ //if large was 7 and now is 8
             large1 = 0; //get the mood "above" it (needs to loop back to beginning of array)
@@ -160,6 +166,7 @@ public class LyricsAnalyzer {
             }
             System.out.println(scores[a]);
         }
+        scores[9] = overall;
         scores[8] = Math.abs(confidence); //final array index is for the confidence of the results (want only positive value)
         System.out.println(confidence);
         System.out.println(song[0]);
