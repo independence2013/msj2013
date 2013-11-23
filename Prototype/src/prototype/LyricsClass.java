@@ -18,9 +18,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import org.jsoup.Jsoup;
 
-/**
- * @author Jeffrey
- */
+
 class LyricsClass {
     //grab lyrics from internet (azlyrics.com)
     public static String webgrab(String title, String artist){
