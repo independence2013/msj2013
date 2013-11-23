@@ -1,5 +1,5 @@
 /*
- * Code for starting the database connection and svaing songs to the database
+ * Code for starting the database connection and saving songs to the database
  */
 package prototype;
 
@@ -10,9 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-/**
- * @author Jeffrey
- */
+
 class DatabaseClass {
     //create connection to database
     public static Connection startconnection(){ //connection code is from http://www.mkyong.com/jdbc/connect-to-oracle-db-via-jdbc-driver-java/
