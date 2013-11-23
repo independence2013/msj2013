@@ -14,9 +14,6 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.io.FilenameFilter;
 
-/**
- * @author Jeffrey
- */
 
 public class Prototype {
     /*
