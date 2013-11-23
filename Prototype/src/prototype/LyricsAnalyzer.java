@@ -5,9 +5,7 @@ package prototype;
 
 //import java.io.PrintWriter;
 
-/**
- * @author Mitchell
- */
+
 public class LyricsAnalyzer {
     //Analyze song lyrics
     public static float[] analysis(String[] song, Keywords[] keywords) { //first prototype
