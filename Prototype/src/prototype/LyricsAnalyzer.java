@@ -4,7 +4,6 @@
 package prototype;
 
 //import java.io.PrintWriter;
-import java.lang.Math;
 
 /**
  * @author Mitchell
@@ -78,7 +77,7 @@ public class LyricsAnalyzer {
         float[] scores = new float[9]; //first 8 numbers are scores for 8 individual moods , the last one is confidence
         int[] found = new int[8];
         for(int i = 0; i<keywords.length; i++){ //loop for each keyword 
-            int distance = (int) Math.sqrt(Math.pow((keywords[i].valence-5),2) + Math.pow((keywords[i].arousal-5),2));
+            int distance = (int) Math.sqrt(Math.pow((keywords[i].valence-5),2) + Math.pow((keywords[i].arousal-5),2)); //get distance from center of valence-arousal graph (5,5)
             int index = 0;
             int lastindex = -1;
             int wordlength = keywords[i].keyword.length();
