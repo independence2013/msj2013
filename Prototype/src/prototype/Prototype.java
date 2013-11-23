@@ -36,7 +36,7 @@ public class Prototype {
         LyricsClass demo1 = new LyricsClass();
         DatabaseClass demo2 = new DatabaseClass();
         LyricsAnalyzer demo3 = new LyricsAnalyzer();
-        Connection connection = demo2.startconnection(); //get the connection to the database
+        Connection connection = demo2.startconnection("orcl"); //get the connection to the database
         
         String filedir;
         for(int i = 0; i<allfiles.length; i++){ //loop where there are files that haven't been run through
