@@ -13,7 +13,7 @@ import java.sql.Statement;
 
 class DatabaseClass {
     //create connection to database
-    public static Connection startconnection(){ //connection code is from http://www.mkyong.com/jdbc/connect-to-oracle-db-via-jdbc-driver-java/
+    public static Connection startconnection(String database){ //connection code is from http://www.mkyong.com/jdbc/connect-to-oracle-db-via-jdbc-driver-java/
         try {
             Class.forName("oracle.jdbc.driver.OracleDriver");
 	} catch (ClassNotFoundException e) {
@@ -22,13 +22,11 @@ class DatabaseClass {
                 return null;
 	}
  
-	//System.out.println("Oracle JDBC Driver Registered!");
- 
 	Connection connection = null;
  
 	try {
             connection = DriverManager.getConnection(
-			"jdbc:oracle:thin:@localhost:1521:orcl", "sys as sysdba",
+			"jdbc:oracle:thin:@localhost:1521:"+database, "sys as sysdba",
 			"oracle10g");
 	} catch (SQLException e) {
 		System.out.println("Connection Failed! Check output console");
