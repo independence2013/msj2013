@@ -171,7 +171,7 @@ class DatabaseClass {
     }
     
     //writes a song's final scores to the database and makes the song's analyzedflag 1
-    public static void writescore(Connection con, String title, String artistid, float valence, float arousal) throws SQLException{
+    public static void writescore(Connection con, String title, String artistid, float[] mood) throws SQLException{
         Statement stmt = null;
         //insert the final scores for the song and change the analyzedflag
         //String query =
@@ -181,11 +181,18 @@ class DatabaseClass {
             stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,
                    ResultSet.CONCUR_UPDATABLE);
             ResultSet uprs = stmt.executeQuery(
-            "SELECT ANALYZEDFLAG,VALENCE,AROUSAL FROM SONGTABLE WHERE TITLE = '" + title + "' AND ARTISTID = '" + artistid + "'"); //get row with the song
+            "SELECT ANALYZEDFLAG,MOOD1,MOOD2,MOOD3,MOOD4,MOOD5,MOOD6,MOOD7,MOOD8,CONFIDENCE FROM SONGTABLE WHERE TITLE = '" + title + "' AND ARTISTID = '" + artistid + "'"); //get row with the song
             while (uprs.next()) {
                 uprs.updateInt("ANALYZEDFLAG", 1); //change analyzedflag to 1
-                uprs.updateFloat("VALENCE", valence); //write in valence
-                uprs.updateFloat("AROUSAL", arousal); //write in arousal
+                uprs.updateFloat("MOOD1", mood[0]); //write in 
+                uprs.updateFloat("MOOD2", mood[1]); //write in
+                uprs.updateFloat("MOOD3", mood[2]);
+                uprs.updateFloat("MOOD4", mood[3]);
+                uprs.updateFloat("MOOD5", mood[4]);
+                uprs.updateFloat("MOOD6", mood[5]);
+                uprs.updateFloat("MOOD7", mood[6]);
+                uprs.updateFloat("MOOD8", mood[7]);
+                uprs.updateFloat("CONFIDENCE", mood[8]);
                 uprs.updateRow(); //update database
             }
         } catch (SQLException e) {
