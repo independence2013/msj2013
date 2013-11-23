@@ -181,7 +181,7 @@ class DatabaseClass {
             stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,
                    ResultSet.CONCUR_UPDATABLE);
             ResultSet uprs = stmt.executeQuery(
-            "SELECT ANALYZEDFLAG,MOOD1,MOOD2,MOOD3,MOOD4,MOOD5,MOOD6,MOOD7,MOOD8,CONFIDENCE FROM SONGTABLE WHERE TITLE = '" + title + "' AND ARTISTID = '" + artistid + "'"); //get row with the song
+            "SELECT ANALYZEDFLAG,MOOD0,MOOD1,MOOD2,MOOD3,MOOD4,MOOD5,MOOD6,MOOD7,CONFIDENCE,OVERALL FROM SONGTABLE WHERE TITLE = '" + title + "' AND ARTISTID = '" + artistid + "'"); //get row with the song
             while (uprs.next()) {
                 uprs.updateInt("ANALYZEDFLAG", 1); //change analyzedflag to 1
                 uprs.updateFloat("MOOD0", mood[0]); //write in 
