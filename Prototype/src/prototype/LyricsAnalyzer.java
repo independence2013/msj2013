@@ -90,52 +90,46 @@ public class LyricsAnalyzer {
                 }
                 //there must be a better way of doing this
                 //words with integer values will go into multiple categories (but highly unlikely)
-                if((keywords[i].valence >= 6)&&(keywords[i].valence <= 9)&&(keywords[i].arousal >= 6)&&(keywords[i].arousal <= 9)){ //mood 1: Pleasant, high energy
+                if((keywords[i].valence >= 6)&&(keywords[i].valence <= 9)&&(keywords[i].arousal >= 6)&&(keywords[i].arousal <= 9)){ //mood 0: Pleasant, high energy
                     scores[0] = scores[0]+distance;
                     found[0]++;
                 }
-                if((keywords[i].valence >= 6)&&(keywords[i].valence <= 9)&&(keywords[i].arousal >= 4)&&(keywords[i].arousal <= 6)){ //mood 2: Very pleasant, average energy
+                if((keywords[i].valence >= 6)&&(keywords[i].valence <= 9)&&(keywords[i].arousal >= 4)&&(keywords[i].arousal <= 6)){ //mood 1: Very pleasant, average energy
                     scores[1] = scores[1]+distance;
                     found[1]++;
                 }
-                if((keywords[i].valence >= 6)&&(keywords[i].valence <= 9)&&(keywords[i].arousal >= 1)&&(keywords[i].arousal <= 4)){ //mood 3: Pleasant, low energy
+                if((keywords[i].valence >= 6)&&(keywords[i].valence <= 9)&&(keywords[i].arousal >= 1)&&(keywords[i].arousal <= 4)){ //mood 2: Pleasant, low energy
                     scores[2] = scores[2]+distance;
                     found[2]++;
                 }
-                if((keywords[i].valence >= 4)&&(keywords[i].valence <= 6)&&(keywords[i].arousal >= 1)&&(keywords[i].arousal <= 4)){ //mood 4: Neutral, low energy (calm)
+                if((keywords[i].valence >= 4)&&(keywords[i].valence <= 6)&&(keywords[i].arousal >= 1)&&(keywords[i].arousal <= 4)){ //mood 3: Neutral, low energy (calm)
                     scores[3] = scores[3]+distance;
                     found[3]++;
                 }
-                if((keywords[i].valence >= 1)&&(keywords[i].valence <= 4)&&(keywords[i].arousal >= 1)&&(keywords[i].arousal <= 4)){ //mood 5: Unpleasant, low energy
+                if((keywords[i].valence >= 1)&&(keywords[i].valence <= 4)&&(keywords[i].arousal >= 1)&&(keywords[i].arousal <= 4)){ //mood 4: Unpleasant, low energy
                     scores[4] = scores[4]+distance;
                     found[4]++;
                 }
-                if((keywords[i].valence >= 1)&&(keywords[i].valence <= 4)&&(keywords[i].arousal >= 4)&&(keywords[i].arousal <= 6)){ //mood 6: Very unplesant, average energy
+                if((keywords[i].valence >= 1)&&(keywords[i].valence <= 4)&&(keywords[i].arousal >= 4)&&(keywords[i].arousal <= 6)){ //mood 5: Very unplesant, average energy
                     scores[5] = scores[5]+distance;
                     found[5]++;
                 }
-                if((keywords[i].valence >= 1)&&(keywords[i].valence <= 4)&&(keywords[i].arousal >= 6)&&(keywords[i].arousal <= 9)){ //mood 7: Unpleasant, high energy
+                if((keywords[i].valence >= 1)&&(keywords[i].valence <= 4)&&(keywords[i].arousal >= 6)&&(keywords[i].arousal <= 9)){ //mood 6: Unpleasant, high energy
                     scores[6] = scores[6]+distance;
                     found[6]++;
                 }
-                if((keywords[i].valence >= 4)&&(keywords[i].valence <= 6)&&(keywords[i].arousal >= 6)&&(keywords[i].arousal <= 9)){ //mood 8: Neutral, high energy (surprised)
+                if((keywords[i].valence >= 4)&&(keywords[i].valence <= 6)&&(keywords[i].arousal >= 6)&&(keywords[i].arousal <= 9)){ //mood 7: Neutral, high energy (surprised)
                     scores[7] = scores[7]+distance;
                     found[7]++;
                 }
                 lastindex = index;
             }
         }
-        int overall = 0; //mood number that is most prevalent (in terms of times occured and average "strength") in song
-        float largestoverall = 0; //holds index of mood that is most prevalent
         int largestfound = 0;
         int large = 0; //holds index of mood that occured the most
         int large1 = 0; //large1 and large_1 holds indexes of the moods adjacent tp large
         int large_1 = 0;
         for(int b = 0; b<8; b++){
-            if(found[b]*scores[b]>largestoverall){
-                largestoverall = found[b]*scores[b];
-                overall = b; //index of mood that is most prevalent is recorded
-            }
             if(found[b]>largestfound){
                 largestfound = found[b];
                 large = b; //index of mood that occured the most times is recorded
@@ -152,11 +146,17 @@ public class LyricsAnalyzer {
         }
         float confidence = 0;
         Float temp;
+        int overall = 0; //mood number that is most prevalent (in terms of times occured and average "strength") in song
+        float largestoverall = 0; //holds index of mood that is most prevalent
         for(int a = 0; a<8; a++){ //get average distance for each mood category
             scores[a] = scores[a]/(float) found[a]; //will divide by zero if no words are found in a category
             temp = scores[a];
             if(temp.isNaN()){ //if divied by zero (not a number)
                 scores[a] = 0; //set to zero
+            }
+            if(found[a]*scores[a]>largestoverall){
+                largestoverall = found[a]*scores[a];
+                overall = a; //index of mood that is most prevalent is recorded
             }
             if(a==large||a==large1||a==large_1){ //add to confidence if the values are near the most apparent mood
                 confidence = confidence + found[a];
