@@ -25,7 +25,7 @@ class DatabaseClass {
 	Connection connection = null;
  
 	try {
-            connection = DriverManager.getConnection(
+            connection = DriverManager.getConnection( //get connection to specified database
 			"jdbc:oracle:thin:@localhost:1521:"+database, "sys as sysdba",
 			"oracle10g");
 	} catch (SQLException e) {
