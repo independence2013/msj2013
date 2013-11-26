@@ -30,7 +30,7 @@ public class Prototype {
                 }
                 return true;
             }
-            }
+        }
         );
         
         LyricsClass demo1 = new LyricsClass();
@@ -90,9 +90,9 @@ public class Prototype {
             //break;
             //System.out.println(scores[0]); //no longer relevant to the 8 scores and confidence
             //System.out.println(scores[1]);
-            demo2.writescore(connection, song[0], song[1], 0, 0); //scores are substituted with zeros for now
+            demo2.writescore(connection, song[0], song[1], scores); //writes the scores and confidence to the database (doesn't write the overall mood though)
             song[0] = "0";
-            song = demo2.retrievelyrics(connection);   
+            song = demo2.retrievelyrics(connection); //retrieve another song
         }
         System.out.println("Done!");
     }
