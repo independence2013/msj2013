@@ -228,5 +228,4 @@ class DatabaseClass {
         }
         return keywords;
     }
-    
 }
