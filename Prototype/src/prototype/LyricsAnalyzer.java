@@ -5,7 +5,6 @@ package prototype;
 
 //import java.io.PrintWriter;
 
-
 public class LyricsAnalyzer {
     //Analyze song lyrics
     public static float[] analysis(String[] song, Keywords[] keywords) { //first prototype
@@ -75,7 +74,7 @@ public class LyricsAnalyzer {
         float[] scores = new float[10]; //first 8 numbers are scores for 8 individual moods , the last one is confidence
         int[] found = new int[8];
         for(int i = 0; i<keywords.length; i++){ //loop for each keyword 
-            int distance = (int) Math.sqrt(Math.pow((keywords[i].valence-5),2) + Math.pow((keywords[i].arousal-5),2)); //get distance from center of valence-arousal graph (5,5)
+            int distance = (int) Math.sqrt(Math.pow((keywords[i].valence-5),2) + Math.pow((keywords[i].arousal-5),2)); //get distance from center of valence-arousal graph (5,5) [max possible distance is 4]
             int index = 0;
             int lastindex = -1;
             int wordlength = keywords[i].keyword.length();
@@ -124,12 +123,14 @@ public class LyricsAnalyzer {
                 }
                 lastindex = index;
             }
-        }
+        }       
+        int totalfound = 0;
         int largestfound = 0;
         int large = 0; //holds index of mood that occured the most
-        int large1 = 0; //large1 and large_1 holds indexes of the moods adjacent tp large
+        int large1 = 0; //large1 and large_1 holds indexes of the moods adjacent to large
         int large_1 = 0;
         for(int b = 0; b<8; b++){
+            totalfound = totalfound + found[b]; //add up the number of words found int total (for use in confidence calculations)
             if(found[b]>largestfound){
                 largestfound = found[b];
                 large = b; //index of mood that occured the most times is recorded
@@ -167,7 +168,8 @@ public class LyricsAnalyzer {
             System.out.println(scores[a]);
         }
         scores[9] = overall;
-        scores[8] = Math.abs(confidence); //final array index is for the confidence of the results (want only positive value)
+        //the absolute value of the confidence is multiplied by 100 (gets rid of ridculously small numbers) and divided by the number of keywords found in total (to prevent songs with few words from being analyzed and detected as very unconfident)
+        scores[8] = (100*Math.abs(confidence))/totalfound; //final array index is for the confidence of the results
         System.out.println(confidence);
         System.out.println(song[0]);
         return scores;
