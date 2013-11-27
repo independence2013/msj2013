@@ -88,8 +88,6 @@ public class Prototype {
         while(!song[0].equals("0")){
             scores = demo3.analysis2(song, keywords);
             //break;
-            //System.out.println(scores[0]); //no longer relevant to the 8 scores and confidence
-            //System.out.println(scores[1]);
             demo2.writescore(connection, song[0], song[1], scores); //writes the scores and confidence to the database
             song[0] = "0";
             song = demo2.retrievelyrics(connection); //retrieve another song
