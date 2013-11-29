@@ -20,7 +20,7 @@ public class Prototype {
      * @param args the command line arguments
      */
     public static void main(String[] args) throws SQLException {
-        String mdir = "F:\\Jeffrey\\Desktop\\sciproj\\Prototype\\Songs"; //directory for songs
+        String mdir = ".\\Songs"; //directory for songs
         File musicdir = new File(mdir);
         File[] allfiles = musicdir.listFiles(new FilenameFilter(){ //use filter to make sure we don't read any album art files (.jpg)
             @Override
