@@ -89,35 +89,35 @@ public class LyricsAnalyzer {
                 }
                 //there must be a better way of doing this
                 //words with integer values will go into multiple categories (but highly unlikely)
-                if((keywords[i].valence >= 6)&&(keywords[i].valence <= 9)&&(keywords[i].arousal >= 6)&&(keywords[i].arousal <= 9)){ //mood 0: Pleasant, high energy
+                if((keywords[i].valence >= 6)&&(keywords[i].valence <= 9)&&(keywords[i].arousal >= 6)&&(keywords[i].arousal <= 9)){ //mood 0: Pleasant, high energy (love)
                     scores[0] = scores[0]+distance;
                     found[0]++;
                 }
-                if((keywords[i].valence >= 6)&&(keywords[i].valence <= 9)&&(keywords[i].arousal >= 4)&&(keywords[i].arousal <= 6)){ //mood 1: Very pleasant, average energy
+                if((keywords[i].valence >= 6)&&(keywords[i].valence <= 9)&&(keywords[i].arousal >= 4)&&(keywords[i].arousal <= 6)){ //mood 1: Very pleasant, average energy (fascination, joyfulness)
                     scores[1] = scores[1]+distance;
                     found[1]++;
                 }
-                if((keywords[i].valence >= 6)&&(keywords[i].valence <= 9)&&(keywords[i].arousal >= 1)&&(keywords[i].arousal <= 4)){ //mood 2: Pleasant, low energy
+                if((keywords[i].valence >= 6)&&(keywords[i].valence <= 9)&&(keywords[i].arousal >= 1)&&(keywords[i].arousal <= 4)){ //mood 2: Pleasant, low energy (satisfaction, relaxed)
                     scores[2] = scores[2]+distance;
                     found[2]++;
                 }
-                if((keywords[i].valence >= 4)&&(keywords[i].valence <= 6)&&(keywords[i].arousal >= 1)&&(keywords[i].arousal <= 4)){ //mood 3: Neutral, low energy (calm)
+                if((keywords[i].valence >= 4)&&(keywords[i].valence <= 6)&&(keywords[i].arousal >= 1)&&(keywords[i].arousal <= 4)){ //mood 3: Neutral, low energy (calm, awaiting)
                     scores[3] = scores[3]+distance;
                     found[3]++;
                 }
-                if((keywords[i].valence >= 1)&&(keywords[i].valence <= 4)&&(keywords[i].arousal >= 1)&&(keywords[i].arousal <= 4)){ //mood 4: Unpleasant, low energy
+                if((keywords[i].valence >= 1)&&(keywords[i].valence <= 4)&&(keywords[i].arousal >= 1)&&(keywords[i].arousal <= 4)){ //mood 4: Unpleasant, low energy (boredom, sadness)
                     scores[4] = scores[4]+distance;
                     found[4]++;
                 }
-                if((keywords[i].valence >= 1)&&(keywords[i].valence <= 4)&&(keywords[i].arousal >= 4)&&(keywords[i].arousal <= 6)){ //mood 5: Very unplesant, average energy
+                if((keywords[i].valence >= 1)&&(keywords[i].valence <= 4)&&(keywords[i].arousal >= 4)&&(keywords[i].arousal <= 6)){ //mood 5: Very unplesant, average energy (disappointment, jealousy)
                     scores[5] = scores[5]+distance;
                     found[5]++;
                 }
-                if((keywords[i].valence >= 1)&&(keywords[i].valence <= 4)&&(keywords[i].arousal >= 6)&&(keywords[i].arousal <= 9)){ //mood 6: Unpleasant, high energy
+                if((keywords[i].valence >= 1)&&(keywords[i].valence <= 4)&&(keywords[i].arousal >= 6)&&(keywords[i].arousal <= 9)){ //mood 6: Unpleasant, high energy (irritation, disgust, alarmed)
                     scores[6] = scores[6]+distance;
                     found[6]++;
                 }
-                if((keywords[i].valence >= 4)&&(keywords[i].valence <= 6)&&(keywords[i].arousal >= 6)&&(keywords[i].arousal <= 9)){ //mood 7: Neutral, high energy (surprised)
+                if((keywords[i].valence >= 4)&&(keywords[i].valence <= 6)&&(keywords[i].arousal >= 6)&&(keywords[i].arousal <= 9)){ //mood 7: Neutral, high energy (surprised, eager)
                     scores[7] = scores[7]+distance;
                     found[7]++;
                 }
