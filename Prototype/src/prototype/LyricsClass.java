@@ -3,6 +3,8 @@
  */
 package prototype;
 
+import com.gargoylesoftware.htmlunit.BrowserVersion;
+import com.gargoylesoftware.htmlunit.DefaultCredentialsProvider;
 import com.gargoylesoftware.htmlunit.ElementNotFoundException;
 import com.gargoylesoftware.htmlunit.FailingHttpStatusCodeException;
 import com.gargoylesoftware.htmlunit.WebClient;
@@ -36,7 +38,10 @@ class LyricsClass {
             }
         }
         //
-        final WebClient webClient = new WebClient();
+        final WebClient webClient = new WebClient(BrowserVersion.CHROME, "38.86.38.194",8080);
+        final DefaultCredentialsProvider credentialsProvider = (DefaultCredentialsProvider) webClient.getCredentialsProvider();
+        credentialsProvider.addCredentials("username", "password");
+        
         webClient.setJavaScriptEnabled(false); //disable javascript; speeds up page loads by A TON and gets rid of any errors that could occur when loading them
         String lyrics = null;
         // Get the first page
@@ -192,14 +197,18 @@ class LyricsClass {
                     //END PARAGRAPH MULTIPLIER SEARCH AND INSERT
                     
                     //BEGIN LINE MULTIPLIER SEARCH AND INSERT 
+                    int temp = 0;
                     matchbraket = number_find.matcher(found); //search for numbers inside brakets
                     while(matchbraket.find()){ //if a number is found (using above regex so the pattern doesnt need to be recompiled)
+                        temp = 1;
                         numberfound = matchbraket.group(); //save number
                         number = Integer.parseInt(numberfound); //convert string to integer
                         line = line.substring(0,indexofb); //get rid of the braket tag from the line (from index 0 to start index of brakets
                     }
-                    
-                    String templine = line.substring(0,indexofb); //store the line again temporarily
+                    String templine = "";
+                    if(temp==1){
+                        templine = line.substring(0,indexofb); //store the line again temporarily
+                    }
                     while((number - 1) > 0){ //the while loop will loop the number of times the number is
                         line = line + templine; //duplicate original line
                         number--; //decrement the number
