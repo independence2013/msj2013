@@ -68,10 +68,13 @@ public class LyricsAnalyzer {
     }
     
     public static float[] analysis2(String song[], Keywords[] keywords){ //second prototype
+        float[] scores = new float[10]; //first 8 numbers are scores for 8 individual moods , the last one is confidence
         String lyrics = song[2];
+        if(lyrics == null){
+            return scores;
+        }
         lyrics = lyrics.toLowerCase(); //make lyrics all lowercase
         lyrics = lyrics.replaceAll("[^a-z' ]", ""); //get rid of punctuation except for apostrophes
-        float[] scores = new float[10]; //first 8 numbers are scores for 8 individual moods , the last one is confidence
         int[] found = new int[8];
         for(int i = 0; i<keywords.length; i++){ //loop for each keyword 
             int distance = (int) Math.sqrt(Math.pow((keywords[i].valence-5),2) + Math.pow((keywords[i].arousal-5),2)); //get distance from center of valence-arousal graph (5,5) [max possible distance is 4]
