@@ -13,6 +13,7 @@ import org.jaudiotagger.tag.*;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.io.FilenameFilter;
+import java.util.Random;
 
 
 public class Prototype {
@@ -53,8 +54,8 @@ public class Prototype {
                 }
                 Tag tag = f.getTag();
                 AudioHeader AudioHeader = f.getAudioHeader(); //get tags
-                String artist = tag.getFirst(FieldKey.ARTIST).toLowerCase(); //make lowercase so any capitalization issues are gone
-                String title = tag.getFirst(FieldKey.TITLE).toLowerCase();
+                String artist = tag.getFirst(FieldKey.ARTIST).toLowerCase().replaceAll("[']","").replaceAll("\\(.*\\)","").replaceAll("[é]","e"); //make lowercase so any capitalization issues are gone
+                String title = tag.getFirst(FieldKey.TITLE).toLowerCase().replaceAll("[']","").replaceAll("\\(.*\\)","").replaceAll("[é]","e");
                 int length = f.getAudioHeader().getTrackLength(); //gives length in seconds
                 System.out.println(title);
                 System.out.println(artist);
@@ -68,8 +69,15 @@ public class Prototype {
                 String cleaned = demo1.cleanup(lyrics);
                 System.out.println(cleaned); //print out results; debug
                 demo2.saveto(connection, title, artist, length, cleaned);
+                Random rand = new Random();
+                int value = 1000*(rand.nextInt(10)+5);
+                try {
+                    Thread.sleep(value);
+                } catch (InterruptedException ex) {
+                    Thread.currentThread().interrupt();
+                }
             }
-        }
+        }  
         Keywords[] keywords = demo2.getkeywords(connection); //fill an array with the keywords from the database (to be passed as an argument for the lyrics analyzer)
         String[] song = demo2.retrievelyrics(connection); //retrieve a song that hasn't been analyzed
         //System.out.println(song[0]); //debug
