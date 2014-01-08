@@ -38,7 +38,7 @@ class LyricsClass {
             }
         }
         //
-        final WebClient webClient = new WebClient(BrowserVersion.CHROME, "38.86.38.194",8080);
+        final WebClient webClient = new WebClient(BrowserVersion.CHROME, "198.8.92.18",3128);
         final DefaultCredentialsProvider credentialsProvider = (DefaultCredentialsProvider) webClient.getCredentialsProvider();
         credentialsProvider.addCredentials("username", "password");
         

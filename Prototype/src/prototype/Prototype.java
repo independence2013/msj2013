@@ -22,11 +22,13 @@ public class Prototype {
      * @param args the command line arguments
      */
     public static void main(String[] args) throws SQLException {
+        /*
         Console c = System.console();
         if (c == null) {
             System.err.println("No console.");
             System.exit(1);
         }
+        */
         String mdir = ".\\Songs"; //directory for songs
         File musicdir = new File(mdir);
         File[] allfiles = musicdir.listFiles(new FilenameFilter(){ //use filter to make sure we don't read any album art files (.jpg)
@@ -44,13 +46,13 @@ public class Prototype {
         DatabaseClass demo2 = new DatabaseClass();
         LyricsAnalyzer demo3 = new LyricsAnalyzer();
         Connection connection = demo2.startconnection("orcl"); //get the connection to the database
-        
+        /*
         String filedir;
         for(int i = 0; i<allfiles.length; i++){ //loop where there are files that haven't been run through
             if(allfiles[i].isFile()){ //if it is a file
                 filedir = allfiles[i].getAbsolutePath(); //get absoulte path of the files
                 //System.out.println(filedir); //debug
-                /*
+                
                 File currentfile = new File(filedir); //file loaded here
                 AudioFile f = null;
                 try {
@@ -66,10 +68,10 @@ public class Prototype {
                 System.out.println(title);
                 System.out.println(artist);
                 System.out.println(length);
-                */
-                String title = c.readLine("Title: "); //code for manual entry 
-                String artist = c.readLine("Artist: ");
-                int length = Integer.parseInt(c.readLine("Length: "));
+                
+                //String title = c.readLine("Title: "); //code for manual entry 
+                //String artist = c.readLine("Artist: ");
+                //int length = Integer.parseInt(c.readLine("Length: "));
                 
                 //artist = "backstreet boys"; //examples, will be removed
                 //title = "we've got it goin on";
@@ -88,6 +90,7 @@ public class Prototype {
                 }
             }
         }  
+        */
         Keywords[] keywords = demo2.getkeywords(connection); //fill an array with the keywords from the database (to be passed as an argument for the lyrics analyzer)
         String[] song = demo2.retrievelyrics(connection); //retrieve a song that hasn't been analyzed
         //System.out.println(song[0]); //debug
