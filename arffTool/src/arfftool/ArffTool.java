@@ -49,7 +49,7 @@ public class ArffTool {
             String setting = c.readLine("Options:\n 1.Edit .arff files\n 2.Concatenate files\n 3.Exit\n");
             switch (setting) {
                 case "1":
-                    ArffTool.edit(allfiles,c);
+                    ArffTool.edit(c);
                     break;
                 case "2":
                     ArffTool.combine(allfiles,c);
@@ -63,41 +63,42 @@ public class ArffTool {
             }
         }
     }
-    public static void edit(File[] filelist, Console c){
-        for(int i=0; i<filelist.length; i++){ //loop through all the files
-            Path file;
-            file = Paths.get(filelist[i].getAbsolutePath());
-            String filename = filelist[i].getName();
-            try(InputStream in = Files.newInputStream(file);
-                BufferedReader reader = new BufferedReader(new InputStreamReader(in))){
-                String line = null;
-                String lastline = "";
-                String temp = "";
-                String newline = System.getProperty("line.separator");
-                while ((line = reader.readLine()) != null) { //if line not null (not file end)
+    public static void edit(Console c){
+        String inputDir = c.readLine("Absolute path of file to edit: ");
+        String mood = "," + c.readLine("Mood number to insert: ");
+        Path file;
+        file = Paths.get(inputDir);
+        try(InputStream in = Files.newInputStream(file);
+            BufferedReader reader = new BufferedReader(new InputStreamReader(in))){
+            String line = null;
+            String temp = "";
+            String newline = System.getProperty("line.separator");
+            boolean dataflag = false;
+            while ((line = reader.readLine()) != null) { //if line not null (not file end)
+                if(dataflag){
+                    temp += line + mood + newline;
+                }
+                else {
                     temp += line + newline;
-                    if(line.equals("@ATTRIBUTE \"Area Method of Moments of MFCCs Overall Average9\" NUMERIC")){
-                        temp += "@ATTRIBUTE \"Mood\" {0,1,2,3,4,5,6,7}" + newline; //put mood attibute at the end
-                    }
-                    if(lastline.equals("@DATA")){
-                        String mood = c.readLine("Mood number of "+filename+": "); //read in the mood specified by the user
-                        temp = temp.trim();
-                        temp += ","+mood;
-                    }
-                    lastline = line;
                 }
-                reader.close();
-                try{
-                    PrintWriter pw = new PrintWriter(filelist[i].getAbsolutePath());
-                    pw.printf(temp); //write new text over old
-                    pw.close();
-                } catch (IOException e){
-                    System.out.println(e);
+                if(line.equals("@ATTRIBUTE \"Area Method of Moments of MFCCs Overall Average9\" NUMERIC")){
+                    temp += "@ATTRIBUTE \"Mood\" {0,1,2,3,4,5,6,7}" + newline; //put mood attibute at the end
                 }
-                //System.out.println(temp);
-            } catch (IOException x){ //if there is an IO error when reading file
-                System.err.println(x); //print out error
+                if(line.equals("@DATA")){
+                    dataflag = true;
+                }
             }
+            reader.close();
+            try{
+                PrintWriter pw = new PrintWriter(inputDir);
+                pw.printf(temp); //write new text over old
+                pw.close();
+            } catch (IOException e){
+                System.out.println(e);
+            }
+            //System.out.println(temp);
+        } catch (IOException x){ //if there is an IO error when reading file
+            System.err.println(x); //print out error
         }
     }
     public static void combine(File[] filelist, Console c){
@@ -113,8 +114,12 @@ public class ArffTool {
                 String line = null;
                 String lastline = "";
                 String newline = System.getProperty("line.separator");
+                boolean dataflag = false;
                 while ((line = reader.readLine()) != null) { //if line not null (not file end)
                     if(lastline.equals("@DATA")){
+                        dataflag = true;
+                    }
+                    if(dataflag){
                         saveattributes = false;
                         values += line + newline;
                     }
