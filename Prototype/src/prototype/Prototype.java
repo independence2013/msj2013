@@ -46,7 +46,7 @@ public class Prototype {
         DatabaseClass demo2 = new DatabaseClass();
         LyricsAnalyzer demo3 = new LyricsAnalyzer();
         Connection connection = demo2.startconnection("orcl"); //get the connection to the database
-        /*
+        
         String filedir;
         for(int i = 0; i<allfiles.length; i++){ //loop where there are files that haven't been run through
             if(allfiles[i].isFile()){ //if it is a file
@@ -90,7 +90,7 @@ public class Prototype {
                 }
             }
         }  
-        */
+        
         Keywords[] keywords = demo2.getkeywords(connection); //fill an array with the keywords from the database (to be passed as an argument for the lyrics analyzer)
         String[] song = demo2.retrievelyrics(connection); //retrieve a song that hasn't been analyzed
         //System.out.println(song[0]); //debug
