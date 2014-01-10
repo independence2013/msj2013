@@ -56,24 +56,24 @@ public class LearnClass {
      * trained classifiers can lead to unexpected results.
      */
     public void evaluate() {
-            try {
-                    if(trainData.classIndex() == -1){
-                        trainData.setClassIndex(trainData.numAttributes()-1);
-                    }
-                    filter = new StringToWordVector();
-                    filter.setAttributeIndices("last");
-                    classifier = new FilteredClassifier();
-                    classifier.setFilter(filter);
-                    classifier.setClassifier(new NaiveBayes());
-                    Evaluation eval = new Evaluation(trainData);
-                    eval.crossValidateModel(classifier, trainData, 10, new Random(1)); //10 fold cross validation
-                    System.out.println(eval.toSummaryString());
-                    System.out.println(eval.toClassDetailsString());
-                    System.out.println("===== Evaluating on filtered (training) dataset done =====");
+        try {
+            if(trainData.classIndex() == -1){
+                trainData.setClassIndex(trainData.numAttributes()-1);
             }
-            catch (Exception e) {
-                    System.out.println("Problem found when evaluating");
-            }
+            filter = new StringToWordVector();
+            filter.setAttributeIndices("last");
+            classifier = new FilteredClassifier();
+            classifier.setFilter(filter);
+            classifier.setClassifier(new NaiveBayes());
+            Evaluation eval = new Evaluation(trainData);
+            eval.crossValidateModel(classifier, trainData, 10, new Random(1)); //10 fold cross validation
+            System.out.println(eval.toSummaryString());
+            System.out.println(eval.toClassDetailsString());
+            System.out.println("===== Evaluating on filtered (training) dataset done =====");
+        }
+        catch (Exception e) {
+                System.out.println("Problem found when evaluating");
+        }
     }
 
     /**
