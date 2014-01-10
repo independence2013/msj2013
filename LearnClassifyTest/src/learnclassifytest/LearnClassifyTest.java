@@ -4,14 +4,19 @@
  */
 package learnclassifytest;
 
+import Classify.ClassifyClass;
+import Learn.LearnClass;
+
 /**
  *
  * @author Jeffrey
  */
 public class LearnClassifyTest {
 
-
     public static void main(String[] args) {
-        System.out.println("Hello");
+        LearnClass learner = new LearnClass();
+        ClassifyClass classify = new ClassifyClass();
+        
+        
     }
 }
