@@ -50,7 +50,7 @@ public class Prototype {
         String filedir;
         for(int i = 0; i<allfiles.length; i++){ //loop where there are files that haven't been run through
             if(allfiles[i].isFile()){ //if it is a file
-                filedir = allfiles[i].getAbsolutePath(); //get absoulte path of the files
+                filedir = allfiles[i].getAbsolutePath(); //get absolute path of the files
                 //System.out.println(filedir); //debug
                 
                 File currentfile = new File(filedir); //file loaded here
