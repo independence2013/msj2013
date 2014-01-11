@@ -34,9 +34,9 @@ public class ClassifyClass {
             @Override
             public boolean accept(File dir, String name){
                 if(name.toLowerCase().endsWith(".arff")){
-                    return false;
+                    return true;
                 }
-                return true;
+                return false;
             }
         }
         );
@@ -44,8 +44,8 @@ public class ClassifyClass {
         String filedir;
         for(int i = 0; i<allfiles.length; i++){ //loop where there are files that haven't been run through
             if(allfiles[i].isFile()){ //if it is a file
-                filename = allfiles[i].getName(); //get absoulte path of the files
-                filedir = allfiles[i].getAbsolutePath(); //get absoulte path of the files
+                filename = allfiles[i].getName(); //get name of the file
+                filedir = allfiles[i].getAbsolutePath(); //get absolute path of the file
                 try{
                 Instances unlabeled = new Instances(
                                       new BufferedReader(
