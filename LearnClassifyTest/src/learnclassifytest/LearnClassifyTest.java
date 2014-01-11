@@ -25,7 +25,7 @@ public class LearnClassifyTest {
         String choice;
         while(true){
             choice = c.readLine("Classifier trained yet? (Y/N):");
-            if(choice.equals("Y")||choice.equals("N")){
+            if(choice.toLowerCase().equals("y")||choice.toLowerCase().equals("n")){
                 break;
             }
             else{
@@ -33,7 +33,7 @@ public class LearnClassifyTest {
             }
         }
         String classifierpath;
-        if(choice.equals("N")){
+        if(choice.equals("n")){
             String datapath = c.readLine("Dataset path: ");
             learner.loadDataset(datapath);
             learner.evaluate();
@@ -45,8 +45,8 @@ public class LearnClassifyTest {
             classifierpath = c.readLine("Classifier path: ");
         }
         classify.loadModel(classifierpath);
-        String folderpath = c.readLine("Folder of songs' (their attribute files) .arff files to be classified: /n");
-        String outputpath = c.readLine("Folder of classifed .arff files: /n");
+        String folderpath = c.readLine("Folder of songs' (their attribute files) .arff files to be classified: ");
+        String outputpath = c.readLine("Folder for classifed .arff files: ");
         classify.loadandclassify(folderpath,outputpath);        
     }
 }
