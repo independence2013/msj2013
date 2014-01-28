@@ -47,6 +47,6 @@ public class LearnClassifyTest {
         classify.loadModel(classifierpath);
         String folderpath = c.readLine("Folder of songs' (their attribute files) .arff files to be classified: ");
         String outputpath = c.readLine("Folder for classifed .arff files: ");
-        classify.loadandclassify(folderpath,outputpath);        
+        classify.loadandclassify(folderpath,outputpath);
     }
 }
