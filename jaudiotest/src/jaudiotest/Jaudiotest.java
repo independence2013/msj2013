@@ -24,7 +24,7 @@ public class Jaudiotest {
         for(int x = 0; x<8; x++){
             String mdir = "F:\\Jeffrey\\Music\\Songs\\wav\\" + x; //directory for songs
             File musicdir = new File(mdir);
-            allfiles[x] = musicdir.listFiles(new FilenameFilter(){
+            allfiles[x]= musicdir.listFiles(new FilenameFilter(){
                 @Override
                 public boolean accept(File dir, String name){
                     if(name.toLowerCase().endsWith(".wav")){
@@ -56,10 +56,12 @@ public class Jaudiotest {
         String featureDestination;
         Batch b;
         DataModel dm = new DataModel("features.xml",null);
+        File[] tempfile = new File[1];
         for(int j = 0; j<8; j++){
             for(int z = 0;z<allfiles[j].length; z++){
                 for (int i = 0; i < o.length; ++i) {
                     System.out.println(allfiles[j][z].getName());
+                    tempfile[0] = allfiles[j][z];
                     featureDestination = "F:\\Jeffrey\\Desktop\\individual\\cuttests\\44.1nodev_indiv\\"+j+"\\"+allfiles[j][z].getName()+".arff"; //location where extracted features should be stored
                     b = (Batch) o[i];
                     b.setDestination(featureLocation,featureDestination);
@@ -67,7 +69,7 @@ public class Jaudiotest {
                     dm.featureValue = new FileOutputStream(new File(b.getDestinationFV()));
                     b.setDataModel(dm);
                     b.setSettings(windowSize,windowOverlap,samplingRate,normalize,perWindow,overall,outputType);
-                    b.setRecordings(allfiles[j]);
+                    b.setRecordings(tempfile);
                     b.execute();
                 }
             }
