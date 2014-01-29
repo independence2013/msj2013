@@ -49,7 +49,7 @@ public class ArffTool {
             String setting = c.readLine("Options:\n 1.Edit .arff files\n 2.Concatenate files\n 3.Exit\n");
             switch (setting) {
                 case "1":
-                    ArffTool.edit(c);
+                    ArffTool.edit(allfiles,c);
                     break;
                 case "2":
                     ArffTool.combine(allfiles,c);
@@ -63,9 +63,10 @@ public class ArffTool {
             }
         }
     }
-    public static void edit(Console c){
-        String inputDir = c.readLine("Absolute path of file to edit: ");
-        String mood = "," + c.readLine("Mood number to insert: ");
+    public static void edit(File[] files, Console c){
+        for(int i = 0;i<files.length;i++){
+        String inputDir = files[i].getAbsolutePath();//c.readLine("Absolute path of file to edit: ");
+        String mood = ",?" ;//+ c.readLine("Mood number to insert: ");
         Path file;
         file = Paths.get(inputDir);
         try(InputStream in = Files.newInputStream(file);
@@ -75,17 +76,17 @@ public class ArffTool {
             String newline = System.getProperty("line.separator");
             boolean dataflag = false;
             while ((line = reader.readLine()) != null) { //if line not null (not file end)
-                if(dataflag){
-                    temp += line + mood + newline;
-                }
-                else {
-                    temp += line + newline;
-                }
-                if(line.equals("@ATTRIBUTE \"Area Method of Moments of MFCCs Overall Average9\" NUMERIC")){
-                    temp += "@ATTRIBUTE \"Mood\" {0,1,2,3,4,5,6,7}" + newline; //put mood attibute at the end
-                }
-                if(line.equals("@DATA")){
-                    dataflag = true;
+                if(!line.isEmpty()){
+                    if(line.equals("@DATA")){
+                        temp +=  "@ATTRIBUTE \"Mood\" {0,1,2,3,4,5,6,7}" + newline;
+                        dataflag = true;
+                    }
+                    if(dataflag && !line.equals("@DATA")){
+                        temp += line + mood + newline;
+                    }
+                    else {
+                        temp += line + newline;
+                    }
                 }
             }
             reader.close();
@@ -100,6 +101,7 @@ public class ArffTool {
         } catch (IOException x){ //if there is an IO error when reading file
             System.err.println(x); //print out error
         }
+    }
     }
     public static void combine(File[] filelist, Console c){
         String outputdir = c.readLine("Output directory: ");
