@@ -65,7 +65,7 @@ public class GUI extends JPanel implements ItemListener{
         fHandler = new FindButtonHandler();
         find.addActionListener(fHandler);
 
-        //setLayout(new GridLayout(3,2));
+        
         add(MoodL);
         add(checkPanel);
         add(ArtistL);
