@@ -65,43 +65,43 @@ public class ArffTool {
     }
     public static void edit(File[] files, Console c){
         for(int i = 0;i<files.length;i++){
-        String inputDir = files[i].getAbsolutePath();//c.readLine("Absolute path of file to edit: ");
-        String mood = ",?" ;//+ c.readLine("Mood number to insert: ");
-        Path file;
-        file = Paths.get(inputDir);
-        try(InputStream in = Files.newInputStream(file);
-            BufferedReader reader = new BufferedReader(new InputStreamReader(in))){
-            String line = null;
-            String temp = "";
-            String newline = System.getProperty("line.separator");
-            boolean dataflag = false;
-            while ((line = reader.readLine()) != null) { //if line not null (not file end)
-                if(!line.isEmpty()){
-                    if(line.equals("@DATA")){
-                        temp +=  "@ATTRIBUTE \"Mood\" {0,1,2,3,4,5,6,7}" + newline;
-                        dataflag = true;
-                    }
-                    if(dataflag && !line.equals("@DATA")){
-                        temp += line + mood + newline;
-                    }
-                    else {
-                        temp += line + newline;
+            String inputDir = files[i].getAbsolutePath();//c.readLine("Absolute path of file to edit: ");
+            String mood = ",?" ;//+ c.readLine("Mood number to insert: ");
+            Path file;
+            file = Paths.get(inputDir);
+            try(InputStream in = Files.newInputStream(file);
+                BufferedReader reader = new BufferedReader(new InputStreamReader(in))){
+                String line = null;
+                String temp = "";
+                String newline = System.getProperty("line.separator");
+                boolean dataflag = false;
+                while ((line = reader.readLine()) != null) { //if line not null (not file end)
+                    if(!line.isEmpty()){
+                        if(line.equals("@DATA")){
+                            temp +=  "@ATTRIBUTE \"Mood\" {0,1,2,3,4,5,6,7}" + newline;
+                            dataflag = true;
+                        }
+                        if(dataflag && !line.equals("@DATA")){
+                            temp += line + mood + newline;
+                        }
+                        else {
+                            temp += line + newline;
+                        }
                     }
                 }
+                reader.close();
+                try{
+                    PrintWriter pw = new PrintWriter(inputDir);
+                    pw.printf(temp); //write new text over old
+                    pw.close();
+                } catch (IOException e){
+                    System.out.println(e);
+                }
+                //System.out.println(temp);
+            } catch (IOException x){ //if there is an IO error when reading file
+                System.err.println(x); //print out error
             }
-            reader.close();
-            try{
-                PrintWriter pw = new PrintWriter(inputDir);
-                pw.printf(temp); //write new text over old
-                pw.close();
-            } catch (IOException e){
-                System.out.println(e);
-            }
-            //System.out.println(temp);
-        } catch (IOException x){ //if there is an IO error when reading file
-            System.err.println(x); //print out error
         }
-    }
     }
     public static void combine(File[] filelist, Console c){
         String outputdir = c.readLine("Output directory: ");
