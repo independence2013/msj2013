@@ -46,7 +46,7 @@ public class Jaudiotest {
         
         Object[] o = new Object[] {};
         try {
-                o = (Object[]) XMLDocumentParser.parseXMLDocument("F:\\Jeffrey\\Documents\\GitHub\\msj2013\\jaudioout\\batchNoDev", //location of XML file with batch settings
+                o = (Object[]) XMLDocumentParser.parseXMLDocument("F:\\Jeffrey\\Documents\\GitHub\\msj2013\\jaudioout\\BatchMFCC", //location of XML file with batch settings
                                 "batchFile");
         } catch (Exception e) {
                 System.out.println("Error parsing the batch file");
@@ -62,7 +62,7 @@ public class Jaudiotest {
                 for (int i = 0; i < o.length; ++i) {
                     System.out.println(allfiles[j][z].getName());
                     tempfile[0] = allfiles[j][z];
-                    featureDestination = "F:\\Jeffrey\\Desktop\\individual\\cuttests\\44.1nodev_indiv\\"+j+"\\"+allfiles[j][z].getName()+".arff"; //location where extracted features should be stored
+                    featureDestination = "F:\\Jeffrey\\Desktop\\individual\\44_1_MFCC_nodev\\Sub-Song Data (Data Set)\\"+j+"\\"+allfiles[j][z].getName()+".arff"; //location where extracted features should be stored
                     b = (Batch) o[i];
                     b.setDestination(featureLocation,featureDestination);
                     dm.featureKey = new FileOutputStream(new File(b.getDestinationFK()));
