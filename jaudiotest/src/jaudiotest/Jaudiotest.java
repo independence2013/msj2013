@@ -35,12 +35,12 @@ public class Jaudiotest {
             }
             ); 
         }
-        int windowSize = 1048576; //size of the analysis window in samples
+        int windowSize = 512; //size of the analysis window in samples
         double windowOverlap = 0; //percent overlap as a value between 0 and 1
         double samplingRate = 44100; //number of samples per second
         boolean normalize = false; //should the file be normalized before execution
-        boolean perWindow = true; //should features be extracted on a window by window basis
-        boolean overall = false; //should global features be extracted
+        boolean perWindow = false; //should features be extracted on a window by window basis
+        boolean overall = true; //should global features be extracted
         int outputType = 1; //what output format should extracted features be stored in
         String featureLocation = "F:\\Jeffrey\\Documents\\GitHub\\msj2013\\jaudioout\\definitions.xml"; //location of the feature definition file
         
@@ -56,23 +56,23 @@ public class Jaudiotest {
         String featureDestination;
         Batch b;
         DataModel dm = new DataModel("features.xml",null);
-        File[] tempfile = new File[1];
+        //File[] tempfile = new File[1];
         for(int j = 0; j<8; j++){
-            for(int z = 0;z<allfiles[j].length; z++){
+            //for(int z = 0;z<allfiles[j].length; z++){
                 for (int i = 0; i < o.length; ++i) {
-                    System.out.println(allfiles[j][z].getName());
-                    tempfile[0] = allfiles[j][z];
-                    featureDestination = "F:\\Jeffrey\\Desktop\\individual\\44_1_MFCC_nodev\\Sub-Song Data (Data Set)\\"+j+"\\"+allfiles[j][z].getName()+".arff"; //location where extracted features should be stored
+                    //System.out.println(allfiles[j][z].getName());
+                    //tempfile[0] = allfiles[j][z];
+                    featureDestination = "F:\\Jeffrey\\Desktop\\individual\\44_1_MFCC_nodev\\Whole Song Data (Classifier)\\"+j+".arff"; //location where extracted features should be stored
                     b = (Batch) o[i];
                     b.setDestination(featureLocation,featureDestination);
                     dm.featureKey = new FileOutputStream(new File(b.getDestinationFK()));
                     dm.featureValue = new FileOutputStream(new File(b.getDestinationFV()));
                     b.setDataModel(dm);
                     b.setSettings(windowSize,windowOverlap,samplingRate,normalize,perWindow,overall,outputType);
-                    b.setRecordings(tempfile);
+                    b.setRecordings(allfiles[j]);
                     b.execute();
                 }
-            }
+            //}
         }
     }
 }
