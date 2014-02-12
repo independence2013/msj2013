@@ -37,7 +37,7 @@ public class Jaudiotestsplit {
         
         Object[] o = new Object[] {};
         try {
-                o = (Object[]) XMLDocumentParser.parseXMLDocument("F:\\Jeffrey\\Documents\\GitHub\\msj2013\\jaudioout\\BatchMFCC", //location of XML file with batch settings
+                o = (Object[]) XMLDocumentParser.parseXMLDocument("F:\\Jeffrey\\Documents\\GitHub\\msj2013\\jaudioout\\BatchFull", //location of XML file with batch settings
                                 "batchFile");
         } catch (Exception e) {
                 System.out.println("Error parsing the batch file");
@@ -52,13 +52,13 @@ public class Jaudiotestsplit {
             for(int z = 0; z<alldirectories[j].length; z++){
                 String mdir = "F:\\Jeffrey\\Desktop\\individual\\cut songs\\" + j + "\\" + alldirectories[j][z]; //directory for songs
                 File musicdir = new File(mdir);
-                File[] allfiles = musicdir.listFiles(new FilenameFilter(){ //use filter to make sure we don't read any album art files (.jpg)
+                File[] allfiles = musicdir.listFiles(new FilenameFilter(){
                 @Override
                 public boolean accept(File dir, String name){
-                    if(name.toLowerCase().endsWith(".wav")){
-                        return true;
+                    if(name.toLowerCase().endsWith(".jpg")){
+                        return false;
                     }
-                    return false;
+                    return true;
                     }
                 }
                 );
