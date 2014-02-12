@@ -64,9 +64,9 @@ public class ArffTool {
         }
     }
     public static void edit(File[] files, Console c){
-        for(int i = 0;i<files.length;i++){
-            String inputDir = files[i].getAbsolutePath();//c.readLine("Absolute path of file to edit: ");
-            String mood = ",?" ;//+ c.readLine("Mood number to insert: ");
+        //for(int i = 0;i<files.length;i++){
+            String inputDir = c.readLine("Absolute path of file to edit: "); //files[i].getAbsolutePath();
+            String mood = "," + c.readLine("Mood number to insert: "); //",?" ;
             Path file;
             file = Paths.get(inputDir);
             try(InputStream in = Files.newInputStream(file);
@@ -101,7 +101,7 @@ public class ArffTool {
             } catch (IOException x){ //if there is an IO error when reading file
                 System.err.println(x); //print out error
             }
-        }
+        //}
     }
     public static void combine(File[] filelist, Console c){
         String outputdir = c.readLine("Output directory: ");
