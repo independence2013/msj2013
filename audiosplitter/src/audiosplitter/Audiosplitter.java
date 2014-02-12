@@ -50,13 +50,13 @@ public class Audiosplitter {
             int bytes_p_sec = (int)format.getSampleRate()*format.getSampleSizeInBits()*format.getChannels()/8;
             long fileduration = filelength/bytes_p_sec;
             AudioInputStream shortstream = null;
-            int copylength = (int)format.getSampleRate()*15; //15 seconds
+            int copylength = (int)format.getSampleRate()*20; //20 seconds
             //System.out.println(copylength);
-            int timestocut = (int)Math.ceil(fileduration/15);
+            int timestocut = (int)Math.ceil(fileduration/20);
             //File tempFile = null;
             for(int j = 0; j <= timestocut; j++){
                 //System.out.println(stream.available());
-                if(copylength*format.getSampleSizeInBits()*format.getChannels()/8 > stream.available()){ //if there isn't 15 seconds of audio left
+                if(copylength*format.getSampleSizeInBits()*format.getChannels()/8 > stream.available()){ //if there isn't 20 seconds of audio left
                     shortstream = new AudioInputStream(stream,format,stream.available()*8/(format.getSampleSizeInBits()*format.getChannels())); //make the stream only until the end
                 }
                 else {
