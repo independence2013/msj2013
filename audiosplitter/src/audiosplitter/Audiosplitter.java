@@ -12,6 +12,7 @@ import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.Line;
+import org.apache.commons.io.FilenameUtils;
 
 
 /**
@@ -51,7 +52,9 @@ public class Audiosplitter {
                 else {
                     shortstream = new AudioInputStream(stream,format,copylength);
                 }
-                File tempFile = new File("F:\\Jeffrey\\Desktop\\individual\\cut songs\\" + files[i].getName() + j + ".wav");
+                File directory = new File("F:\\Jeffrey\\Desktop\\individual\\cut songs\\" + FilenameUtils.removeExtension(files[i].getName()));
+                File tempFile = new File("F:\\Jeffrey\\Desktop\\individual\\cut songs\\" + FilenameUtils.removeExtension(files[i].getName()) + "\\" + j + ".wav");
+                directory.mkdirs();
                 tempFile.createNewFile();
                 AudioSystem.write(shortstream, AudioFileFormat.Type.WAVE, tempFile);
                 
