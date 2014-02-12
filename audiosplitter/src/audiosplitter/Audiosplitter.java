@@ -6,6 +6,7 @@ package audiosplitter;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FilenameFilter;
 import javax.sound.sampled.AudioFileFormat;
 import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.AudioInputStream;
@@ -25,10 +26,19 @@ public class Audiosplitter {
      * @param args the command line arguments
      */
     public static void main(String[] args) throws Exception {
-        File[] files = new File[1];
-        File filenew = new File("F:\\Jeffrey\\Music\\Songs\\wav\\0\\Dynamite.wav");
-        files[0] = filenew;
-        split(files);
+        String mdir = "F:\\Jeffrey\\Music\\Songs\\wav\\2"; //directory for songs
+        File musicdir = new File(mdir);
+        File[] allfiles = musicdir.listFiles(new FilenameFilter(){ //use filter to make sure we don't read any album art files (.jpg)
+            @Override
+            public boolean accept(File dir, String name){
+                if(name.toLowerCase().endsWith(".jpg")){
+                    return false;
+                }
+                return true;
+            }
+        }
+        );
+        split(allfiles);
     }
     
     public static void split(File[] files) throws Exception{
