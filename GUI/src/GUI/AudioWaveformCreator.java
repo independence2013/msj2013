@@ -48,11 +48,11 @@ public class AudioWaveformCreator {
     String waveformFilename;
     Color imageBackgroundColor = new Color(20,20,20);
 
-    public AudioWaveformCreator(URL url, String waveformFilename) throws Exception {
-        if (url != null) {
+    public AudioWaveformCreator(File filename, String waveformFilename) throws Exception {
+        if (filename != null) {
             try {
                 errStr = null;
-                audioInputStream = AudioSystem.getAudioInputStream();
+                audioInputStream = AudioSystem.getAudioInputStream(filename);
                 long milliseconds = (long)((audioInputStream.getFrameLength() * 1000) / audioInputStream.getFormat().getFrameRate());
                 duration = milliseconds / 1000.0;
                 samplingGraph = new SamplingGraph();
@@ -370,19 +370,9 @@ public class AudioWaveformCreator {
         }
     } // End class Capture    
 
-    public static void main(String [] args) throws Exception {
-        //if (args.length != 2) {
-          //  printUsage();
-            //System.exit(1);
-        //}
-        URL url = new URL("http://pscode.org/media/leftright.wav");
-        AudioWaveformCreator awc = new AudioWaveformCreator(url, "out.png");
-        
-        Class GUI = newfile.getClass();
-    }
-
     private void reportStatus(String msg) {
         if ((errStr = msg) != null) {
             System.out.println(errStr);            
         }
     }
+}    

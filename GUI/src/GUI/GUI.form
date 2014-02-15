@@ -616,19 +616,20 @@
                                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
                                           <Component id="jLabel27" min="-2" max="-2" attributes="0"/>
-                                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                          <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                                              <Group type="102" attributes="0">
+                                                  <Component id="jLabel10" min="-2" max="-2" attributes="0"/>
+                                                  <EmptySpace max="32767" attributes="0"/>
+                                                  <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
+                                              </Group>
                                               <Component id="audioProgressSlider1" alignment="0" max="32767" attributes="0"/>
                                               <Group type="102" alignment="0" attributes="0">
-                                                  <Group type="103" groupAlignment="0" attributes="0">
-                                                      <Group type="102" alignment="0" attributes="0">
-                                                          <Component id="playpause1" min="-2" pref="65" max="-2" attributes="0"/>
-                                                          <EmptySpace max="-2" attributes="0"/>
-                                                          <Component id="stopButton1" min="-2" pref="64" max="-2" attributes="0"/>
-                                                      </Group>
-                                                      <Component id="audioProgress1" alignment="0" min="-2" pref="412" max="-2" attributes="0"/>
-                                                  </Group>
-                                                  <EmptySpace min="0" pref="106" max="32767" attributes="0"/>
+                                                  <Component id="playpause1" min="-2" pref="65" max="-2" attributes="0"/>
+                                                  <EmptySpace max="-2" attributes="0"/>
+                                                  <Component id="stopButton1" min="-2" pref="64" max="-2" attributes="0"/>
+                                                  <EmptySpace min="0" pref="383" max="32767" attributes="0"/>
                                               </Group>
+                                              <Component id="audioProgress1" alignment="0" max="32767" attributes="0"/>
                                           </Group>
                                       </Group>
                                   </Group>
@@ -664,6 +665,11 @@
                                       <Component id="audioProgress1" min="-2" pref="23" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Component id="audioProgressSlider1" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="3" attributes="0">
+                                          <Component id="jLabel6" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jLabel10" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      </Group>
                                   </Group>
                               </Group>
                               <EmptySpace pref="213" max="32767" attributes="0"/>
@@ -673,6 +679,9 @@
                   </Layout>
                   <SubComponents>
                     <Component class="javax.swing.JProgressBar" name="audioProgress1">
+                      <Properties>
+                        <Property name="maximum" type="int" value="1000"/>
+                      </Properties>
                     </Component>
                     <Component class="javax.swing.JLabel" name="jLabel25">
                       <Properties>
@@ -791,7 +800,18 @@
                     </Container>
                     <Component class="javax.swing.JSlider" name="audioProgressSlider1">
                       <Properties>
+                        <Property name="maximum" type="int" value="1000"/>
                         <Property name="value" type="int" value="0"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JLabel" name="jLabel6">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="jLabel6"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JLabel" name="jLabel10">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="jLabel10"/>
                       </Properties>
                     </Component>
                   </SubComponents>

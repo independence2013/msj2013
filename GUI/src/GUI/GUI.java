@@ -8,6 +8,8 @@ import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;  
 import java.net.URL;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
@@ -32,18 +34,27 @@ public class GUI extends javax.swing.JFrame {
         return (int) l;
     }
     
+    File newfile = new File("C:\\Users\\Mitchell\\Videos\\2-12 Still Alive.wav");
+    Clip clip = null;
+    boolean x = true;
+    Thread thread = new Thread(new thread1());
+    long playloc = 0;
+    
+    
     public class thread1 implements Runnable{
 		public void run(){
                     while (clip.getMicrosecondPosition() < clip.getMicrosecondLength()){ //Progressively increment variable i
-				long sprog = (clip.getMicrosecondPosition());
+                                long sprog = (clip.getMicrosecondPosition());
                                 long slength = (clip.getMicrosecondLength());
                                 long seconds = (sprog/1000000)%60;
                                 long minutes = ((sprog/1000000)-seconds)/60;
                                 //System.out.println(minutes+":"+seconds);
-                                long position = (long)(sprog*100/slength);
+                                long position = (long)(sprog*1000/slength);
                                 //System.out.println(position);
                                 System.out.println(sprog + " / " + slength + " * 100 = " + position + " " + sprog/slength);
                                 audioProgressSlider1.setValue(safeLongToInt(position));
+                                audioProgress1.setValue(safeLongToInt(position));
+                                jLabel10.setText(minutes+":"+seconds);
 //                                audioProgressSlider1.setValue(i); //Set value
 //				audioProgressSlider1.repaint(); //Refresh graphics
 				try{Thread.sleep(50);} //Sleep 50 milliseconds
@@ -51,11 +62,6 @@ public class GUI extends javax.swing.JFrame {
 			}
 		}
 	}
-    
-    Clip clip = null;
-    boolean x = true;
-    Thread thread = new Thread(new thread1());
-    long playloc = 0;
     /**
      * Creates new form newGUI
      */
@@ -128,6 +134,8 @@ public class GUI extends javax.swing.JFrame {
         jScrollPane4 = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
         audioProgressSlider1 = new javax.swing.JSlider();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         length1 = new javax.swing.JTextField();
         searchButton1 = new javax.swing.JButton();
@@ -487,6 +495,8 @@ public class GUI extends javax.swing.JFrame {
 
         jSplitPane2.setLeftComponent(jPanel3);
 
+        audioProgress1.setMaximum(1000);
+
         jLabel25.setText("Lyrics");
 
         jTextArea2.setColumns(20);
@@ -554,7 +564,12 @@ public class GUI extends javax.swing.JFrame {
         });
         jScrollPane4.setViewportView(jTable2);
 
+        audioProgressSlider1.setMaximum(1000);
         audioProgressSlider1.setValue(0);
+
+        jLabel6.setText("jLabel6");
+
+        jLabel10.setText("jLabel10");
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -572,16 +587,18 @@ public class GUI extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel27)
-                            .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(audioProgressSlider1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addGroup(jPanel4Layout.createSequentialGroup()
-                                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(jPanel4Layout.createSequentialGroup()
-                                            .addComponent(playpause1, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                            .addComponent(stopButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addComponent(audioProgress1, javax.swing.GroupLayout.PREFERRED_SIZE, 412, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGap(0, 106, Short.MAX_VALUE))))))
+                                    .addComponent(jLabel10)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jLabel6))
+                                .addComponent(audioProgressSlider1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel4Layout.createSequentialGroup()
+                                    .addComponent(playpause1, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(stopButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(0, 383, Short.MAX_VALUE))
+                                .addComponent(audioProgress1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
                 .addContainerGap(149, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
@@ -607,7 +624,11 @@ public class GUI extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(audioProgress1, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(audioProgressSlider1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(audioProgressSlider1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel6)
+                            .addComponent(jLabel10))))
                 .addContainerGap(213, Short.MAX_VALUE))
         );
 
@@ -977,20 +998,31 @@ public class GUI extends javax.swing.JFrame {
             x = false;
             System.out.println(x);
             try{
-                File newfile = new File("C:\\Users\\Mitchell\\Videos\\2-12 Still Alive.wav");
                 clip = AudioSystem.getClip();
-                // getAudioInputStream() also accepts a File or InputStreamd
+                // getAudioInputStream() also accepts a File or InputStream
                 AudioInputStream ais = AudioSystem.getAudioInputStream(newfile);
                 clip.open(ais);
-                
+                clip.setMicrosecondPosition(playloc);
                 clip.start();
                 thread.start();
+//                if(thread.isAlive() == false){
+//                    thread.start();
+//                } else{
+//                    thread.notify();
+//                }
+//                
             } catch (Exception e){
                 System.out.println(e);
               }
         } else {
                 playpause1.setText("Play");
                 playloc = clip.getMicrosecondPosition();
+                clip.stop();
+//            try {
+//                thread.wait();
+//            } catch (InterruptedException ex) {
+//                Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
+//            }
                 x = true;
           } 
     }//GEN-LAST:event_playpauseActionPerformed
@@ -1026,9 +1058,12 @@ public class GUI extends javax.swing.JFrame {
     private void stopButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_stopButton1ActionPerformed
         // TODO add your handling code here:
         playpause1.setText("Play");
+        x = true;
         clip.stop();
-        thread.stop();
+        clip.setMicrosecondPosition(0);
+        thread.interrupt();
         audioProgressSlider1.setValue(0);
+        audioProgress1.setValue(0);
     }//GEN-LAST:event_stopButton1ActionPerformed
 
     private void jCheckBox40ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox40ActionPerformed
@@ -1070,7 +1105,7 @@ public class GUI extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
+    public static void main(String args[])throws Exception {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -1094,6 +1129,8 @@ public class GUI extends javax.swing.JFrame {
         }
         //</editor-fold>
         /* Create and display the form */
+        File newfile = new File("C:\\Users\\Mitchell\\Videos\\2-12 Still Alive.wav");
+        AudioWaveformCreator awc = new AudioWaveformCreator(newfile, "out.png");
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new GUI().setVisible(true);
@@ -1143,6 +1180,7 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JComboBox jComboBox3;
     private javax.swing.JComboBox jComboBox4;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
@@ -1163,6 +1201,7 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
