@@ -123,4 +123,28 @@ public class DatabaseAccess {
         }
         return id;
     }
+    
+    public static void getSearchResults(Connection con, int[] mood, int length) throws SQLException{
+        Statement stmt = null;
+        int upperlength = length + 30;
+        int lowerlength = length - 30;
+        String moods = "";
+        for(int i = 0; i<mood.length; i++){
+            moods = moods + mood[i] +  ",";
+        }
+        moods = moods.substring(0, moods.lastIndexOf(","));
+        String query =
+                "SELECT TITLE,ARTISTID FROM SONGTABLE WHERE LENGTH BETWEEN" + lowerlength + "AND" + upperlength + "AND OVERALLMOOD IN ("+moods+")";
+        try {
+            stmt = con.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+            while(rs.next()) {
+                //id = rs.getInt("ARTISTNAME");
+            }
+        } catch (SQLException e) {
+            System.err.println(e);
+        } finally {
+            if (stmt != null) { stmt.close(); } //close connection
+        }
+    }
 }
