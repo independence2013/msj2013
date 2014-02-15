@@ -26,7 +26,7 @@ public class Audiosplitter {
      * @param args the command line arguments
      */
     public static void main(String[] args) throws Exception {
-        String mdir = "F:\\Jeffrey\\Music\\Songs\\wav\\7"; //directory for songs
+        String mdir = "F:\\Jeffrey\\Music\\Songs\\wav\\0"; //directory for songs
         File musicdir = new File(mdir);
         File[] allfiles = musicdir.listFiles(new FilenameFilter(){ //use filter to make sure we don't read any album art files (.jpg)
             @Override
@@ -56,12 +56,12 @@ public class Audiosplitter {
             //File tempFile = null;
             for(int j = 0; j <= timestocut; j++){
                 //System.out.println(stream.available());
-                if(copylength*format.getSampleSizeInBits()*format.getChannels()/8 > stream.available()){ //if there isn't 20 seconds of audio left
-                    shortstream = new AudioInputStream(stream,format,stream.available()*8/(format.getSampleSizeInBits()*format.getChannels())); //make the stream only until the end
-                }
-                else {
+//                if(copylength*format.getSampleSizeInBits()*format.getChannels()/8 > stream.available()){ //if there isn't 20 seconds of audio left
+//                    shortstream = new AudioInputStream(stream,format,stream.available()*8/(format.getSampleSizeInBits()*format.getChannels())); //make the stream only until the end
+//                }
+//                else {
                     shortstream = new AudioInputStream(stream,format,copylength);
-                }
+                //}
                 File directory = new File("F:\\Jeffrey\\Desktop\\individual\\cut songs\\" + FilenameUtils.removeExtension(files[i].getName()));
                 File tempFile = new File("F:\\Jeffrey\\Desktop\\individual\\cut songs\\" + FilenameUtils.removeExtension(files[i].getName()) + "\\" + j + ".wav");
                 directory.mkdirs();
