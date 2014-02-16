@@ -26,7 +26,7 @@ public class Audiosplitter {
      * @param args the command line arguments
      */
     public static void main(String[] args) throws Exception {
-        String mdir = "F:\\Jeffrey\\Music\\Songs\\wav\\7"; //directory for songs
+        String mdir = "F:\\Jeffrey\\Music\\Songs\\wav\\0"; //directory for songs
         File musicdir = new File(mdir);
         File[] allfiles = musicdir.listFiles(new FilenameFilter(){ //use filter to make sure we don't read any album art files (.jpg)
             @Override

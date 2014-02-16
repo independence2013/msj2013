@@ -31,7 +31,7 @@ public class RemoveMFCC {
     }
     
     public static void editmfcc(){
-        String inputDir = "F:\\Jeffrey\\Desktop\\individual\\44_1_nodev\\copy\\compiled - Copy (2).arff";
+        String inputDir = "F:\\Jeffrey\\Desktop\\compiled - Copy.arff";
         Path file;
         file = Paths.get(inputDir);
         try(InputStream in = Files.newInputStream(file);
