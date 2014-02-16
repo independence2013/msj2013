@@ -34,7 +34,7 @@ public class GUI extends javax.swing.JFrame {
         return (int) l;
     }
     
-    File newfile = new File("C:\\Users\\Mitchell\\Videos\\2-12 Still Alive.wav");
+    File newfile = new File("F:\\Jeffrey\\Music\\Songs\\wav\\0\\Dynamite.wav");
     Clip clip = null;
     boolean x = true;
     Thread thread = new Thread(new thread1());
@@ -1013,18 +1013,18 @@ public class GUI extends javax.swing.JFrame {
 //                
             } catch (Exception e){
                 System.out.println(e);
-              }
+            }
         } else {
-                playpause1.setText("Play");
-                playloc = clip.getMicrosecondPosition();
-                clip.stop();
+            playpause1.setText("Play");
+            playloc = clip.getMicrosecondPosition();
+            clip.stop();
 //            try {
 //                thread.wait();
 //            } catch (InterruptedException ex) {
 //                Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
 //            }
-                x = true;
-          } 
+            x = true;
+        } 
     }//GEN-LAST:event_playpauseActionPerformed
 
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
@@ -1129,7 +1129,7 @@ public class GUI extends javax.swing.JFrame {
         }
         //</editor-fold>
         /* Create and display the form */
-        File newfile = new File("C:\\Users\\Mitchell\\Videos\\2-12 Still Alive.wav");
+        File newfile = new File("F:\\Jeffrey\\Music\\Songs\\wav\\0\\Dynamite.wav");
         AudioWaveformCreator awc = new AudioWaveformCreator(newfile, "out.png");
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
