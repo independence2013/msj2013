@@ -48,7 +48,7 @@ public class DatabaseAccess {
         int[] song = new int[20];
         Statement stmt = null;
         String query =
-                "SELECT S0, S1, S2, S3, S4, S5, S6, S7, S8, S9, S10, S11, S12, S13, S14, S15, S16, S17, S18, S19 FROM SONGTABLE WHERE ARTISTID = '" + artistid + "' AND TITLE = '"+ title +"'"; //find the song with lyrics that haven't been analyzed
+                "SELECT S0, S1, S2, S3, S4, S5, S6, S7, S8, S9, S10, S11, S12, S13, S14, S15, S16, S17, S18, S19, S20, S21, S22, S23, S24, S25, S26, S27, S28, S29, S30 FROM SONGTABLE WHERE ARTISTID = '" + artistid + "' AND TITLE = '"+ title +"'"; //find the song with lyrics that haven't been analyzed
         try {
             stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery(query);
@@ -72,10 +72,17 @@ public class DatabaseAccess {
             stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,
                    ResultSet.CONCUR_UPDATABLE);
             ResultSet uprs = stmt.executeQuery(
-            "SELECT S0, S1, S2, S3, S4, S5, S6, S7, S8, S9, S10, S11, S12, S13, S14, S15, S16, S17, S18, S19 FROM SONGTABLE WHERE TITLE = '" + title + "' AND ARTISTID = '" + artistid + "'"); //get row with the song
+            "SELECT S0, S1, S2, S3, S4, S5, S6, S7, S8, S9, S10, S11, S12, S13, S14, S15, S16, S17, S18, S19, S20, S21, S22, S23, S24, S25, S26, S27, S28, S29, S30 FROM SONGTABLE WHERE TITLE = '" + title + "' AND ARTISTID = '" + artistid + "'"); //get row with the song
             while (uprs.next()) {
-                for(int i = 0; i < values.length; i++){
-                    uprs.updateInt("S" + i, values[i]);
+                if(values.length <= 20){
+                    for(int i = 0; i < values.length; i++){
+                        uprs.updateInt("S" + i, values[i]);
+                    }
+                }
+                else{
+                    for(int i = 0; i < 20; i++){
+                        uprs.updateInt("S" + i, values[i]);
+                    }
                 }
                 uprs.updateRow(); //update database
             }
