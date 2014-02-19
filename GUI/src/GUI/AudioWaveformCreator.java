@@ -226,7 +226,7 @@ public class AudioWaveformCreator {
 //                    if (y == 0){
 //                        g2.setColor(jfcBlue);
 //                    }
-                    for(int j = 0; j < moods.length; j++){
+                    for(int j = 0; j < moods.length; j++){ //multicolor graphing for subsong moods
                         switch(moods[j]){
                             case 0:
                                 g2.setColor(red);
