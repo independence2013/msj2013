@@ -47,8 +47,9 @@ public class AudioWaveformCreator {
     SamplingGraph samplingGraph;
     String waveformFilename;
     Color imageBackgroundColor = new Color(20,20,20);
-    int numberofsections = 10;
+    int[] moods = {1,4,0,2,7,8,3,4,6,1};
 
+    
     public AudioWaveformCreator(File filename, String waveformFilename) throws Exception {
         if (filename != null) {
             try {
@@ -74,9 +75,14 @@ public class AudioWaveformCreator {
         private Thread thread;
         private Font font10 = new Font("serif", Font.PLAIN, 10);
         private Font font12 = new Font("serif", Font.PLAIN, 12);
-        Color jfcBlue = new Color(255, 255, 000);
-        Color pink = new Color(255, 175, 175);
-
+        Color red = new Color(255, 000, 000);
+        Color orange = new Color(255, 165, 000);
+        Color yellow = new Color(255, 215, 000);
+        Color green = new Color(000, 255, 000);
+        Color blue = new Color(000, 000, 255);
+        Color purple = new Color(128, 000, 128);
+        Color white = new Color(255, 255, 255);
+        Color teal = new Color(000,128,128);
 
         public SamplingGraph() {
         }
@@ -184,7 +190,7 @@ public class AudioWaveformCreator {
             g2.fillRect(0, h-INFOPAD, w, INFOPAD);
 
             if (errStr != null) {
-                g2.setColor(jfcBlue);
+                g2.setColor(red);
                 g2.setFont(new Font("serif", Font.BOLD, 18));
                 g2.drawString("ERROR", 5, 20);
                 AttributedString as = new AttributedString(errStr);
@@ -220,24 +226,41 @@ public class AudioWaveformCreator {
 //                    if (y == 0){
 //                        g2.setColor(jfcBlue);
 //                    }
-                    boolean color = false;
-                    for(int j = 0; j < numberofsections; j++){
-                        if(color){ //alternates color
-                            g2.setColor(pink);
-                            color = false;
+                    for(int j = 0; j < moods.length; j++){
+                        switch(moods[j]){
+                            case 0:
+                                g2.setColor(red);
+                                break;
+                            case 1:    
+                                g2.setColor(orange);
+                                break;
+                            case 2:
+                                g2.setColor(yellow);
+                                break;
+                            case 3:
+                                g2.setColor(green);
+                                break;
+                            case 4:
+                                g2.setColor(blue);
+                                break;
+                            case 5:
+                                g2.setColor(purple);
+                                break;
+                            case 6:
+                                g2.setColor(white);
+                                break;
+                            case 7:    
+                                g2.setColor(teal);
+                                break;
                         }
-                        else {
-                            g2.setColor(jfcBlue);
-                            color = true;
-                        }
-                        for (int i = 1; i < lines.size()/numberofsections; i++) {
-                            g2.draw((Line2D) lines.get(i+(j*(lines.size()/numberofsections))));
+                        for (int i = 1; i < lines.size()/moods.length; i++) {
+                            g2.draw((Line2D) lines.get(i+(j*(lines.size()/moods.length))));
                         }
                     }
                     // .. draw current position ..
                     if (seconds != 0) {
                         double loc = seconds/duration*w;
-                        g2.setColor(pink);
+                        g2.setColor(red);
                         g2.setStroke(new BasicStroke(3));
                         g2.draw(new Line2D.Double(loc, 0, loc, h-INFOPAD-2));
                     }
