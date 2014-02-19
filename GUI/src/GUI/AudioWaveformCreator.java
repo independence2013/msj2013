@@ -53,7 +53,7 @@ public class AudioWaveformCreator {
             try {
                 errStr = null;
                 audioInputStream = AudioSystem.getAudioInputStream(filename);
-                long milliseconds = (long)((audioInputStream.getFrameLength() * 1000) / audioInputStream.getFormat().getFrameRate());
+                long milliseconds = (long)((audioInputStream.getFrameLength()* 1000) / audioInputStream.getFormat().getFrameRate());
                 duration = milliseconds / 1000.0;
                 samplingGraph = new SamplingGraph();
                 samplingGraph.createWaveForm(null);                
@@ -73,7 +73,7 @@ public class AudioWaveformCreator {
         private Thread thread;
         private Font font10 = new Font("serif", Font.PLAIN, 10);
         private Font font12 = new Font("serif", Font.PLAIN, 12);
-        Color jfcBlue = new Color(000, 000, 255);
+        Color jfcBlue = new Color(255, 255, 000);
         Color pink = new Color(255, 175, 175);
 
 
@@ -97,8 +97,8 @@ public class AudioWaveformCreator {
                     return; 
                 }
             }
-            int w = 1800;
-            int h = 1000;
+            int w = 935;
+            int h = 121;
             int[] audioData = null;
             if (format.getSampleSizeInBits() == 16) {
                  int nlengthInSamples = audioBytes.length / 2;
@@ -154,14 +154,14 @@ public class AudioWaveformCreator {
 
 
         public void saveToFile() {            
-            int w = 1800;
-            int h = 1000;
-            int INFOPAD = 15;
+            int w = 935;
+            int h = 121;
+            int INFOPAD = 0;
 
             BufferedImage bufferedImage = new BufferedImage(w, h, BufferedImage.TYPE_INT_RGB);
             Graphics2D g2 = bufferedImage.createGraphics();
 
-//            createSampleOnGraphicsContext(w, h, INFOPAD, g2);            
+            createSampleOnGraphicsContext(w, h, INFOPAD, g2);            
             g2.dispose();
             // Write generated image to a file
             try {
@@ -176,57 +176,63 @@ public class AudioWaveformCreator {
         }
 
 
-//        private void createSampleOnGraphicsContext(int w, int h, int INFOPAD, Graphics2D g2) {            
-//            g2.setBackground(imageBackgroundColor);
-//            g2.clearRect(0, 0, w, h);
-//            g2.setColor(Color.white);
-//            g2.fillRect(0, h-INFOPAD, w, INFOPAD);
-//
-//            if (errStr != null) {
-//                g2.setColor(jfcBlue);
-//                g2.setFont(new Font("serif", Font.BOLD, 18));
-//                g2.drawString("ERROR", 5, 20);
-//                AttributedString as = new AttributedString(errStr);
-//                as.addAttribute(TextAttribute.FONT, font12, 0, errStr.length());
-//                AttributedCharacterIterator aci = as.getIterator();
-//                FontRenderContext frc = g2.getFontRenderContext();
-//                LineBreakMeasurer lbm = new LineBreakMeasurer(aci, frc);
-//                float x = 5, y = 25;
-//                lbm.setPosition(0);
-//                while (lbm.getPosition() < errStr.length()) {
-//                    TextLayout tl = lbm.nextLayout(w-x-5);
-//                    if (!tl.isLeftToRight()) {
-//                        x = w - tl.getAdvance();
-//                    }
-//                    tl.draw(g2, x, y += tl.getAscent());
-//                    y += tl.getDescent() + tl.getLeading();
-//                }
-//            } else if (capture.thread != null) {
-//                g2.setColor(Color.black);
-//                g2.setFont(font12);
-//                //g2.drawString("Length: " + String.valueOf(seconds), 3, h-4);
-//            } else {
-//                g2.setColor(Color.black);
-//                g2.setFont(font12);
-//                //g2.drawString("File: " + fileName + "  Length: " + String.valueOf(duration) + "  Position: " + String.valueOf(seconds), 3, h-4);
-//
-//                if (audioInputStream != null) {
-//                    // .. render sampling graph ..
-//                    g2.setColor(jfcBlue);
-//                    for (int i = 1; i < lines.size(); i++) {
-//                        g2.draw((Line2D) lines.get(i));
-//                    }
-//
-//                    // .. draw current position ..
-//                    if (seconds != 0) {
-//                        double loc = seconds/duration*w;
-//                        g2.setColor(pink);
-//                        g2.setStroke(new BasicStroke(3));
-//                        g2.draw(new Line2D.Double(loc, 0, loc, h-INFOPAD-2));
-//                    }
-//                }
-//            }
-//        }
+        private void createSampleOnGraphicsContext(int w, int h, int INFOPAD, Graphics2D g2) {            
+            g2.setBackground(imageBackgroundColor);
+            g2.clearRect(0, 0, w, h);
+            g2.setColor(Color.white);
+            g2.fillRect(0, h-INFOPAD, w, INFOPAD);
+
+            if (errStr != null) {
+                g2.setColor(jfcBlue);
+                g2.setFont(new Font("serif", Font.BOLD, 18));
+                g2.drawString("ERROR", 5, 20);
+                AttributedString as = new AttributedString(errStr);
+                as.addAttribute(TextAttribute.FONT, font12, 0, errStr.length());
+                AttributedCharacterIterator aci = as.getIterator();
+                FontRenderContext frc = g2.getFontRenderContext();
+                LineBreakMeasurer lbm = new LineBreakMeasurer(aci, frc);
+                float x = 5, y = 25;
+                lbm.setPosition(0);
+                while (lbm.getPosition() < errStr.length()) {
+                    TextLayout tl = lbm.nextLayout(w-x-5);
+                    if (!tl.isLeftToRight()) {
+                        x = w - tl.getAdvance();
+                    }
+                    tl.draw(g2, x, y += tl.getAscent());
+                    y += tl.getDescent() + tl.getLeading();
+                }
+            } else if (capture.thread != null) {
+                g2.setColor(Color.black);
+                g2.setFont(font12);
+                //g2.drawString("Length: " + String.valueOf(seconds), 3, h-4);
+            } else {
+                g2.setColor(Color.black);
+                g2.setFont(font12);
+                //g2.drawString("File: " + fileName + "  Length: " + String.valueOf(duration) + "  Position: " + String.valueOf(seconds), 3, h-4);
+
+                if (audioInputStream != null) {
+                    // .. render sampling graph ..
+                    int y = 0;
+                    if (y == 1){
+                        g2.setColor(pink);
+                    }
+                    if (y == 0){
+                        g2.setColor(jfcBlue);
+                    }
+                    for (int i = 1; i < lines.size(); i++) {
+                        g2.draw((Line2D) lines.get(i));
+                    }
+
+                    // .. draw current position ..
+                    if (seconds != 0) {
+                        double loc = seconds/duration*w;
+                        g2.setColor(pink);
+                        g2.setStroke(new BasicStroke(3));
+                        g2.draw(new Line2D.Double(loc, 0, loc, h-INFOPAD-2));
+                    }
+                }
+            }
+        }
 
         public void start() {
             thread = new Thread(this);
