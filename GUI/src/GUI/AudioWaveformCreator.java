@@ -47,12 +47,13 @@ public class AudioWaveformCreator {
     SamplingGraph samplingGraph;
     String waveformFilename;
     Color imageBackgroundColor = new Color(20,20,20);
-    int[] moods = {1,4,0,2,7,8,3,4,6,1};
+    int[] moods;
 
     
-    public AudioWaveformCreator(File filename, String waveformFilename) throws Exception {
+    public AudioWaveformCreator(File filename, String waveformFilename, int[] moods) throws Exception {
         if (filename != null) {
             try {
+                this.moods = moods;
                 errStr = null;
                 audioInputStream = AudioSystem.getAudioInputStream(filename);
                 long milliseconds = (long)((audioInputStream.getFrameLength()* 1000) / audioInputStream.getFormat().getFrameRate());
@@ -219,14 +220,13 @@ public class AudioWaveformCreator {
 
                 if (audioInputStream != null) {
                     // .. render sampling graph ..
-//                    int y = 0;
-//                    if (y == 1){
-//                        g2.setColor(pink);
-//                    }
-//                    if (y == 0){
-//                        g2.setColor(jfcBlue);
-//                    }
-                    for(int j = 0; j < moods.length; j++){ //multicolor graphing for subsong moods
+                    int q = 0;
+                    for(int a = 0; a <moods.length; a++){
+                        if(moods[a] != -1){
+                            q++;
+                        }
+                    }
+                    for(int j = 0; j < q; j++){ //multicolor graphing for subsong moods
                         switch(moods[j]){
                             case 0:
                                 g2.setColor(red);
@@ -253,8 +253,8 @@ public class AudioWaveformCreator {
                                 g2.setColor(teal);
                                 break;
                         }
-                        for (int i = 1; i < lines.size()/moods.length; i++) {
-                            g2.draw((Line2D) lines.get(i+(j*(lines.size()/moods.length))));
+                        for (int i = 1; i < lines.size()/q; i++) {
+                            g2.draw((Line2D) lines.get(i+(j*(lines.size()/q))));
                         }
                     }
                     // .. draw current position ..
