@@ -4,12 +4,14 @@
  */
 package GUI;
 
+import Database.DatabaseAccess;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.BufferedInputStream;  
 import java.io.File;
 import java.io.FileInputStream;  
 import java.net.URL;
+import java.sql.Connection;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
@@ -22,7 +24,6 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
 import javax.swing.SwingUtilities;
-
 import javazoom.jl.player.Player;
 
 /**
@@ -1152,6 +1153,8 @@ public class GUI extends javax.swing.JFrame {
         //</editor-fold>
         /* Create and display the form */
         File newfile = new File("F:\\Jeffrey\\Music\\Songs\\wav\\0\\Dynamite.wav");
+        //DatabaseAccess dba = new DatabaseAccess();
+        //Connection con = dba.startconnection("orcl");
         int[] moodtest = {2,3,4,2,3,2,3,0,-1,-1,-1};
         AudioWaveformCreator awc = new AudioWaveformCreator(newfile, "F:\\Jeffrey\\sciproj\\out.png", moodtest);
         java.awt.EventQueue.invokeLater(new Runnable() {
