@@ -43,7 +43,7 @@ public class AudioWaveformCreator {
     Capture capture = new Capture();
     double duration, seconds;
     //File file;
-    String fileName = "out.png";
+    String fileName;
     SamplingGraph samplingGraph;
     String waveformFilename;
     Color imageBackgroundColor = new Color(20,20,20);
@@ -54,6 +54,7 @@ public class AudioWaveformCreator {
         if (filename != null) {
             try {
                 this.moods = moods;
+                this.fileName = waveformFilename;
                 errStr = null;
                 audioInputStream = AudioSystem.getAudioInputStream(filename);
                 long milliseconds = (long)((audioInputStream.getFrameLength()* 1000) / audioInputStream.getFormat().getFrameRate());

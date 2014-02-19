@@ -1155,7 +1155,7 @@ public class GUI extends javax.swing.JFrame {
         //DatabaseAccess dba = new DatabaseAccess();
         //Connection con = dba.startconnection("orcl");
         int[] moodtest = {2,3,4,2,3,2,3,0,-1,-1,-1};
-        AudioWaveformCreator awc = new AudioWaveformCreator(newfile, "F:\\Jeffrey\\sciproj\\out.png", moodtest);
+        AudioWaveformCreator awc = new AudioWaveformCreator(newfile, "out.png", moodtest);
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new GUI().setVisible(true);
