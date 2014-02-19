@@ -45,7 +45,7 @@ public class DatabaseAccess {
     }
      
      public static int[] retrievesubsong(Connection con, String title, int artistid) throws SQLException{
-        int[] song = new int[20];
+        int[] song = new int[31];
         Statement stmt = null;
         String query =
                 "SELECT S0, S1, S2, S3, S4, S5, S6, S7, S8, S9, S10, S11, S12, S13, S14, S15, S16, S17, S18, S19, S20, S21, S22, S23, S24, S25, S26, S27, S28, S29, S30 FROM SONGTABLE WHERE ARTISTID = '" + artistid + "' AND TITLE = '"+ title +"'"; //find the song with lyrics that haven't been analyzed

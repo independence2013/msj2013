@@ -104,7 +104,7 @@ public class AudioWaveformCreator {
                     return; 
                 }
             }
-            int w = 935;
+            int w = 928;
             int h = 121;
             int[] audioData = null;
             if (format.getSampleSizeInBits() == 16) {
@@ -161,7 +161,7 @@ public class AudioWaveformCreator {
 
 
         public void saveToFile() {            
-            int w = 935;
+            int w = 928;
             int h = 121;
             int INFOPAD = 0;
 
