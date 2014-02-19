@@ -47,6 +47,7 @@ public class AudioWaveformCreator {
     SamplingGraph samplingGraph;
     String waveformFilename;
     Color imageBackgroundColor = new Color(20,20,20);
+    int numberofsections = 10;
 
     public AudioWaveformCreator(File filename, String waveformFilename) throws Exception {
         if (filename != null) {
@@ -212,17 +213,27 @@ public class AudioWaveformCreator {
 
                 if (audioInputStream != null) {
                     // .. render sampling graph ..
-                    int y = 0;
-                    if (y == 1){
-                        g2.setColor(pink);
+//                    int y = 0;
+//                    if (y == 1){
+//                        g2.setColor(pink);
+//                    }
+//                    if (y == 0){
+//                        g2.setColor(jfcBlue);
+//                    }
+                    boolean color = false;
+                    for(int j = 0; j < numberofsections; j++){
+                        if(color){ //alternates color
+                            g2.setColor(pink);
+                            color = false;
+                        }
+                        else {
+                            g2.setColor(jfcBlue);
+                            color = true;
+                        }
+                        for (int i = 1; i < lines.size()/numberofsections; i++) {
+                            g2.draw((Line2D) lines.get(i+(j*(lines.size()/numberofsections))));
+                        }
                     }
-                    if (y == 0){
-                        g2.setColor(jfcBlue);
-                    }
-                    for (int i = 1; i < lines.size(); i++) {
-                        g2.draw((Line2D) lines.get(i));
-                    }
-
                     // .. draw current position ..
                     if (seconds != 0) {
                         double loc = seconds/duration*w;
