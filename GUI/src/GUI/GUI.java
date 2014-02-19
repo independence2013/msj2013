@@ -41,7 +41,7 @@ public class GUI extends javax.swing.JFrame {
     }
     //File newfile = new File("C:\\Users\\Mitchell\\Documents\\leftright.wav");
 
-    File newfile = new File("C:\\Users\\Mitchell\\Music\\2-12 Still Alive.wav");
+    File newfile = new File("F:\\Jeffrey\\Music\\Songs\\wav\\0\\Dynamite.wav");
     Clip clip = null;
     boolean x = true;
     Thread thread = new Thread(new thread1());
@@ -143,6 +143,7 @@ public class GUI extends javax.swing.JFrame {
         audioProgressSlider1 = new javax.swing.JSlider();
         jLabel6 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         length1 = new javax.swing.JTextField();
         searchButton1 = new javax.swing.JButton();
@@ -520,8 +521,6 @@ public class GUI extends javax.swing.JFrame {
             }
         });
 
-        jLabel27.setIcon(new javax.swing.ImageIcon("C:\\Users\\Mitchell\\Documents\\GitHub\\msj2013\\GUI\\out.png")); // NOI18N
-
         stopButton1.setText("Stop");
         stopButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -578,6 +577,8 @@ public class GUI extends javax.swing.JFrame {
 
         jLabel10.setText("jLabel10");
 
+        jLabel11.setIcon(new javax.swing.ImageIcon("F:\\Jeffrey\\Documents\\GitHub\\msj2013\\GUI\\out.png")); // NOI18N
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
@@ -590,7 +591,7 @@ public class GUI extends javax.swing.JFrame {
                         .addContainerGap())
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel4Layout.createSequentialGroup()
                                 .addComponent(jLabel10)
@@ -603,17 +604,21 @@ public class GUI extends javax.swing.JFrame {
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(stopButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addComponent(audioProgress1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 518, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(0, 45, Short.MAX_VALUE)))
+                                .addGap(0, 0, Short.MAX_VALUE)))
                         .addGap(62, 62, 62))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(audioProgressSlider1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel4Layout.createSequentialGroup()
                                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(jLabel26, javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel25, javax.swing.GroupLayout.Alignment.LEADING))
                                 .addGap(0, 0, Short.MAX_VALUE))
-                            .addComponent(jLabel27, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                            .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(audioProgressSlider1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel27, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                         .addContainerGap())))
         );
         jPanel4Layout.setVerticalGroup(
@@ -626,7 +631,9 @@ public class GUI extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel25)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel27, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel27, javax.swing.GroupLayout.DEFAULT_SIZE, 126, Short.MAX_VALUE)
+                    .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(audioProgressSlider1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -1144,9 +1151,9 @@ public class GUI extends javax.swing.JFrame {
         }
         //</editor-fold>
         /* Create and display the form */
-        File newfile = new File("C:\\Users\\Mitchell\\Music\\2-12 Still Alive.wav");
-        AudioWaveformCreator awc = new AudioWaveformCreator(newfile, "out.png");
-        
+        File newfile = new File("F:\\Jeffrey\\Music\\Songs\\wav\\0\\Dynamite.wav");
+        int[] moodtest = {2,3,4,2,3,2,3,0,-1,-1,-1};
+        AudioWaveformCreator awc = new AudioWaveformCreator(newfile, "F:\\Jeffrey\\sciproj\\out.png", moodtest);
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new GUI().setVisible(true);
@@ -1197,6 +1204,7 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JComboBox jComboBox4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
