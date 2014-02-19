@@ -25,3 +25,6 @@
 /jaudiotestsplit/build/
 /jaudiotestsplit/dist/
 /jaudiotestsplit/nbproject/private/
+/removeMFCC/dist/
+/setsubsong/nbproject/private/
+/setsubsong/build/

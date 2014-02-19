@@ -26,12 +26,13 @@ public class RemoveMFCC {
      */
     public static void main(String[] args) {
         //editmfcc();
-        editmood();
+        editmfcc2();
+        //editmood();
         // TODO code application logic here
     }
     
     public static void editmfcc(){
-        String inputDir = "F:\\Jeffrey\\Desktop\\compiled - Copy.arff";
+        String inputDir = "F:\\Jeffrey\\Desktop\\compiled.arff";
         Path file;
         file = Paths.get(inputDir);
         try(InputStream in = Files.newInputStream(file);
@@ -61,6 +62,54 @@ public class RemoveMFCC {
             }
             System.out.println(temp);
             reader.close();
+//            try{
+//                PrintWriter pw = new PrintWriter(inputDir);
+//                pw.printf(temp); //write new text over old
+//                pw.close();
+//            } catch (IOException e){
+//                System.out.println(e);
+//            }
+            //System.out.println(temp);
+        } catch (IOException x){ //if there is an IO error when reading file
+            System.err.println(x); //print out error
+        }
+    }
+    
+    public static void editmfcc2(){
+        String inputDir = "F:\\Jeffrey\\Desktop\\compiled.arff";
+        Path file;
+        file = Paths.get(inputDir);
+        try(InputStream in = Files.newInputStream(file);
+            BufferedReader reader = new BufferedReader(new InputStreamReader(in))){
+            String line = null;
+            String temp = "";
+            String newline = System.getProperty("line.separator");
+            boolean dataflag = false;
+            while ((line = reader.readLine()) != null) { //if line not null (not file end)
+                if(!line.isEmpty()){
+                    if(line.equals("@DATA")){
+                        //temp +=  "@ATTRIBUTE \"Mood\" {0,1,2,3,4,5,6,7}" + newline;
+                        dataflag = true;
+                    }
+                    if(dataflag && !line.equals("@DATA")){
+                        int index = line.length()-1;
+                        for(int i = 0;i<36;i++){
+                            index = line.lastIndexOf(",",index)-1;
+                        }
+                        int index2 = line.length()-1;
+                        for(int j = 0;j<26;j++){
+                            index2 = line.lastIndexOf(",",index2)-1;
+                        }
+                        System.out.println(cut(line,index+2,index2+2));
+                        temp += cut(line,index+2,index2+2) + newline;
+                    }
+                    else {
+                        temp += line + newline;
+                    }
+                }
+            }
+            //System.out.println(temp);
+            reader.close();
             try{
                 PrintWriter pw = new PrintWriter(inputDir);
                 pw.printf(temp); //write new text over old
@@ -73,6 +122,7 @@ public class RemoveMFCC {
             System.err.println(x); //print out error
         }
     }
+    
     public static void editmood(){
         String inputDir = "F:\\Jeffrey\\Desktop\\individual\\cuttests\\44.1nodev_indiv\\filled in dataset\\7compiled.arff";
         Path file;
@@ -102,13 +152,13 @@ public class RemoveMFCC {
             }
             System.out.println(temp);
             reader.close();
-            try{
-                PrintWriter pw = new PrintWriter(inputDir);
-                pw.printf(temp); //write new text over old
-                pw.close();
-            } catch (IOException e){
-                System.out.println(e);
-            }
+//            try{
+//                PrintWriter pw = new PrintWriter(inputDir);
+//                pw.printf(temp); //write new text over old
+//                pw.close();
+//            } catch (IOException e){
+//                System.out.println(e);
+//            }
             //System.out.println(temp);
         } catch (IOException x){ //if there is an IO error when reading file
             System.err.println(x); //print out error

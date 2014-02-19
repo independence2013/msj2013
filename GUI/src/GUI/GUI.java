@@ -22,7 +22,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
 import javax.swing.SwingUtilities;
-  
+
 import javazoom.jl.player.Player;
 
 /**
@@ -41,7 +41,7 @@ public class GUI extends javax.swing.JFrame {
     }
     //File newfile = new File("C:\\Users\\Mitchell\\Documents\\leftright.wav");
 
-    File newfile = new File("C:\\Users\\Mitchell\\Music\\iTunes\\iTunes Media\\Music\\Adele\\21\\01 Rolling in the Deep.wav");
+    File newfile = new File("F:\\Jeffrey\\Music\\Songs\\wav\\0\\Dynamite.wav");
     Clip clip = null;
     boolean x = true;
     Thread thread = new Thread(new thread1());
@@ -1142,7 +1142,7 @@ public class GUI extends javax.swing.JFrame {
         }
         //</editor-fold>
         /* Create and display the form */
-        File newfile = new File("C:\\Users\\Mitchell\\Music\\iTunes\\iTunes Media\\Music\\Adele\\21\\01 Rolling in the Deep.wav");
+        File newfile = new File("F:\\Jeffrey\\Music\\Songs\\wav\\0\\Dynamite.wav");
         AudioWaveformCreator awc = new AudioWaveformCreator(newfile, "out.png");
         
         java.awt.EventQueue.invokeLater(new Runnable() {
