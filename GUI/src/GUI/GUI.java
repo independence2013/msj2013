@@ -27,8 +27,7 @@ import javax.swing.SwingUtilities;
 import javazoom.jl.player.Player;
 
 /**
- *
- * @author Jeffrey
+ * Code for GUI
  */
 
 public class GUI extends javax.swing.JFrame {
