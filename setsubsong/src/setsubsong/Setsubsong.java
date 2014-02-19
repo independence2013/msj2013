@@ -18,6 +18,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import org.apache.commons.io.FilenameUtils;
 
 /**
  *
@@ -123,7 +124,7 @@ public class Setsubsong {
                     }
                 }
                 reader.close();
-                setsubsong(con, allfiles[z].getName(),moods);
+                setsubsong(con, FilenameUtils.removeExtension(allfiles[z].getName().replaceAll("[']","").toLowerCase()),moods);
             } catch (IOException x){ //if there is an IO error when reading file
                 System.err.println(x); //print out error
             }
