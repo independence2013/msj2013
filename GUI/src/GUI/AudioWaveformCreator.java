@@ -178,8 +178,7 @@ public class AudioWaveformCreator {
                 File file = new File(fileName);
                 System.out.println(file.getAbsolutePath());
                 ImageIO.write(bufferedImage, "png", file);
-                JOptionPane.showMessageDialog(null, 
-                        new JLabel(new ImageIcon(fileName)));
+                //JOptionPane.showMessageDialog(null, new JLabel(new ImageIcon(fileName)));
             } catch (IOException e) {
             }
         }
