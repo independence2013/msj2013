@@ -78,14 +78,15 @@ public class AudioWaveformCreator {
         private Font font10 = new Font("serif", Font.PLAIN, 10);
         private Font font12 = new Font("serif", Font.PLAIN, 12);
         Color red = new Color(255, 000, 000);
-        Color orange = new Color(255, 165, 000);
+        Color orange = new Color(238, 64, 000);
         Color yellow = new Color(255, 215, 000);
         Color green = new Color(000, 255, 000);
         Color blue = new Color(000, 000, 255);
         Color purple = new Color(128, 000, 128);
-        Color white = new Color(255, 255, 255);
+        Color grey = new Color(119, 136, 153);
         Color teal = new Color(000,128,128);
-
+        Color nomood = new Color(000,000,000);
+        
         public SamplingGraph() {
         }
 
@@ -229,28 +230,31 @@ public class AudioWaveformCreator {
                     for(int j = 0; j < q; j++){ //multicolor graphing for subsong moods
                         switch(moods[j]){
                             case 0:
-                                g2.setColor(red);
+                                g2.setColor(yellow);
                                 break;
                             case 1:    
                                 g2.setColor(orange);
                                 break;
                             case 2:
-                                g2.setColor(yellow);
-                                break;
-                            case 3:
                                 g2.setColor(green);
                                 break;
-                            case 4:
-                                g2.setColor(blue);
+                            case 3:
+                                g2.setColor(grey);
                                 break;
-                            case 5:
+                            case 4:
                                 g2.setColor(purple);
                                 break;
+                            case 5:
+                                g2.setColor(blue);
+                                break;
                             case 6:
-                                g2.setColor(white);
+                                g2.setColor(red);
                                 break;
                             case 7:    
                                 g2.setColor(teal);
+                                break;
+                            default:
+                                g2.setColor(nomood);
                                 break;
                         }
                         for (int i = 1; i < lines.size()/q; i++) {
