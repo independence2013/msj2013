@@ -43,16 +43,18 @@ public class AudioWaveformCreator {
     Capture capture = new Capture();
     double duration, seconds;
     //File file;
-    String fileName = "out.png";
+    String fileName;
     SamplingGraph samplingGraph;
     String waveformFilename;
     Color imageBackgroundColor = new Color(20,20,20);
-    int[] moods = {1,4,0,2,7,8,3,4,6,1};
+    int[] moods;
 
     
-    public AudioWaveformCreator(File filename, String waveformFilename) throws Exception {
+    public AudioWaveformCreator(File filename, String waveformFilename, int[] moods) throws Exception {
         if (filename != null) {
             try {
+                this.moods = moods;
+                this.fileName = waveformFilename;
                 errStr = null;
                 audioInputStream = AudioSystem.getAudioInputStream(filename);
                 long milliseconds = (long)((audioInputStream.getFrameLength()* 1000) / audioInputStream.getFormat().getFrameRate());
@@ -76,14 +78,15 @@ public class AudioWaveformCreator {
         private Font font10 = new Font("serif", Font.PLAIN, 10);
         private Font font12 = new Font("serif", Font.PLAIN, 12);
         Color red = new Color(255, 000, 000);
-        Color orange = new Color(255, 165, 000);
+        Color orange = new Color(238, 64, 000);
         Color yellow = new Color(255, 215, 000);
         Color green = new Color(000, 255, 000);
         Color blue = new Color(000, 000, 255);
         Color purple = new Color(128, 000, 128);
-        Color white = new Color(255, 255, 255);
+        Color grey = new Color(119, 136, 153);
         Color teal = new Color(000,128,128);
-
+        Color nomood = new Color(000,000,000);
+        
         public SamplingGraph() {
         }
 
@@ -176,8 +179,7 @@ public class AudioWaveformCreator {
                 File file = new File(fileName);
                 System.out.println(file.getAbsolutePath());
                 ImageIO.write(bufferedImage, "png", file);
-                JOptionPane.showMessageDialog(null, 
-                        new JLabel(new ImageIcon(fileName)));
+                //JOptionPane.showMessageDialog(null, new JLabel(new ImageIcon(fileName)));
             } catch (IOException e) {
             }
         }
@@ -219,42 +221,44 @@ public class AudioWaveformCreator {
 
                 if (audioInputStream != null) {
                     // .. render sampling graph ..
-//                    int y = 0;
-//                    if (y == 1){
-//                        g2.setColor(pink);
-//                    }
-//                    if (y == 0){
-//                        g2.setColor(jfcBlue);
-//                    }
-                    for(int j = 0; j < moods.length; j++){
+                    int q = 0;
+                    for(int a = 0; a <moods.length; a++){
+                        if(moods[a] != -1){
+                            q++;
+                        }
+                    }
+                    for(int j = 0; j < q; j++){ //multicolor graphing for subsong moods
                         switch(moods[j]){
                             case 0:
-                                g2.setColor(red);
+                                g2.setColor(yellow);
                                 break;
                             case 1:    
                                 g2.setColor(orange);
                                 break;
                             case 2:
-                                g2.setColor(yellow);
-                                break;
-                            case 3:
                                 g2.setColor(green);
                                 break;
-                            case 4:
-                                g2.setColor(blue);
+                            case 3:
+                                g2.setColor(grey);
                                 break;
-                            case 5:
+                            case 4:
                                 g2.setColor(purple);
                                 break;
+                            case 5:
+                                g2.setColor(blue);
+                                break;
                             case 6:
-                                g2.setColor(white);
+                                g2.setColor(red);
                                 break;
                             case 7:    
                                 g2.setColor(teal);
                                 break;
+                            default:
+                                g2.setColor(nomood);
+                                break;
                         }
-                        for (int i = 1; i < lines.size()/moods.length; i++) {
-                            g2.draw((Line2D) lines.get(i+(j*(lines.size()/moods.length))));
+                        for (int i = 1; i < lines.size()/q; i++) {
+                            g2.draw((Line2D) lines.get(i+(j*(lines.size()/q))));
                         }
                     }
                     // .. draw current position ..
