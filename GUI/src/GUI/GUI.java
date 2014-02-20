@@ -1154,7 +1154,8 @@ public class GUI extends javax.swing.JFrame {
         File newfile = new File("F:\\Jeffrey\\Music\\Songs\\wav\\0\\Dynamite.wav");
         //DatabaseAccess dba = new DatabaseAccess();
         //Connection con = dba.startconnection("orcl");
-        int[] moodtest = {2,3,4,2,3,2,3,0,-1,-1,-1};
+        //
+        int[] moodtest = {1,2,3,4,5,6,7,0,-1,-1,-1};
         AudioWaveformCreator awc = new AudioWaveformCreator(newfile, "out.png", moodtest);
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
