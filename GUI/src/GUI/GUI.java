@@ -577,7 +577,7 @@ public class GUI extends javax.swing.JFrame {
 
         jLabel10.setText("jLabel10");
 
-        jLabel11.setIcon(new javax.swing.ImageIcon("F:\\Jeffrey\\Documents\\GitHub\\msj2013\\GUI\\out.png")); // NOI18N
+        jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/out.png"))); // NOI18N
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
