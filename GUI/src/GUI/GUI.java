@@ -39,9 +39,9 @@ public class GUI extends javax.swing.JFrame {
         }
         return (int) l;
     }
-    File newfile = new File("C:\\Users\\Mitchell\\Documents\\leftright.wav");
+    //File newfile = new File("C:\\Users\\Mitchell\\Documents\\leftright.wav");
 
-    //File newfile = new File("F:\\Jeffrey\\Music\\Songs\\wav\\0\\Dynamite.wav");
+    File newfile = new File("F:\\Jeffrey\\Music\\Songs\\wav\\0\\Dynamite.wav");
     Clip clip = null;
     boolean x = true;
     Thread thread = new Thread(new thread1());
@@ -53,13 +53,17 @@ public class GUI extends javax.swing.JFrame {
             while (clip.getMicrosecondPosition() < clip.getMicrosecondLength()){ //Progressively increment variable i
                 long sprog = (clip.getMicrosecondPosition());
                 long slength = (clip.getMicrosecondLength());
-                long seconds = (sprog/1000000)%60;
-                long minutes = ((sprog/1000000)-seconds)/60;
+                String seconds = "" + (sprog/1000000)%60;
+                String sec = "";
+                long minutes = ((sprog/1000000)-Integer.parseInt(seconds))/60;
                 //System.out.println(minutes+":"+seconds);
                 long position = (long)(sprog*1000/slength);
                 //System.out.println(position);
                 System.out.println(sprog + " / " + slength + " * 100 = " + position + " " + sprog/slength);
                 audioProgressSlider1.setValue(safeLongToInt(position));
+                if(Integer.parseInt(seconds)<10){
+                    seconds = "0" + seconds;
+                }
                 jLabel10.setText(minutes+":"+seconds);
 //                                audioProgressSlider1.setValue(i); //Set value
 //				audioProgressSlider1.repaint(); //Refresh graphics
@@ -1079,8 +1083,8 @@ public class GUI extends javax.swing.JFrame {
         }
         //</editor-fold>
         /* Create and display the form */
-        File newfile = new File("C:\\Users\\Mitchell\\Documents\\leftright.wav");
-//        File newfile = new File("F:\\Jeffrey\\Music\\Songs\\wav\\0\\Dynamite.wav");
+        //File newfile = new File("C:\\Users\\Mitchell\\Documents\\leftright.wav");
+        File newfile = new File("F:\\Jeffrey\\Music\\Songs\\wav\\0\\Dynamite.wav");
         //DatabaseAccess dba = new DatabaseAccess();
         //Connection con = dba.startconnection("orcl");
         //
