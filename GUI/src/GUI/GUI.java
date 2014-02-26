@@ -10,6 +10,7 @@ import java.awt.image.BufferedImage;
 import java.io.BufferedInputStream;  
 import java.io.File;
 import java.io.FileInputStream;  
+import java.io.FilenameFilter;
 import java.net.URL;
 import java.sql.Connection;
 import java.util.logging.Level;
@@ -41,7 +42,7 @@ public class GUI extends javax.swing.JFrame {
     }
     //File newfile = new File("C:\\Users\\Mitchell\\Documents\\leftright.wav");
 
-    File newfile = new File("F:\\Jeffrey\\Music\\Songs\\wav\\0\\Dynamite.wav");
+    static File newfile = new File("F:\\Jeffrey\\Music\\Songs\\wav\\0\\Dynamite.wav");
     Clip clip = null;
     boolean x = true;
     Thread thread = new Thread(new thread1());
@@ -63,7 +64,11 @@ public class GUI extends javax.swing.JFrame {
                 }
                 currenttime.setText(minutes+":"+seconds);
                 long totminutes = ((slength/1000000)-(slength/1000000)%60)/60;
-                timeleft.setText(totminutes + ":" + (slength/1000000)%60);
+                String totseconds = Long.toString((slength/1000000)%60);
+                if(Integer.parseInt(totseconds)<10){
+                    totseconds = "0" + totseconds;
+                }
+                timeleft.setText(totminutes + ":" + totseconds);
 //                                audioProgressSlider1.setValue(i); //Set value
 //				audioProgressSlider1.repaint(); //Refresh graphics
                 try{Thread.sleep(50);} //Sleep 50 milliseconds
@@ -134,7 +139,7 @@ public class GUI extends javax.swing.JFrame {
         jLabel27 = new javax.swing.JLabel();
         stopButton1 = new javax.swing.JButton();
         table = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        outputtable = new javax.swing.JTable();
         audioProgressSlider1 = new javax.swing.JSlider();
         timeleft = new javax.swing.JLabel();
         currenttime = new javax.swing.JLabel();
@@ -150,7 +155,8 @@ public class GUI extends javax.swing.JFrame {
         jLabel1.setText("jLabel1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMinimumSize(new java.awt.Dimension(1024, 576));
+        setMinimumSize(new java.awt.Dimension(1024, 600));
+        setResizable(false);
 
         jPanel2.setFocusCycleRoot(true);
         jPanel2.setMaximumSize(new java.awt.Dimension(3840, 2160));
@@ -289,56 +295,61 @@ public class GUI extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel22)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(mood0)
-                        .addGap(18, 18, 18)
-                        .addComponent(mood4))
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel22)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(mood0)
+                                .addGap(18, 18, 18)
+                                .addComponent(mood4))
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(mood1)
+                                .addGap(18, 18, 18)
+                                .addComponent(mood5))
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(mood2)
+                                .addGap(18, 18, 18)
+                                .addComponent(mood6))
+                            .addComponent(jLabel3)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(mood3)
+                                .addGap(18, 18, 18)
+                                .addComponent(mood7))
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(year0)
+                                .addGap(18, 18, 18)
+                                .addComponent(year4))
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(year1)
+                                .addGap(18, 18, 18)
+                                .addComponent(year5))
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(year2)
+                                .addGap(18, 18, 18)
+                                .addComponent(year6))
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(year3)
+                                .addGap(18, 18, 18)
+                                .addComponent(year7))
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel18)
+                            .addComponent(jLabel24)
+                            .addComponent(title2, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jLabel23)
+                                .addComponent(jLabel21)
+                                .addComponent(jLabel20)
+                                .addComponent(albumtext)
+                                .addComponent(artist2)
+                                .addComponent(jLabel19)
+                                .addComponent(lyrictext)
+                                .addComponent(length2)))
+                        .addContainerGap(51, Short.MAX_VALUE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(mood1)
-                        .addGap(18, 18, 18)
-                        .addComponent(mood5))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(mood2)
-                        .addGap(18, 18, 18)
-                        .addComponent(mood6))
-                    .addComponent(jLabel3)
-                    .addComponent(genreselect, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(mood3)
-                        .addGap(18, 18, 18)
-                        .addComponent(mood7))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(year0)
-                        .addGap(18, 18, 18)
-                        .addComponent(year4))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(year1)
-                        .addGap(18, 18, 18)
-                        .addComponent(year5))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(year2)
-                        .addGap(18, 18, 18)
-                        .addComponent(year6))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(year3)
-                        .addGap(18, 18, 18)
-                        .addComponent(year7))
-                    .addComponent(jLabel4)
-                    .addComponent(searchButton2)
-                    .addComponent(jLabel18)
-                    .addComponent(jLabel24)
-                    .addComponent(title2, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jLabel23)
-                        .addComponent(jLabel21)
-                        .addComponent(jLabel20)
-                        .addComponent(albumtext)
-                        .addComponent(artist2)
-                        .addComponent(jLabel19)
-                        .addComponent(lyrictext)
-                        .addComponent(length2)))
-                .addContainerGap(51, Short.MAX_VALUE))
+                        .addComponent(genreselect, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(searchButton2)
+                        .addGap(32, 32, 32))))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -385,7 +396,9 @@ public class GUI extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(genreselect, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(genreselect, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(searchButton2))
                 .addGap(18, 18, 18)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -404,9 +417,7 @@ public class GUI extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(year3)
                     .addComponent(year7))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(searchButton2)
-                .addContainerGap(644, Short.MAX_VALUE))
+                .addContainerGap(671, Short.MAX_VALUE))
         );
 
         jSplitPane2.setLeftComponent(jPanel3);
@@ -436,7 +447,7 @@ public class GUI extends javax.swing.JFrame {
             }
         });
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        outputtable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null},
@@ -476,7 +487,12 @@ public class GUI extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        table.setViewportView(jTable2);
+        outputtable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                outputtableMouseClicked(evt);
+            }
+        });
+        table.setViewportView(outputtable);
 
         audioProgressSlider1.setMaximum(1000);
         audioProgressSlider1.setValue(0);
@@ -610,7 +626,7 @@ public class GUI extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    
     private void viewSongsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewSongsActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_viewSongsActionPerformed
@@ -689,8 +705,28 @@ public class GUI extends javax.swing.JFrame {
     }//GEN-LAST:event_length2lengthActionPerformed
 
     private void searchButton2searchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchButton2searchButtonActionPerformed
-        // TODO add your handling code here:
+        // create the appropriate WHERE clause
+        if(mood0.isSelected()||mood1.isSelected()||mood2.isSelected()||mood3.isSelected()||mood4.isSelected()||mood5.isSelected()||mood6.isSelected()||mood7.isSelected()){
+            
+        }
+        if(!title2.getText().equals("")){
+            
+        }
+        if(!artist2.getText().equals("")){
+            
+        }
+        if(!length2.getText().equals("")){
+            
+        }
+        //get results from database
         
+        
+        //output to table
+        for(int i = 0; i<25; i++){
+            for(int j = 0; j<6; j++){
+                outputtable.setValueAt("test",i,j);
+            }
+        }
     }//GEN-LAST:event_searchButton2searchButtonActionPerformed
 
     private void artist2artistActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_artist2artistActionPerformed
@@ -712,6 +748,18 @@ public class GUI extends javax.swing.JFrame {
     private void title2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_title2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_title2ActionPerformed
+
+    private void outputtableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_outputtableMouseClicked
+        // TODO add your handling code here:
+        int row = outputtable.getSelectedRow();
+        System.out.println(row);
+        String[] selectrow = new String[6];
+        for(int i = 0; i<6; i++){
+            selectrow[i] = String.valueOf(outputtable.getModel().getValueAt(row, i));
+            System.out.println(selectrow[i]);
+        }
+        
+    }//GEN-LAST:event_outputtableMouseClicked
 
     /**
      * @param args the command line arguments
@@ -740,8 +788,40 @@ public class GUI extends javax.swing.JFrame {
         }
         //</editor-fold>
         /* Create and display the form */
-        //File newfile = new File("C:\\Users\\Mitchell\\Documents\\leftright.wav");
-        File newfile = new File("F:\\Jeffrey\\Music\\Songs\\wav\\0\\Dynamite.wav");
+        String mp3mdir = "F:\\Jeffrey\\Music\\Songs"; //directory for MP3
+        File musicdir = new File(mp3mdir);
+        //array of MP3 files (to get artist and title)
+        File[] allmp3files = musicdir.listFiles(new FilenameFilter(){ //use filter to make sure we don't read any album art files (.jpg)
+            @Override
+            public boolean accept(File dir, String name){
+                if(name.toLowerCase().endsWith(".jpg")){
+                    return false;
+                }
+                return true;
+            }
+        }
+        );
+        
+        String wavmdir = "F:\\Jeffrey\\Music\\Songs\\wav\\0"; //directory for WAV
+        musicdir = new File(wavmdir);
+        //array of WAV files (to play)
+        File[] allwavfiles = musicdir.listFiles(new FilenameFilter(){ //use filter to make sure we don't read any album art files (.jpg)
+            @Override
+            public boolean accept(File dir, String name){
+                if(name.toLowerCase().endsWith(".jpg")){
+                    return false;
+                }
+                return true;
+            }
+        }
+        );
+        
+        
+        
+        //newfile = new File("C:\\Users\\Mitchell\\Documents\\leftright.wav");
+
+        newfile = new File("F:\\Jeffrey\\Music\\Songs\\wav\\0\\Dynamite.wav");
+        
         //DatabaseAccess dba = new DatabaseAccess();
         //Connection con = dba.startconnection("orcl");
         //
@@ -782,7 +862,6 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JSplitPane jSplitPane2;
-    private javax.swing.JTable jTable2;
     private javax.swing.JTextArea jTextArea2;
     private javax.swing.JTextField length2;
     private javax.swing.JMenuItem loadClassifier;
@@ -796,6 +875,7 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JCheckBox mood5;
     private javax.swing.JCheckBox mood6;
     private javax.swing.JCheckBox mood7;
+    private javax.swing.JTable outputtable;
     private javax.swing.JButton playpause1;
     private javax.swing.JButton searchButton2;
     private javax.swing.JButton stopButton1;
