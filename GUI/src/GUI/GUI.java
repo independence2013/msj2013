@@ -13,6 +13,10 @@ import java.io.FileInputStream;
 import java.io.FilenameFilter;
 import java.net.URL;
 import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
@@ -40,6 +44,16 @@ public class GUI extends javax.swing.JFrame {
         }
         return (int) l;
     }
+    public static int[] convertIntegers(List<Integer> integers){
+        int[] ret = new int[integers.size()];
+        Iterator<Integer> iterator = integers.iterator();
+        for (int i = 0; i < ret.length; i++)
+        {
+            ret[i] = iterator.next().intValue();
+        }
+        return ret;
+    }
+
     //File newfile = new File("C:\\Users\\Mitchell\\Documents\\leftright.wav");
 
     static File newfile = new File("F:\\Jeffrey\\Music\\Songs\\wav\\0\\Dynamite.wav");
@@ -47,7 +61,8 @@ public class GUI extends javax.swing.JFrame {
     boolean x = true;
     Thread thread = new Thread(new thread1());
     long playloc = 0;
-    
+    static DatabaseAccess dba = new DatabaseAccess();
+    static Connection con = dba.startconnection("orcl");
     
     public class thread1 implements Runnable{
         public void run(){
@@ -706,20 +721,49 @@ public class GUI extends javax.swing.JFrame {
 
     private void searchButton2searchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchButton2searchButtonActionPerformed
         // create the appropriate WHERE clause
-        if(mood0.isSelected()||mood1.isSelected()||mood2.isSelected()||mood3.isSelected()||mood4.isSelected()||mood5.isSelected()||mood6.isSelected()||mood7.isSelected()){
-            
+        ArrayList<Integer> moodt = new ArrayList<Integer>();
+        if(mood0.isSelected()){
+            moodt.add(0);
         }
+        if(mood1.isSelected()){
+            moodt.add(1);
+        }
+        if(mood2.isSelected()){
+            moodt.add(2);
+        }
+        if(mood3.isSelected()){
+            moodt.add(3);
+        }
+        if(mood4.isSelected()){
+            moodt.add(4);
+        }
+        if(mood5.isSelected()){
+            moodt.add(5);
+        }
+        if(mood6.isSelected()){
+            moodt.add(6);
+        }
+        if(mood7.isSelected()){
+            moodt.add(7);
+        }
+        int[] moods = convertIntegers(moodt);
         if(!title2.getText().equals("")){
             
         }
         if(!artist2.getText().equals("")){
             
         }
+        int seconds = 0;
         if(!length2.getText().equals("")){
-            
+            int index = length2.getText().indexOf(":");
+            seconds = Integer.parseInt(length2.getText().substring(index+1)) + Integer.parseInt(length2.getText().substring(0,index))*60;
         }
         //get results from database
-        
+        try{
+            dba.getSearchResults(con,moods,seconds);
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
         
         //output to table
         for(int i = 0; i<25; i++){
@@ -822,9 +866,6 @@ public class GUI extends javax.swing.JFrame {
 
         newfile = new File("F:\\Jeffrey\\Music\\Songs\\wav\\0\\Dynamite.wav");
         
-        //DatabaseAccess dba = new DatabaseAccess();
-        //Connection con = dba.startconnection("orcl");
-        //
         int[] moodtest = {0,1,2,3,4,5,6,7,-1,-1,-1};
         AudioWaveformCreator awc = new AudioWaveformCreator(newfile, "out.png", moodtest);
         java.awt.EventQueue.invokeLater(new Runnable() {

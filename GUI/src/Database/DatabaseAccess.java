@@ -135,18 +135,26 @@ public class DatabaseAccess {
         Statement stmt = null;
         int upperlength = length + 30;
         int lowerlength = length - 30;
+        if(lowerlength < 0){
+            lowerlength = 0;
+        }
         String moods = "";
         for(int i = 0; i<mood.length; i++){
             moods = moods + mood[i] +  ",";
         }
-        moods = moods.substring(0, moods.lastIndexOf(","));
+        String moodsquery = "";
+        if(moods != ""){
+            moods = moods.substring(0, moods.lastIndexOf(","));
+            moodsquery = " AND AUDIOMOOD IN ("+moods+")";
+        }
         String query =
-                "SELECT TITLE,ARTISTID FROM SONGTABLE WHERE LENGTH BETWEEN" + lowerlength + "AND" + upperlength + "AND OVERALLMOOD IN ("+moods+")";
+                "SELECT TITLE,ARTISTID FROM SONGTABLE WHERE SLENGTH BETWEEN " + lowerlength + " AND " + upperlength + moodsquery;
+        System.out.println(query);
         try {
             stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery(query);
             while(rs.next()) {
-                //id = rs.getInt("ARTISTNAME");
+                System.out.println(rs.getString("TITLE"));
             }
         } catch (SQLException e) {
             System.err.println(e);
