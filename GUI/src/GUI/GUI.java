@@ -50,16 +50,13 @@ public class GUI extends javax.swing.JFrame {
     
     public class thread1 implements Runnable{
         public void run(){
-            while (clip.getMicrosecondPosition() < clip.getMicrosecondLength()){ //Progressively increment variable i
+            while ((clip.getMicrosecondPosition() < clip.getMicrosecondLength())&&!thread.isInterrupted()){
                 long sprog = (clip.getMicrosecondPosition());
                 long slength = (clip.getMicrosecondLength());
-                String seconds = "" + (sprog/1000000)%60;
-                String sec = "";
+                String seconds = Long.toString((sprog/1000000)%60);
                 long minutes = ((sprog/1000000)-Integer.parseInt(seconds))/60;
-                //System.out.println(minutes+":"+seconds);
-                long position = (long)(sprog*1000/slength);
-                //System.out.println(position);
-                System.out.println(sprog + " / " + slength + " * 100 = " + position + " " + sprog/slength);
+                long position = (long)(sprog*1000/slength); //aduio progress abr is 1000 units long
+                System.out.println(sprog + " / " + slength + " * 1000 = " + position);
                 audioProgressSlider1.setValue(safeLongToInt(position));
                 if(Integer.parseInt(seconds)<10){
                     seconds = "0" + seconds;
@@ -68,7 +65,9 @@ public class GUI extends javax.swing.JFrame {
 //                                audioProgressSlider1.setValue(i); //Set value
 //				audioProgressSlider1.repaint(); //Refresh graphics
                 try{Thread.sleep(50);} //Sleep 50 milliseconds
-                catch (InterruptedException err){}
+                catch (InterruptedException err){
+                    return;
+                }
             }
         }
     }
@@ -463,7 +462,7 @@ public class GUI extends javax.swing.JFrame {
             }
         });
 
-        jLabel27.setIcon(new javax.swing.ImageIcon("C:\\Users\\Mitchell\\Documents\\GitHub\\msj2013\\GUI\\out.png")); // NOI18N
+        jLabel27.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/out.png"))); // NOI18N
 
         stopButton1.setText("Stop");
         stopButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -519,7 +518,7 @@ public class GUI extends javax.swing.JFrame {
 
         jLabel6.setText("jLabel6");
 
-        jLabel10.setText("jLabel10");
+        jLabel10.setText("0:00");
 
         jLabel11.setText("jLabel11");
 
@@ -959,17 +958,23 @@ public class GUI extends javax.swing.JFrame {
                 clip.open(ais);
                 clip.setMicrosecondPosition(playloc);
                 clip.start();
-                thread.start();
-//                if(thread.isAlive() == false){
-//                    thread.start();
-//                } else{
-//                    thread.notify();
-//                }
-//                
+                System.out.println(thread.isInterrupted());
+                if(!thread.isAlive()){
+                    thread = new Thread(new thread1());
+                    thread.start();
+                }
+                else if(thread.isInterrupted()){
+                    thread.interrupted();
+                }
+               
             } catch (Exception e){
-                System.out.println(e);
+                e.printStackTrace();
             }
         } else {
+            if(!thread.isInterrupted()){
+                thread.interrupt();
+                System.out.println("Interrupted!");
+            }
             playpause1.setText("Play");
             playloc = clip.getMicrosecondPosition();
             clip.stop();
@@ -1014,9 +1019,15 @@ public class GUI extends javax.swing.JFrame {
         // TODO add your handling code here:
         playpause1.setText("Play");
         x = true;
-        clip.stop();
-        clip.setMicrosecondPosition(0);
-        
+        playloc = 0;
+        if((clip != null)){
+            clip.stop();
+            clip.setMicrosecondPosition(0);
+        }
+        if(!thread.isInterrupted()&&thread.isAlive()){
+            thread.interrupt();
+        }
+        jLabel10.setText("0:00");
         audioProgressSlider1.setValue(0);
     }//GEN-LAST:event_stopButton1ActionPerformed
 
