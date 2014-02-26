@@ -61,7 +61,9 @@ public class GUI extends javax.swing.JFrame {
                 if(Integer.parseInt(seconds)<10){
                     seconds = "0" + seconds;
                 }
-                jLabel10.setText(minutes+":"+seconds);
+                currenttime.setText(minutes+":"+seconds);
+                long totminutes = ((slength/1000000)-(slength/1000000)%60)/60;
+                timeleft.setText(totminutes + ":" + (slength/1000000)%60);
 //                                audioProgressSlider1.setValue(i); //Set value
 //				audioProgressSlider1.repaint(); //Refresh graphics
                 try{Thread.sleep(50);} //Sleep 50 milliseconds
@@ -88,92 +90,55 @@ public class GUI extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel2 = new javax.swing.JPanel();
         jSplitPane2 = new javax.swing.JSplitPane();
         jPanel3 = new javax.swing.JPanel();
         jLabel18 = new javax.swing.JLabel();
-        jCheckBox17 = new javax.swing.JCheckBox();
-        jCheckBox18 = new javax.swing.JCheckBox();
-        jTextField5 = new javax.swing.JTextField();
+        mood5 = new javax.swing.JCheckBox();
+        mood6 = new javax.swing.JCheckBox();
+        albumtext = new javax.swing.JTextField();
         jLabel19 = new javax.swing.JLabel();
-        jTextField6 = new javax.swing.JTextField();
+        lyrictext = new javax.swing.JTextField();
         jLabel20 = new javax.swing.JLabel();
-        jCheckBox19 = new javax.swing.JCheckBox();
-        jCheckBox20 = new javax.swing.JCheckBox();
-        jCheckBox21 = new javax.swing.JCheckBox();
+        mood4 = new javax.swing.JCheckBox();
+        mood1 = new javax.swing.JCheckBox();
+        mood0 = new javax.swing.JCheckBox();
         jLabel21 = new javax.swing.JLabel();
         jLabel22 = new javax.swing.JLabel();
         title2 = new javax.swing.JTextField();
         artist2 = new javax.swing.JTextField();
         jLabel23 = new javax.swing.JLabel();
-        jCheckBox22 = new javax.swing.JCheckBox();
+        mood2 = new javax.swing.JCheckBox();
         searchButton2 = new javax.swing.JButton();
-        jCheckBox23 = new javax.swing.JCheckBox();
+        mood3 = new javax.swing.JCheckBox();
         length2 = new javax.swing.JTextField();
-        jCheckBox24 = new javax.swing.JCheckBox();
+        mood7 = new javax.swing.JCheckBox();
         jLabel24 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jCheckBox33 = new javax.swing.JCheckBox();
-        jCheckBox34 = new javax.swing.JCheckBox();
-        jCheckBox35 = new javax.swing.JCheckBox();
-        jCheckBox36 = new javax.swing.JCheckBox();
-        jCheckBox37 = new javax.swing.JCheckBox();
-        jCheckBox38 = new javax.swing.JCheckBox();
+        year1 = new javax.swing.JCheckBox();
+        year2 = new javax.swing.JCheckBox();
+        year3 = new javax.swing.JCheckBox();
+        year5 = new javax.swing.JCheckBox();
+        year6 = new javax.swing.JCheckBox();
+        year7 = new javax.swing.JCheckBox();
         jLabel4 = new javax.swing.JLabel();
-        jCheckBox39 = new javax.swing.JCheckBox();
-        jCheckBox40 = new javax.swing.JCheckBox();
-        jComboBox1 = new javax.swing.JComboBox();
+        year4 = new javax.swing.JCheckBox();
+        year0 = new javax.swing.JCheckBox();
+        genreselect = new javax.swing.JComboBox();
         jPanel4 = new javax.swing.JPanel();
         jLabel25 = new javax.swing.JLabel();
-        jScrollPane3 = new javax.swing.JScrollPane();
+        lyrics = new javax.swing.JScrollPane();
         jTextArea2 = new javax.swing.JTextArea();
         jLabel26 = new javax.swing.JLabel();
         playpause1 = new javax.swing.JButton();
         jLabel27 = new javax.swing.JLabel();
         stopButton1 = new javax.swing.JButton();
-        jScrollPane4 = new javax.swing.JScrollPane();
+        table = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
         audioProgressSlider1 = new javax.swing.JSlider();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
+        timeleft = new javax.swing.JLabel();
+        currenttime = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
-        jPanel1 = new javax.swing.JPanel();
-        length1 = new javax.swing.JTextField();
-        searchButton1 = new javax.swing.JButton();
-        jLabel16 = new javax.swing.JLabel();
-        artist1 = new javax.swing.JTextField();
-        jLabel13 = new javax.swing.JLabel();
-        jCheckBox16 = new javax.swing.JCheckBox();
-        jLabel2 = new javax.swing.JLabel();
-        jCheckBox12 = new javax.swing.JCheckBox();
-        jCheckBox13 = new javax.swing.JCheckBox();
-        jLabel12 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
-        jLabel7 = new javax.swing.JLabel();
-        audioProgress = new javax.swing.JProgressBar();
-        jLabel8 = new javax.swing.JLabel();
-        playpause = new javax.swing.JButton();
-        stopButton = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        jCheckBox9 = new javax.swing.JCheckBox();
-        audioProgressSlider = new javax.swing.JSlider();
-        jCheckBox10 = new javax.swing.JCheckBox();
-        jCheckBox11 = new javax.swing.JCheckBox();
-        jLabel14 = new javax.swing.JLabel();
-        title1 = new javax.swing.JTextField();
-        jCheckBox15 = new javax.swing.JCheckBox();
-        jCheckBox14 = new javax.swing.JCheckBox();
-        jTextField3 = new javax.swing.JTextField();
-        jLabel9 = new javax.swing.JLabel();
-        jLabel15 = new javax.swing.JLabel();
-        jTextField4 = new javax.swing.JTextField();
-        jLabel17 = new javax.swing.JLabel();
-        jComboBox4 = new javax.swing.JComboBox();
-        jComboBox3 = new javax.swing.JComboBox();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         viewSongs = new javax.swing.JMenuItem();
@@ -186,12 +151,6 @@ public class GUI extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(1024, 576));
-
-        jTabbedPane1.setMaximumSize(new java.awt.Dimension(3840, 2160));
-        jTabbedPane1.setMinimumSize(new java.awt.Dimension(1024, 576));
-        jTabbedPane1.setName(""); // NOI18N
-        jTabbedPane1.setPreferredSize(new java.awt.Dimension(1280, 699));
-        jTabbedPane1.setRequestFocusEnabled(false);
 
         jPanel2.setFocusCycleRoot(true);
         jPanel2.setMaximumSize(new java.awt.Dimension(3840, 2160));
@@ -213,41 +172,47 @@ public class GUI extends javax.swing.JFrame {
         jLabel18.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel18.setText("Search");
 
-        jCheckBox17.setText("Mood 5");
+        mood5.setText("Mood 5");
 
-        jCheckBox18.setText("Mood 6");
+        mood6.setText("Mood 6");
 
-        jTextField5.addActionListener(new java.awt.event.ActionListener() {
+        albumtext.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField5jTextField1ActionPerformed(evt);
+                albumtextjTextField1ActionPerformed(evt);
             }
         });
 
         jLabel19.setText("Lyrics");
 
-        jTextField6.setText("(type any part of a song's lyrics you remember here)");
-        jTextField6.addActionListener(new java.awt.event.ActionListener() {
+        lyrictext.setText("(type any part of a song's lyrics you remember here)");
+        lyrictext.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField6jTextField2ActionPerformed(evt);
+                lyrictextjTextField2ActionPerformed(evt);
             }
         });
 
         jLabel20.setText("Album");
 
-        jCheckBox19.setText("Mood 4");
-        jCheckBox19.addActionListener(new java.awt.event.ActionListener() {
+        mood4.setText("Mood 4");
+        mood4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBox19jCheckBox5ActionPerformed(evt);
+                mood4jCheckBox5ActionPerformed(evt);
             }
         });
 
-        jCheckBox20.setText("Mood 1");
+        mood1.setText("Mood 1");
 
-        jCheckBox21.setText("Mood 0");
+        mood0.setText("Mood 0");
 
         jLabel21.setText("Artist");
 
         jLabel22.setText("Mood(s):");
+
+        title2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                title2ActionPerformed(evt);
+            }
+        });
 
         artist2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -257,7 +222,7 @@ public class GUI extends javax.swing.JFrame {
 
         jLabel23.setText("Length");
 
-        jCheckBox22.setText("Mood 2");
+        mood2.setText("Mood 2");
 
         searchButton2.setText("Search");
         searchButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -266,7 +231,7 @@ public class GUI extends javax.swing.JFrame {
             }
         });
 
-        jCheckBox23.setText("Mood 3");
+        mood3.setText("Mood 3");
 
         length2.setText("(min:sec)");
         length2.addActionListener(new java.awt.event.ActionListener() {
@@ -275,47 +240,47 @@ public class GUI extends javax.swing.JFrame {
             }
         });
 
-        jCheckBox24.setText("Mood 7");
+        mood7.setText("Mood 7");
 
         jLabel24.setText("Song Name");
 
         jLabel3.setText("Genre(s)");
 
-        jCheckBox33.setText("1950-1959");
-        jCheckBox33.setToolTipText("");
+        year1.setText("1950-1959");
+        year1.setToolTipText("");
 
-        jCheckBox34.setText("1960-1969");
+        year2.setText("1960-1969");
 
-        jCheckBox35.setText("1970-1979");
-        jCheckBox35.addActionListener(new java.awt.event.ActionListener() {
+        year3.setText("1970-1979");
+        year3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBox35ActionPerformed(evt);
+                year3ActionPerformed(evt);
             }
         });
 
-        jCheckBox36.setText("1990-1999");
+        year5.setText("1990-1999");
 
-        jCheckBox37.setText("2000-2009");
+        year6.setText("2000-2009");
 
-        jCheckBox38.setText("2010-2014");
+        year7.setText("2010-2014");
 
         jLabel4.setText("Year(s) Released");
 
-        jCheckBox39.setText("1980-1989");
-        jCheckBox39.addActionListener(new java.awt.event.ActionListener() {
+        year4.setText("1980-1989");
+        year4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBox39jCheckBox5ActionPerformed(evt);
+                year4jCheckBox5ActionPerformed(evt);
             }
         });
 
-        jCheckBox40.setText("1940-1949");
-        jCheckBox40.addActionListener(new java.awt.event.ActionListener() {
+        year0.setText("1940-1949");
+        year0.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBox40ActionPerformed(evt);
+                year0ActionPerformed(evt);
             }
         });
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Choose One:", "Alternative", "Christian", "Classical", "Country", "Dance", "Electronic", "Gospel", "Hip Hop", "Holiday", "Pop", "R&B", "Rap", "Rock", "Soul", "Soundtrack", " " }));
+        genreselect.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Choose One:", "Alternative", "Christian", "Classical", "Country", "Dance", "Electronic", "Gospel", "Hip Hop", "Holiday", "Pop", "R&B", "Rap", "Rock", "Soul", "Soundtrack", " " }));
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -326,39 +291,39 @@ public class GUI extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel22)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jCheckBox21)
+                        .addComponent(mood0)
                         .addGap(18, 18, 18)
-                        .addComponent(jCheckBox19))
+                        .addComponent(mood4))
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jCheckBox20)
+                        .addComponent(mood1)
                         .addGap(18, 18, 18)
-                        .addComponent(jCheckBox17))
+                        .addComponent(mood5))
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jCheckBox22)
+                        .addComponent(mood2)
                         .addGap(18, 18, 18)
-                        .addComponent(jCheckBox18))
+                        .addComponent(mood6))
                     .addComponent(jLabel3)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(genreselect, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jCheckBox23)
+                        .addComponent(mood3)
                         .addGap(18, 18, 18)
-                        .addComponent(jCheckBox24))
+                        .addComponent(mood7))
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jCheckBox40)
+                        .addComponent(year0)
                         .addGap(18, 18, 18)
-                        .addComponent(jCheckBox39))
+                        .addComponent(year4))
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jCheckBox33)
+                        .addComponent(year1)
                         .addGap(18, 18, 18)
-                        .addComponent(jCheckBox36))
+                        .addComponent(year5))
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jCheckBox34)
+                        .addComponent(year2)
                         .addGap(18, 18, 18)
-                        .addComponent(jCheckBox37))
+                        .addComponent(year6))
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jCheckBox35)
+                        .addComponent(year3)
                         .addGap(18, 18, 18)
-                        .addComponent(jCheckBox38))
+                        .addComponent(year7))
                     .addComponent(jLabel4)
                     .addComponent(searchButton2)
                     .addComponent(jLabel18)
@@ -368,10 +333,10 @@ public class GUI extends javax.swing.JFrame {
                         .addComponent(jLabel23)
                         .addComponent(jLabel21)
                         .addComponent(jLabel20)
-                        .addComponent(jTextField5)
+                        .addComponent(albumtext)
                         .addComponent(artist2)
                         .addComponent(jLabel19)
-                        .addComponent(jTextField6)
+                        .addComponent(lyrictext)
                         .addComponent(length2)))
                 .addContainerGap(51, Short.MAX_VALUE))
         );
@@ -391,7 +356,7 @@ public class GUI extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel20)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(albumtext, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(12, 12, 12)
                 .addComponent(jLabel23)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -399,46 +364,46 @@ public class GUI extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel19)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(lyrictext, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel22)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jCheckBox21)
-                    .addComponent(jCheckBox19))
+                    .addComponent(mood0)
+                    .addComponent(mood4))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jCheckBox20)
-                    .addComponent(jCheckBox17))
+                    .addComponent(mood1)
+                    .addComponent(mood5))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jCheckBox22)
-                    .addComponent(jCheckBox18))
+                    .addComponent(mood2)
+                    .addComponent(mood6))
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jCheckBox23)
-                    .addComponent(jCheckBox24))
+                    .addComponent(mood3)
+                    .addComponent(mood7))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(genreselect, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jCheckBox40)
-                    .addComponent(jCheckBox39))
+                    .addComponent(year0)
+                    .addComponent(year4))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jCheckBox33)
-                    .addComponent(jCheckBox36))
+                    .addComponent(year1)
+                    .addComponent(year5))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jCheckBox34)
-                    .addComponent(jCheckBox37))
+                    .addComponent(year2)
+                    .addComponent(year6))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jCheckBox35)
-                    .addComponent(jCheckBox38))
+                    .addComponent(year3)
+                    .addComponent(year7))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(searchButton2)
                 .addContainerGap(644, Short.MAX_VALUE))
@@ -450,7 +415,7 @@ public class GUI extends javax.swing.JFrame {
 
         jTextArea2.setColumns(20);
         jTextArea2.setRows(5);
-        jScrollPane3.setViewportView(jTextArea2);
+        lyrics.setViewportView(jTextArea2);
 
         jLabel26.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel26.setText("Results");
@@ -511,14 +476,14 @@ public class GUI extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane4.setViewportView(jTable2);
+        table.setViewportView(jTable2);
 
         audioProgressSlider1.setMaximum(1000);
         audioProgressSlider1.setValue(0);
 
-        jLabel6.setText("jLabel6");
+        timeleft.setText("0:00");
 
-        jLabel10.setText("0:00");
+        currenttime.setText("0:00");
 
         jLabel11.setText("jLabel11");
 
@@ -536,21 +501,21 @@ public class GUI extends javax.swing.JFrame {
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel27, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(audioProgressSlider1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jScrollPane4, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(table, javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel4Layout.createSequentialGroup()
                                 .addComponent(jLabel26)
                                 .addGap(0, 0, Short.MAX_VALUE))
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel4Layout.createSequentialGroup()
-                                .addComponent(jLabel10)
+                                .addComponent(currenttime)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel6))
+                                .addComponent(timeleft))
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel4Layout.createSequentialGroup()
                                 .addComponent(playpause1, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(stopButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 450, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lyrics, javax.swing.GroupLayout.PREFERRED_SIZE, 450, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel25))))
                         .addContainerGap())))
         );
@@ -560,7 +525,7 @@ public class GUI extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel26)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(table, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel11)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -571,8 +536,8 @@ public class GUI extends javax.swing.JFrame {
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel10)
-                            .addComponent(jLabel6))
+                            .addComponent(currenttime)
+                            .addComponent(timeleft))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(playpause1)
@@ -582,306 +547,13 @@ public class GUI extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
                         .addComponent(jLabel25)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lyrics, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap())))
         );
 
         jSplitPane2.setRightComponent(jPanel4);
 
         jPanel2.add(jSplitPane2, java.awt.BorderLayout.CENTER);
-
-        jTabbedPane1.addTab("tab2", jPanel2);
-
-        length1.setText("(min:sec)");
-        length1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                lengthActionPerformed(evt);
-            }
-        });
-
-        searchButton1.setText("Search");
-        searchButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                searchButtonActionPerformed(evt);
-            }
-        });
-
-        jLabel16.setText("Length");
-
-        artist1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                artistActionPerformed(evt);
-            }
-        });
-
-        jLabel13.setText("Song Name");
-
-        jCheckBox16.setText("jCheckBox8");
-
-        jLabel2.setText("Mood(s):");
-
-        jCheckBox12.setText("jCheckBox6");
-
-        jCheckBox13.setText("jCheckBox7");
-
-        jLabel12.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel12.setText("Search");
-
-        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel5.setText("Results");
-
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane2.setViewportView(jTextArea1);
-
-        jLabel7.setText("Lyrics");
-
-        jLabel8.setText("Player");
-
-        playpause.setText("Play");
-        playpause.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                playpauseActionPerformed(evt);
-            }
-        });
-
-        stopButton.setText("Stop");
-        stopButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                stopButtonActionPerformed(evt);
-            }
-        });
-
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
-            },
-            new String [] {
-                "Song Name", "Artist", "Album", "Length", "Overall Mood", "Genre", "Year Released"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, true, false, true
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        jScrollPane1.setViewportView(jTable1);
-
-        jCheckBox9.setText("jCheckBox5");
-        jCheckBox9.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBox5ActionPerformed(evt);
-            }
-        });
-
-        jCheckBox10.setText("jCheckBox2");
-
-        jCheckBox11.setText("jCheckBox1");
-
-        jLabel14.setText("Artist");
-
-        jCheckBox15.setText("jCheckBox4");
-
-        jCheckBox14.setText("jCheckBox3");
-
-        jTextField3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
-            }
-        });
-
-        jLabel15.setText("Album");
-
-        jTextField4.setText("(type any part of a song's lyrics you remember here)");
-        jTextField4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField2ActionPerformed(evt);
-            }
-        });
-
-        jLabel17.setText("Lyrics");
-
-        jComboBox4.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jComboBox4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox1ActionPerformed(evt);
-            }
-        });
-
-        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(length1)
-                        .addComponent(jLabel16)
-                        .addComponent(jLabel14)
-                        .addComponent(jLabel9)
-                        .addComponent(jLabel15)
-                        .addComponent(title1)
-                        .addComponent(jTextField3)
-                        .addComponent(artist1)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addComponent(jCheckBox11)
-                            .addGap(18, 18, 18)
-                            .addComponent(jCheckBox9))
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addComponent(jCheckBox10)
-                            .addGap(18, 18, 18)
-                            .addComponent(jCheckBox12))
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addComponent(jCheckBox14)
-                            .addGap(18, 18, 18)
-                            .addComponent(jCheckBox13))
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addComponent(jCheckBox15)
-                            .addGap(18, 18, 18)
-                            .addComponent(jCheckBox16))
-                        .addComponent(jLabel17)
-                        .addComponent(jTextField4))
-                    .addComponent(jComboBox4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(searchButton1)
-                    .addComponent(jLabel12)
-                    .addComponent(jLabel13))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 207, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel5)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel7)
-                        .addGap(252, 252, 252)
-                        .addComponent(jLabel8))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(audioProgressSlider, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(playpause, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(stopButton, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(audioProgress, javax.swing.GroupLayout.PREFERRED_SIZE, 412, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(0, 106, Short.MAX_VALUE))))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 789, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(11, 11, 11)
-                        .addComponent(jLabel12))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel5)
-                        .addGap(91, 91, 91)))
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel7)
-                            .addComponent(jLabel8))
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(42, 42, 42)
-                                .addComponent(searchButton1))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(6, 6, 6)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(playpause)
-                                    .addComponent(stopButton))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(audioProgress, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(audioProgressSlider, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(7, 7, 7)
-                        .addComponent(jLabel13)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(title1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel14)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(artist1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel15)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel9)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel16)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(length1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel17)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jCheckBox11)
-                            .addComponent(jCheckBox9))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jCheckBox10)
-                            .addComponent(jCheckBox12))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jCheckBox14)
-                            .addComponent(jCheckBox13))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jCheckBox15)
-                            .addComponent(jCheckBox16))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jComboBox4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(225, 225, 225))))
-        );
-
-        jTabbedPane1.addTab("tab1", jPanel1);
 
         jMenuBar1.setMaximumSize(new java.awt.Dimension(3840, 21));
         jMenuBar1.setMinimumSize(new java.awt.Dimension(1024, 21));
@@ -923,11 +595,17 @@ public class GUI extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(0, 2, Short.MAX_VALUE)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 1275, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 3, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 699, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(0, 14, Short.MAX_VALUE)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 671, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 14, Short.MAX_VALUE))
         );
 
         pack();
@@ -941,9 +619,21 @@ public class GUI extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
-    private void stopButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_stopButtonActionPerformed
+    private void stopButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_stopButton1ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_stopButtonActionPerformed
+        playpause1.setText("Play");
+        x = true;
+        playloc = 0;
+        if((clip != null)){
+            clip.stop();
+            clip.setMicrosecondPosition(0);
+        }
+        if(!thread.isInterrupted()&&thread.isAlive()){
+            thread.interrupt();
+        }
+        currenttime.setText("0:00");
+        audioProgressSlider1.setValue(0);
+    }//GEN-LAST:event_stopButton1ActionPerformed
 
     private void playpauseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_playpauseActionPerformed
         // TODO add your handling code here:
@@ -966,7 +656,7 @@ public class GUI extends javax.swing.JFrame {
                 else if(thread.isInterrupted()){
                     thread.interrupted();
                 }
-               
+
             } catch (Exception e){
                 e.printStackTrace();
             }
@@ -978,66 +668,21 @@ public class GUI extends javax.swing.JFrame {
             playpause1.setText("Play");
             playloc = clip.getMicrosecondPosition();
             clip.stop();
-//            try {
-//                thread.wait();
-//            } catch (InterruptedException ex) {
-//                Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
-//            }
             x = true;
-        } 
+        }
     }//GEN-LAST:event_playpauseActionPerformed
 
-    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+    private void year0ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_year0ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox1ActionPerformed
+    }//GEN-LAST:event_year0ActionPerformed
 
-    private void searchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchButtonActionPerformed
+    private void year4jCheckBox5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_year4jCheckBox5ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_searchButtonActionPerformed
+    }//GEN-LAST:event_year4jCheckBox5ActionPerformed
 
-    private void jCheckBox5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox5ActionPerformed
+    private void year3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_year3ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jCheckBox5ActionPerformed
-
-    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField2ActionPerformed
-
-    private void lengthActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lengthActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_lengthActionPerformed
-
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
-
-    private void artistActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_artistActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_artistActionPerformed
-
-    private void stopButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_stopButton1ActionPerformed
-        // TODO add your handling code here:
-        playpause1.setText("Play");
-        x = true;
-        playloc = 0;
-        if((clip != null)){
-            clip.stop();
-            clip.setMicrosecondPosition(0);
-        }
-        if(!thread.isInterrupted()&&thread.isAlive()){
-            thread.interrupt();
-        }
-        jLabel10.setText("0:00");
-        audioProgressSlider1.setValue(0);
-    }//GEN-LAST:event_stopButton1ActionPerformed
-
-    private void jCheckBox40ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox40ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jCheckBox40ActionPerformed
-
-    private void jCheckBox39jCheckBox5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox39jCheckBox5ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jCheckBox39jCheckBox5ActionPerformed
+    }//GEN-LAST:event_year3ActionPerformed
 
     private void length2lengthActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_length2lengthActionPerformed
         // TODO add your handling code here:
@@ -1045,27 +690,28 @@ public class GUI extends javax.swing.JFrame {
 
     private void searchButton2searchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchButton2searchButtonActionPerformed
         // TODO add your handling code here:
+        
     }//GEN-LAST:event_searchButton2searchButtonActionPerformed
 
     private void artist2artistActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_artist2artistActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_artist2artistActionPerformed
 
-    private void jCheckBox19jCheckBox5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox19jCheckBox5ActionPerformed
+    private void mood4jCheckBox5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mood4jCheckBox5ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jCheckBox19jCheckBox5ActionPerformed
+    }//GEN-LAST:event_mood4jCheckBox5ActionPerformed
 
-    private void jTextField6jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField6jTextField2ActionPerformed
+    private void lyrictextjTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lyrictextjTextField2ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField6jTextField2ActionPerformed
+    }//GEN-LAST:event_lyrictextjTextField2ActionPerformed
 
-    private void jTextField5jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField5jTextField1ActionPerformed
+    private void albumtextjTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_albumtextjTextField1ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField5jTextField1ActionPerformed
+    }//GEN-LAST:event_albumtextjTextField1ActionPerformed
 
-    private void jCheckBox35ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox35ActionPerformed
+    private void title2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_title2ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jCheckBox35ActionPerformed
+    }//GEN-LAST:event_title2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1109,50 +755,15 @@ public class GUI extends javax.swing.JFrame {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem addSongs;
-    private javax.swing.JTextField artist1;
+    private javax.swing.JTextField albumtext;
     private javax.swing.JTextField artist2;
-    private javax.swing.JProgressBar audioProgress;
-    private javax.swing.JSlider audioProgressSlider;
     private javax.swing.JSlider audioProgressSlider1;
-    private javax.swing.JCheckBox jCheckBox10;
-    private javax.swing.JCheckBox jCheckBox11;
-    private javax.swing.JCheckBox jCheckBox12;
-    private javax.swing.JCheckBox jCheckBox13;
-    private javax.swing.JCheckBox jCheckBox14;
-    private javax.swing.JCheckBox jCheckBox15;
-    private javax.swing.JCheckBox jCheckBox16;
-    private javax.swing.JCheckBox jCheckBox17;
-    private javax.swing.JCheckBox jCheckBox18;
-    private javax.swing.JCheckBox jCheckBox19;
-    private javax.swing.JCheckBox jCheckBox20;
-    private javax.swing.JCheckBox jCheckBox21;
-    private javax.swing.JCheckBox jCheckBox22;
-    private javax.swing.JCheckBox jCheckBox23;
-    private javax.swing.JCheckBox jCheckBox24;
-    private javax.swing.JCheckBox jCheckBox33;
-    private javax.swing.JCheckBox jCheckBox34;
-    private javax.swing.JCheckBox jCheckBox35;
-    private javax.swing.JCheckBox jCheckBox36;
-    private javax.swing.JCheckBox jCheckBox37;
-    private javax.swing.JCheckBox jCheckBox38;
-    private javax.swing.JCheckBox jCheckBox39;
-    private javax.swing.JCheckBox jCheckBox40;
-    private javax.swing.JCheckBox jCheckBox9;
-    private javax.swing.JComboBox jComboBox1;
-    private javax.swing.JComboBox jComboBox3;
-    private javax.swing.JComboBox jComboBox4;
+    private javax.swing.JLabel currenttime;
+    private javax.swing.JComboBox genreselect;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel15;
-    private javax.swing.JLabel jLabel16;
-    private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
@@ -1163,44 +774,42 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JSplitPane jSplitPane2;
-    private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable2;
-    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextArea jTextArea2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
-    private javax.swing.JTextField jTextField6;
-    private javax.swing.JTextField length1;
     private javax.swing.JTextField length2;
     private javax.swing.JMenuItem loadClassifier;
-    private javax.swing.JButton playpause;
+    private javax.swing.JScrollPane lyrics;
+    private javax.swing.JTextField lyrictext;
+    private javax.swing.JCheckBox mood0;
+    private javax.swing.JCheckBox mood1;
+    private javax.swing.JCheckBox mood2;
+    private javax.swing.JCheckBox mood3;
+    private javax.swing.JCheckBox mood4;
+    private javax.swing.JCheckBox mood5;
+    private javax.swing.JCheckBox mood6;
+    private javax.swing.JCheckBox mood7;
     private javax.swing.JButton playpause1;
-    private javax.swing.JButton searchButton1;
     private javax.swing.JButton searchButton2;
-    private javax.swing.JButton stopButton;
     private javax.swing.JButton stopButton1;
-    private javax.swing.JTextField title1;
+    private javax.swing.JScrollPane table;
+    private javax.swing.JLabel timeleft;
     private javax.swing.JTextField title2;
     private javax.swing.JMenuItem viewSongs;
+    private javax.swing.JCheckBox year0;
+    private javax.swing.JCheckBox year1;
+    private javax.swing.JCheckBox year2;
+    private javax.swing.JCheckBox year3;
+    private javax.swing.JCheckBox year4;
+    private javax.swing.JCheckBox year5;
+    private javax.swing.JCheckBox year6;
+    private javax.swing.JCheckBox year7;
     // End of variables declaration//GEN-END:variables
 }
