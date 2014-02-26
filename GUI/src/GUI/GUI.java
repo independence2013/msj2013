@@ -241,7 +241,7 @@ public class GUI extends javax.swing.JFrame {
             }
         });
 
-        jLabel23.setText("Length");
+        jLabel23.setText("Length (min:sec)");
 
         mood2.setText("Mood 2");
 
@@ -254,7 +254,6 @@ public class GUI extends javax.swing.JFrame {
 
         mood3.setText("Mood 3");
 
-        length2.setText("(min:sec)");
         length2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 length2lengthActionPerformed(evt);

@@ -143,12 +143,16 @@ public class DatabaseAccess {
             moods = moods + mood[i] +  ",";
         }
         String moodsquery = "";
-        if(moods != ""){
+        if(!moods.equals("")){
             moods = moods.substring(0, moods.lastIndexOf(","));
             moodsquery = " AND AUDIOMOOD IN ("+moods+")";
         }
+        String lengthsquery = "";
+        if(length != 0){
+            lengthsquery = "WHERE SLENGTH BETWEEN " + lowerlength + " AND " + upperlength;
+        }
         String query =
-                "SELECT TITLE,ARTISTID FROM SONGTABLE WHERE SLENGTH BETWEEN " + lowerlength + " AND " + upperlength + moodsquery;
+                "SELECT TITLE,ARTISTID FROM SONGTABLE " + lengthsquery + moodsquery;
         System.out.println(query);
         try {
             stmt = con.createStatement();
