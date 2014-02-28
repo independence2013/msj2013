@@ -50,7 +50,7 @@ public class AudioWaveformCreator {
     int[] moods;
 
     
-    public ImageIcon AudioWaveformCreator(File filename, String waveformFilename, int[] moods) throws Exception {
+    public ImageIcon AudioWaveformCreator(File filename, int[] moods) throws Exception {
         ImageIcon image = new ImageIcon();
         if (filename != null) {
             try {

@@ -46,26 +46,9 @@ import org.jaudiotagger.tag.Tag;
 
 public class GUI extends javax.swing.JFrame {
     
-    public static int safeLongToInt(long l) {
-        if (l < Integer.MIN_VALUE || l > Integer.MAX_VALUE) {
-            throw new IllegalArgumentException
-                (l + " cannot be cast to int without changing its value.");
-        }
-        return (int) l;
-    }
-    public static int[] convertIntegers(List<Integer> integers){
-        int[] ret = new int[integers.size()];
-        Iterator<Integer> iterator = integers.iterator();
-        for (int i = 0; i < ret.length; i++)
-        {
-            ret[i] = iterator.next().intValue();
-        }
-        return ret;
-    }
-
-    //File newfile = new File("C:\\Users\\Mitchell\\Documents\\leftright.wav");
-
-    static File newfile = new File("F:\\Jeffrey\\Music\\Songs\\wav\\0\\Dynamite.wav");
+    static MP3Info[] mp3info;
+    static File[] allwavfiles;
+    static File songfile = new File("F:\\Jeffrey\\Music\\Songs\\wav\\0\\Dynamite.wav");
     Clip clip = null;
     boolean x = true;
     Thread thread = new Thread(new thread1());
@@ -75,6 +58,72 @@ public class GUI extends javax.swing.JFrame {
     static AudioWaveformCreator awc = new AudioWaveformCreator();
     DBRow[] result = new DBRow[25];
     int[] subsong = new int[31];
+    
+    public static int safeLongToInt(long l) {
+        if (l < Integer.MIN_VALUE || l > Integer.MAX_VALUE) {
+            throw new IllegalArgumentException
+                (l + " cannot be cast to int without changing its value.");
+        }
+        return (int) l;
+    }
+    
+    public static int[] convertIntegers(List<Integer> integers){
+        int[] ret = new int[integers.size()];
+        Iterator<Integer> iterator = integers.iterator();
+        for (int i = 0; i < ret.length; i++)
+        {
+            ret[i] = iterator.next().intValue();
+        }
+        return ret;
+    }
+    
+    public static double getDurationOfWavInSeconds(File file){   
+        AudioInputStream stream = null;
+        try 
+        {
+            stream = AudioSystem.getAudioInputStream(file);
+            AudioFormat format = stream.getFormat();
+            return file.length() / (format.getSampleRate()*(format.getSampleSizeInBits() / 8.0)*format.getChannels());
+        }
+        catch (Exception e) 
+        {
+            // log an error
+            return -1;
+        }
+        finally
+        {
+            try { stream.close(); } catch (Exception ex) { }
+        }
+    }
+    
+    public File loadsong(String name, String artist){
+        int i,j;
+        for(j = 0; j < mp3info.length; j++){
+            if((mp3info[j].name).equals(name) && (mp3info[j].artist).equals(artist)){
+                break;  
+            }
+        }
+        for(i = 0; i < allwavfiles.length; i++){
+            int length = (int)getDurationOfWavInSeconds(allwavfiles[i]);
+            if(mp3info[j].length == length){
+                break;
+            }
+        }
+        playloc = 0;
+        currenttime.setText("0:00");
+        audioProgressSlider1.setValue(0);
+        playpause1.setText("Play");
+        x = true;
+        if(!thread.isInterrupted()){
+            thread.interrupt();
+        }
+        if(clip != null){
+            clip.close();
+        }
+        return allwavfiles[i];
+    }
+
+    //File newfile = new File("C:\\Users\\Mitchell\\Documents\\leftright.wav");
     
     public class thread1 implements Runnable{
         public void run(){
@@ -684,7 +733,7 @@ public class GUI extends javax.swing.JFrame {
             try{
                 clip = AudioSystem.getClip();
                 // getAudioInputStream() also accepts a File or InputStream
-                AudioInputStream ais = AudioSystem.getAudioInputStream(newfile);
+                AudioInputStream ais = AudioSystem.getAudioInputStream(songfile);
                 clip.open(ais);
                 clip.setMicrosecondPosition(playloc);
                 clip.start();
@@ -825,7 +874,8 @@ public class GUI extends javax.swing.JFrame {
         }
         try {
             subsong = dba.retrievesubsong(con,selectrow[0],selectrow[1]);
-            image = awc.AudioWaveformCreator(newfile, "out.png", subsong);
+            songfile = loadsong(selectrow[0],selectrow[1]);
+            image = awc.AudioWaveformCreator(songfile, subsong);
             jLabel27.setIcon(image);
         } catch (Exception e){
             e.printStackTrace();
@@ -859,59 +909,59 @@ public class GUI extends javax.swing.JFrame {
         }
         //</editor-fold>
         /* Create and display the form */
-//        String mp3mdir = "F:\\Jeffrey\\Music\\Songs"; //directory for MP3
-//        File musicdir = new File(mp3mdir);
-//        //array of MP3 files (to get artist and title)
-//        File[] allmp3files = musicdir.listFiles(new FilenameFilter(){ //use filter to make sure we don't read any album art files (.jpg)
-//            @Override
-//            public boolean accept(File dir, String name){
-//                if(name.toLowerCase().endsWith(".jpg")){
-//                    return false;
-//                }
-//                return true;
-//            }
-//        }
-//        );
-//        
-//        String wavmdir = "F:\\Jeffrey\\Music\\Songs\\wav\\0"; //directory for WAV
-//        musicdir = new File(wavmdir);
-//        //array of WAV files (to play)
-//        File[] allwavfiles = musicdir.listFiles(new FilenameFilter(){ //use filter to make sure we don't read any album art files (.jpg)
-//            @Override
-//            public boolean accept(File dir, String name){
-//                if(name.toLowerCase().endsWith(".wav")){
-//                    return true;
-//                }
-//                return false;
-//            }
-//        }
-//        );
-//        
-//        MP3Info[] mp3info = new MP3Info[allmp3files.length];
-//        String filedir;
-//        for(int i = 0; i<allmp3files.length; i++){ //loop where there are files that haven't been run through
-//            mp3info[i] = new MP3Info();
-//            if(allmp3files[i].isFile()){ //if it is a file
-//                filedir = allmp3files[i].getAbsolutePath(); //get absolute path of the files
-//                
-//                File currentfile = new File(filedir); //file loaded here
-//                AudioFile f = null;
-//                try {
-//                    f = AudioFileIO.read(currentfile);
-//                } catch (Exception ex) {
-//                    ex.printStackTrace();
-//                }
-//                Tag tag = f.getTag();
-//                AudioHeader AudioHeader = f.getAudioHeader(); //get tags
-//                mp3info[i].artist = tag.getFirst(FieldKey.ARTIST).toLowerCase().replaceAll("[']","").replaceAll("\\(.*\\)","").replaceAll("[é]","e"); //make lowercase so any capitalization issues are gone
-//                mp3info[i].name = tag.getFirst(FieldKey.TITLE).toLowerCase().replaceAll("[']","").replaceAll("\\(.*\\)","").replaceAll("[é]","e");
-//                mp3info[i].length = f.getAudioHeader().getTrackLength(); //gives length in seconds
-//            }
-//        }
+        String mp3mdir = "F:\\Jeffrey\\Music\\Songs"; //directory for MP3
+        File musicdir = new File(mp3mdir);
+        //array of MP3 files (to get artist and title)
+        File[] allmp3files = musicdir.listFiles(new FilenameFilter(){ //use filter to make sure we don't read any album art files (.jpg)
+            @Override
+            public boolean accept(File dir, String name){
+                if(name.toLowerCase().endsWith(".jpg")){
+                    return false;
+                }
+                return true;
+            }
+        }
+        );
+        
+        String wavmdir = "F:\\Jeffrey\\Desktop\\wavsongs"; //directory for WAV
+        musicdir = new File(wavmdir);
+        //array of WAV files (to play)
+        allwavfiles = musicdir.listFiles(new FilenameFilter(){ //use filter to make sure we don't read any album art files (.jpg)
+            @Override
+            public boolean accept(File dir, String name){
+                if(name.toLowerCase().endsWith(".wav")){
+                    return true;
+                }
+                return false;
+            }
+        }
+        );
+        
+        mp3info = new MP3Info[allmp3files.length];
+        String filedir;
+        for(int i = 0; i<allmp3files.length; i++){ //loop where there are files that haven't been run through
+            mp3info[i] = new MP3Info();
+            if(allmp3files[i].isFile()){ //if it is a file
+                filedir = allmp3files[i].getAbsolutePath(); //get absolute path of the files
+                
+                File currentfile = new File(filedir); //file loaded here
+                AudioFile f = null;
+                try {
+                    f = AudioFileIO.read(currentfile);
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+                Tag tag = f.getTag();
+                AudioHeader AudioHeader = f.getAudioHeader(); //get tags
+                mp3info[i].artist = tag.getFirst(FieldKey.ARTIST).toLowerCase().replaceAll("[']","").replaceAll("\\(.*\\)","").replaceAll("[é]","e"); //make lowercase so any capitalization issues are gone
+                mp3info[i].name = tag.getFirst(FieldKey.TITLE).toLowerCase().replaceAll("[']","").replaceAll("\\(.*\\)","").replaceAll("[é]","e");
+                mp3info[i].length = f.getAudioHeader().getTrackLength(); //gives length in seconds
+            }
+        }
         
         //newfile = new File("C:\\Users\\Mitchell\\Documents\\leftright.wav");
 
-        newfile = new File("F:\\Jeffrey\\Music\\Songs\\wav\\0\\Dynamite.wav");
+        songfile = new File("F:\\Jeffrey\\Music\\Songs\\wav\\0\\Dynamite.wav");
         
         int[] moodtest = {0,1,2,3,4,5,6,7,-1,-1,-1};
         java.awt.EventQueue.invokeLater(new Runnable() {
