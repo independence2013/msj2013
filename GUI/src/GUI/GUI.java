@@ -63,6 +63,7 @@ public class GUI extends javax.swing.JFrame {
     long playloc = 0;
     static DatabaseAccess dba = new DatabaseAccess();
     static Connection con = dba.startconnection("orcl");
+    DBRow[] result = new DBRow[25];
     
     public class thread1 implements Runnable{
         public void run(){
@@ -756,18 +757,34 @@ public class GUI extends javax.swing.JFrame {
         if(!length2.getText().equals("")){
             int index = length2.getText().indexOf(":");
             seconds = Integer.parseInt(length2.getText().substring(index+1)) + Integer.parseInt(length2.getText().substring(0,index))*60;
+            System.out.println(seconds);
         }
         //get results from database
         try{
-            dba.getSearchResults(con,moods,seconds);
+            result = dba.getSearchResults(con,moods,seconds);
         } catch (SQLException e){
             e.printStackTrace();
         }
         
         //output to table
         for(int i = 0; i<25; i++){
-            for(int j = 0; j<6; j++){
-                outputtable.setValueAt("test",i,j);
+            if(result[i] != null){
+                outputtable.setValueAt(result[i].name,i,0);
+                outputtable.setValueAt(result[i].artist,i,1);
+                outputtable.setValueAt(result[i].album,i,2);
+                outputtable.setValueAt(result[i].length,i,3);
+                outputtable.setValueAt(result[i].mood,i,4);
+                outputtable.setValueAt(result[i].name,i,5);
+                outputtable.setValueAt(result[i].year,i,6);
+            }
+            else {
+                outputtable.setValueAt("",i,0);
+                outputtable.setValueAt("",i,1);
+                outputtable.setValueAt("",i,2);
+                outputtable.setValueAt("",i,3);
+                outputtable.setValueAt("",i,4);
+                outputtable.setValueAt("",i,5);
+                outputtable.setValueAt("",i,6);
             }
         }
     }//GEN-LAST:event_searchButton2searchButtonActionPerformed

@@ -4,6 +4,7 @@
  */
 package Database;
 
+import GUI.DBRow;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -131,7 +132,8 @@ public class DatabaseAccess {
         return id;
     }
     
-    public static void getSearchResults(Connection con, int[] mood, int length) throws SQLException{
+    public static DBRow[] getSearchResults(Connection con, int[] mood, int length) throws SQLException{
+        DBRow[] output = new DBRow[25];
         Statement stmt = null;
         int upperlength = length + 30;
         int lowerlength = length - 30;
@@ -143,27 +145,37 @@ public class DatabaseAccess {
             moods = moods + mood[i] +  ",";
         }
         String moodsquery = "";
-        if(!moods.equals("")){
-            moods = moods.substring(0, moods.lastIndexOf(","));
-            moodsquery = " AND AUDIOMOOD IN ("+moods+")";
-        }
         String lengthsquery = "";
         if(length != 0){
             lengthsquery = "WHERE SLENGTH BETWEEN " + lowerlength + " AND " + upperlength;
         }
+        if(!moods.equals("")){
+            moods = moods.substring(0, moods.lastIndexOf(","));
+            moodsquery = " AND AUDIOMOOD IN ("+moods+")";
+            if(lengthsquery.equals("")){
+                moodsquery = "WHERE AUDIOMOOD IN ("+moods+")";
+            }
+        }
         String query =
-                "SELECT TITLE,ARTISTID FROM SONGTABLE " + lengthsquery + moodsquery;
+                "SELECT SONGTABLE.TITLE,SONGTABLE.AUDIOMOOD,SONGTABLE.SLENGTH,ARTISTS.ARTISTNAME FROM SONGTABLE INNER JOIN ARTISTS ON SONGTABLE.ARTISTID = ARTISTS.ARTISTID " + lengthsquery + moodsquery;
         System.out.println(query);
         try {
             stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery(query);
-            while(rs.next()) {
-                System.out.println(rs.getString("TITLE"));
+            int i = 0;
+            while(rs.next()&&(i<25)) {
+                output[i] = new DBRow();
+                output[i].name = rs.getString("TITLE");
+                output[i].artist = rs.getString("ARTISTNAME");
+                output[i].mood = rs.getInt("AUDIOMOOD");
+                output[i].length = rs.getInt("SLENGTH");
+                i++;
             }
         } catch (SQLException e) {
             System.err.println(e);
         } finally {
             if (stmt != null) { stmt.close(); } //close connection
         }
+        return output;
     }
 }
