@@ -24,6 +24,7 @@ import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -63,7 +64,9 @@ public class GUI extends javax.swing.JFrame {
     long playloc = 0;
     static DatabaseAccess dba = new DatabaseAccess();
     static Connection con = dba.startconnection("orcl");
+    static AudioWaveformCreator awc = new AudioWaveformCreator();
     DBRow[] result = new DBRow[25];
+    int[] subsong = new int[31];
     
     public class thread1 implements Runnable{
         public void run(){
@@ -777,7 +780,7 @@ public class GUI extends javax.swing.JFrame {
                 outputtable.setValueAt(result[i].name,i,5);
                 outputtable.setValueAt(result[i].year,i,6);
             }
-            else {
+            else { //clear any unused rows (so old results don't remain)
                 outputtable.setValueAt("",i,0);
                 outputtable.setValueAt("",i,1);
                 outputtable.setValueAt("",i,2);
@@ -811,6 +814,7 @@ public class GUI extends javax.swing.JFrame {
 
     private void outputtableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_outputtableMouseClicked
         // TODO add your handling code here:
+        ImageIcon image = new ImageIcon();
         int row = outputtable.getSelectedRow();
         System.out.println(row);
         String[] selectrow = new String[6];
@@ -818,7 +822,13 @@ public class GUI extends javax.swing.JFrame {
             selectrow[i] = String.valueOf(outputtable.getModel().getValueAt(row, i));
             System.out.println(selectrow[i]);
         }
-        
+        try {
+            subsong = dba.retrievesubsong(con,selectrow[0],selectrow[1]);
+            image = awc.AudioWaveformCreator(newfile, "out.png", subsong);
+            jLabel27.setIcon(image);
+        } catch (Exception e){
+            e.printStackTrace();
+        }
     }//GEN-LAST:event_outputtableMouseClicked
 
     /**
@@ -883,7 +893,6 @@ public class GUI extends javax.swing.JFrame {
         newfile = new File("F:\\Jeffrey\\Music\\Songs\\wav\\0\\Dynamite.wav");
         
         int[] moodtest = {0,1,2,3,4,5,6,7,-1,-1,-1};
-        AudioWaveformCreator awc = new AudioWaveformCreator(newfile, "out.png", moodtest);
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new GUI().setVisible(true);

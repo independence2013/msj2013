@@ -45,11 +45,17 @@ public class DatabaseAccess {
         return connection;
     }
      
-     public static int[] retrievesubsong(Connection con, String title, int artistid) throws SQLException{
+     public static int[] retrievesubsong(Connection con, String title, String artistname) throws SQLException{
         int[] song = new int[31];
         Statement stmt = null;
         String query =
-                "SELECT S0, S1, S2, S3, S4, S5, S6, S7, S8, S9, S10, S11, S12, S13, S14, S15, S16, S17, S18, S19, S20, S21, S22, S23, S24, S25, S26, S27, S28, S29, S30 FROM SONGTABLE WHERE ARTISTID = '" + artistid + "' AND TITLE = '"+ title +"'"; //find the song with lyrics that haven't been analyzed
+                "SELECT SONGTABLE.S0, SONGTABLE.S1, SONGTABLE.S2, SONGTABLE.S3, SONGTABLE.S4, SONGTABLE.S5, "
+                + "SONGTABLE.S6, SONGTABLE.S7, SONGTABLE.S8, SONGTABLE.S9, SONGTABLE.S10, "
+                + "SONGTABLE.S11, SONGTABLE.S12, SONGTABLE.S13, SONGTABLE.S14, SONGTABLE.S15, "
+                + "SONGTABLE.S16, SONGTABLE.S17, SONGTABLE.S18, SONGTABLE.S19, SONGTABLE.S20, "
+                + "SONGTABLE.S21, SONGTABLE.S22, SONGTABLE.S23, SONGTABLE.S24, SONGTABLE.S25, "
+                + "SONGTABLE.S26, SONGTABLE.S27, SONGTABLE.S28, SONGTABLE.S29, SONGTABLE.S30 "
+                + "FROM SONGTABLE INNER JOIN ARTISTS ON SONGTABLE.ARTISTID = ARTISTS.ARTISTID WHERE ARTISTNAME = '" + artistname + "' AND TITLE = '"+ title +"'"; //find the song with lyrics that haven't been analyzed
         try {
             stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery(query);
@@ -92,45 +98,7 @@ public class DatabaseAccess {
         } finally {
             if (stmt != null) { stmt.close(); } //close connection
         }
-    }
-    
-    public static String idtoArtist(Connection con, int id) throws SQLException{
-        String artist = "";
-        Statement stmt = null;
-        String query =
-                "SELECT ARTISTNAME FROM ARTISTS WHERE ARTISTID = '" + id + "'"; //find the song with lyrics that haven't been analyzed
-        try {
-            stmt = con.createStatement();
-            ResultSet rs = stmt.executeQuery(query);
-            if(rs.next()) { //get the first artist in the resultset (there should only be one)
-                artist = rs.getString("ARTISTNAME");
-            }
-        } catch (SQLException e) {
-            System.err.println(e);
-        } finally {
-            if (stmt != null) { stmt.close(); } //close connection
-        }
-        return artist;
-    }
-    
-    public static int artisttoId(Connection con, String name) throws SQLException{
-        int id = -1;
-        Statement stmt = null;
-        String query =
-                "SELECT ARTISTID FROM ARTISTS WHERE ARTISTNAME = '" + name + "'"; //find the song with lyrics that haven't been analyzed
-        try {
-            stmt = con.createStatement();
-            ResultSet rs = stmt.executeQuery(query);
-            if(rs.next()) { //get the first artist in the resultset (there should only be one)
-                id = rs.getInt("ARTISTNAME");
-            }
-        } catch (SQLException e) {
-            System.err.println(e);
-        } finally {
-            if (stmt != null) { stmt.close(); } //close connection
-        }
-        return id;
-    }
+    }    
     
     public static DBRow[] getSearchResults(Connection con, int[] mood, int length) throws SQLException{
         DBRow[] output = new DBRow[25];
@@ -157,7 +125,7 @@ public class DatabaseAccess {
             }
         }
         String query =
-                "SELECT SONGTABLE.TITLE,SONGTABLE.AUDIOMOOD,SONGTABLE.SLENGTH,ARTISTS.ARTISTNAME FROM SONGTABLE INNER JOIN ARTISTS ON SONGTABLE.ARTISTID = ARTISTS.ARTISTID " + lengthsquery + moodsquery;
+                "SELECT SONGTABLE.TITLE, SONGTABLE.AUDIOMOOD, SONGTABLE.SLENGTH, SONGTABLE.ARTISTID, ARTISTS.ARTISTNAME FROM SONGTABLE INNER JOIN ARTISTS ON SONGTABLE.ARTISTID = ARTISTS.ARTISTID " + lengthsquery + moodsquery;
         System.out.println(query);
         try {
             stmt = con.createStatement();

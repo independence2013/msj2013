@@ -50,7 +50,8 @@ public class AudioWaveformCreator {
     int[] moods;
 
     
-    public AudioWaveformCreator(File filename, String waveformFilename, int[] moods) throws Exception {
+    public ImageIcon AudioWaveformCreator(File filename, String waveformFilename, int[] moods) throws Exception {
+        ImageIcon image = new ImageIcon();
         if (filename != null) {
             try {
                 this.moods = moods;
@@ -60,7 +61,7 @@ public class AudioWaveformCreator {
                 long milliseconds = (long)((audioInputStream.getFrameLength()* 1000) / audioInputStream.getFormat().getFrameRate());
                 duration = milliseconds / 1000.0;
                 samplingGraph = new SamplingGraph();
-                samplingGraph.createWaveForm(null);                
+                image = samplingGraph.createWaveForm(null);                
             } catch (Exception ex) { 
                 reportStatus(ex.toString());
                 throw ex;
@@ -68,6 +69,7 @@ public class AudioWaveformCreator {
         } else {
             reportStatus("Audio file required.");
         }
+        return image;
     }
     /**
      * Render a WaveForm.
@@ -91,8 +93,8 @@ public class AudioWaveformCreator {
         }
 
 
-        public void createWaveForm(byte[] audioBytes) {
-
+        public ImageIcon createWaveForm(byte[] audioBytes) {
+            ImageIcon image = new ImageIcon();
             lines.removeAllElements();  // clear the old vector
 
             AudioFormat format = audioInputStream.getFormat();
@@ -104,7 +106,7 @@ public class AudioWaveformCreator {
                     audioInputStream.read(audioBytes);
                 } catch (Exception ex) { 
                     reportStatus(ex.getMessage());
-                    return; 
+                    return image; 
                 }
             }
             int w = 928;
@@ -159,14 +161,15 @@ public class AudioWaveformCreator {
                 lines.add(new Line2D.Double(x, y_last, x, y_new));
                 y_last = y_new;
             }
-            saveToFile();
+            return saveToFile();
         }
 
 
-        public void saveToFile() {            
+        public ImageIcon saveToFile() {            
             int w = 928;
             int h = 126;
             int INFOPAD = 0;
+            ImageIcon image;
 
             BufferedImage bufferedImage = new BufferedImage(w, h, BufferedImage.TYPE_INT_RGB);
             Graphics2D g2 = bufferedImage.createGraphics();
@@ -174,14 +177,16 @@ public class AudioWaveformCreator {
             createSampleOnGraphicsContext(w, h, INFOPAD, g2);            
             g2.dispose();
             // Write generated image to a file
-            try {
+            //try {
                 // Save as PNG
-                File file = new File(fileName);
-                System.out.println(file.getAbsolutePath());
-                ImageIO.write(bufferedImage, "png", file);
+                //File file = new File(fileName);
+                //System.out.println(file.getAbsolutePath());
+                //ImageIO.write(bufferedImage, "png", file);
                 //JOptionPane.showMessageDialog(null, new JLabel(new ImageIcon(fileName)));
-            } catch (IOException e) {
-            }
+            image = new ImageIcon(bufferedImage);
+            //} catch (IOException e) {
+            //}
+            return image;
         }
 
 
