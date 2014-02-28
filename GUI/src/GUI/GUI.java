@@ -129,8 +129,8 @@ public class GUI extends javax.swing.JFrame {
         mood0 = new javax.swing.JCheckBox();
         jLabel21 = new javax.swing.JLabel();
         jLabel22 = new javax.swing.JLabel();
-        title2 = new javax.swing.JTextField();
-        artist2 = new javax.swing.JTextField();
+        title = new javax.swing.JTextField();
+        artist = new javax.swing.JTextField();
         jLabel23 = new javax.swing.JLabel();
         mood2 = new javax.swing.JCheckBox();
         searchButton2 = new javax.swing.JButton();
@@ -183,6 +183,7 @@ public class GUI extends javax.swing.JFrame {
         jPanel2.setPreferredSize(new java.awt.Dimension(1280, 720));
         jPanel2.setLayout(new java.awt.BorderLayout());
 
+        jSplitPane2.setEnabled(false);
         jSplitPane2.setMinimumSize(new java.awt.Dimension(1024, 576));
         jSplitPane2.setName(""); // NOI18N
 
@@ -233,15 +234,15 @@ public class GUI extends javax.swing.JFrame {
 
         jLabel22.setText("Mood(s):");
 
-        title2.addActionListener(new java.awt.event.ActionListener() {
+        title.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                title2ActionPerformed(evt);
+                titleActionPerformed(evt);
             }
         });
 
-        artist2.addActionListener(new java.awt.event.ActionListener() {
+        artist.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                artist2artistActionPerformed(evt);
+                artistartistActionPerformed(evt);
             }
         });
 
@@ -314,7 +315,7 @@ public class GUI extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel22)
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addComponent(mood0)
@@ -352,16 +353,15 @@ public class GUI extends javax.swing.JFrame {
                             .addComponent(jLabel4)
                             .addComponent(jLabel18)
                             .addComponent(jLabel24)
-                            .addComponent(title2, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jLabel23)
-                                .addComponent(jLabel21)
-                                .addComponent(jLabel20)
-                                .addComponent(albumtext)
-                                .addComponent(artist2)
-                                .addComponent(jLabel19)
-                                .addComponent(lyrictext)
-                                .addComponent(length2)))
+                            .addComponent(jLabel23)
+                            .addComponent(jLabel21)
+                            .addComponent(jLabel20)
+                            .addComponent(albumtext)
+                            .addComponent(artist)
+                            .addComponent(jLabel19)
+                            .addComponent(lyrictext)
+                            .addComponent(length2)
+                            .addComponent(title))
                         .addContainerGap(51, Short.MAX_VALUE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(genreselect, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -377,11 +377,11 @@ public class GUI extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel24)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(title2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(title, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel21)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(artist2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(artist, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel20)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -455,8 +455,6 @@ public class GUI extends javax.swing.JFrame {
                 playpauseActionPerformed(evt);
             }
         });
-
-        jLabel27.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/out.png"))); // NOI18N
 
         stopButton1.setText("Stop");
         stopButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -547,7 +545,7 @@ public class GUI extends javax.swing.JFrame {
                                 .addComponent(playpause1, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(stopButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 343, Short.MAX_VALUE)
                                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(lyrics, javax.swing.GroupLayout.PREFERRED_SIZE, 450, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel25))))
@@ -723,7 +721,8 @@ public class GUI extends javax.swing.JFrame {
     }//GEN-LAST:event_length2lengthActionPerformed
 
     private void searchButton2searchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchButton2searchButtonActionPerformed
-        // create the appropriate WHERE clause
+        String titleText = title.getText();
+        String artistText = artist.getText();
         ArrayList<Integer> moodt = new ArrayList<Integer>();
         if(mood0.isSelected()){
             moodt.add(0);
@@ -750,12 +749,6 @@ public class GUI extends javax.swing.JFrame {
             moodt.add(7);
         }
         int[] moods = convertIntegers(moodt);
-        if(!title2.getText().equals("")){
-            
-        }
-        if(!artist2.getText().equals("")){
-            
-        }
         int seconds = 0;
         if(!length2.getText().equals("")){
             int index = length2.getText().indexOf(":");
@@ -764,7 +757,7 @@ public class GUI extends javax.swing.JFrame {
         }
         //get results from database
         try{
-            result = dba.getSearchResults(con,moods,seconds);
+            result = dba.getSearchResults(con,moods,seconds,titleText,artistText);
         } catch (SQLException e){
             e.printStackTrace();
         }
@@ -792,9 +785,9 @@ public class GUI extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_searchButton2searchButtonActionPerformed
 
-    private void artist2artistActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_artist2artistActionPerformed
+    private void artistartistActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_artistartistActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_artist2artistActionPerformed
+    }//GEN-LAST:event_artistartistActionPerformed
 
     private void mood4jCheckBox5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mood4jCheckBox5ActionPerformed
         // TODO add your handling code here:
@@ -808,9 +801,9 @@ public class GUI extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_albumtextjTextField1ActionPerformed
 
-    private void title2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_title2ActionPerformed
+    private void titleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_titleActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_title2ActionPerformed
+    }//GEN-LAST:event_titleActionPerformed
 
     private void outputtableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_outputtableMouseClicked
         // TODO add your handling code here:
@@ -902,7 +895,7 @@ public class GUI extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem addSongs;
     private javax.swing.JTextField albumtext;
-    private javax.swing.JTextField artist2;
+    private javax.swing.JTextField artist;
     private javax.swing.JSlider audioProgressSlider1;
     private javax.swing.JLabel currenttime;
     private javax.swing.JComboBox genreselect;
@@ -947,7 +940,7 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JButton stopButton1;
     private javax.swing.JScrollPane table;
     private javax.swing.JLabel timeleft;
-    private javax.swing.JTextField title2;
+    private javax.swing.JTextField title;
     private javax.swing.JMenuItem viewSongs;
     private javax.swing.JCheckBox year0;
     private javax.swing.JCheckBox year1;

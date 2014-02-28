@@ -55,7 +55,7 @@ public class DatabaseAccess {
                 + "SONGTABLE.S16, SONGTABLE.S17, SONGTABLE.S18, SONGTABLE.S19, SONGTABLE.S20, "
                 + "SONGTABLE.S21, SONGTABLE.S22, SONGTABLE.S23, SONGTABLE.S24, SONGTABLE.S25, "
                 + "SONGTABLE.S26, SONGTABLE.S27, SONGTABLE.S28, SONGTABLE.S29, SONGTABLE.S30 "
-                + "FROM SONGTABLE INNER JOIN ARTISTS ON SONGTABLE.ARTISTID = ARTISTS.ARTISTID WHERE ARTISTNAME = '" + artistname + "' AND TITLE = '"+ title +"'"; //find the song with lyrics that haven't been analyzed
+                + "FROM SONGTABLE INNER JOIN ARTISTS ON SONGTABLE.ARTISTID = ARTISTS.ARTISTID WHERE ARTISTNAME = '" + artistname + "' AND TITLE = '"+ title +"'";
         try {
             stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery(query);
@@ -79,7 +79,7 @@ public class DatabaseAccess {
             stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,
                    ResultSet.CONCUR_UPDATABLE);
             ResultSet uprs = stmt.executeQuery(
-            "SELECT S0, S1, S2, S3, S4, S5, S6, S7, S8, S9, S10, S11, S12, S13, S14, S15, S16, S17, S18, S19, S20, S21, S22, S23, S24, S25, S26, S27, S28, S29, S30 FROM SONGTABLE WHERE TITLE = '" + title + "' AND ARTISTID = '" + artistid + "'"); //get row with the song
+            "SELECT S0, S1, S2, S3, S4, S5, S6, S7, S8, S9, S10, S11, S12, S13, S14, S15, S16, S17, S18, S19, S20, S21, S22, S23, S24, S25, S26, S27, S28, S29, S30 FROM SONGTABLE WHERE TITLE = '" + title + "' AND ARTISTID = '" + artistid + "'");
             while (uprs.next()) {
                 if(values.length <= 20){
                     for(int i = 0; i < values.length; i++){
@@ -100,7 +100,11 @@ public class DatabaseAccess {
         }
     }    
     
-    public static DBRow[] getSearchResults(Connection con, int[] mood, int length) throws SQLException{
+    public static DBRow[] getSearchResults(Connection con, int[] mood, int length, String name, String artist) throws SQLException{
+        String moodsquery = "";
+        String lengthsquery = "";
+        String namesquery = "";
+        String artistsquery = "";
         DBRow[] output = new DBRow[25];
         Statement stmt = null;
         int upperlength = length + 30;
@@ -112,8 +116,6 @@ public class DatabaseAccess {
         for(int i = 0; i<mood.length; i++){
             moods = moods + mood[i] +  ",";
         }
-        String moodsquery = "";
-        String lengthsquery = "";
         if(length != 0){
             lengthsquery = "WHERE SLENGTH BETWEEN " + lowerlength + " AND " + upperlength;
         }
@@ -124,8 +126,20 @@ public class DatabaseAccess {
                 moodsquery = "WHERE AUDIOMOOD IN ("+moods+")";
             }
         }
+        if(!name.equals("")){
+            namesquery = " AND TITLE LIKE '%"+name.toLowerCase()+"%'";
+            if(moodsquery.equals("")){
+                namesquery = "WHERE TITLE LIKE '%"+name.toLowerCase()+"%'";
+            }
+        }
+        if(!artist.equals("")){
+            artistsquery = " AND ARTISTNAME LIKE '%"+artist.toLowerCase()+"%'";
+            if(namesquery.equals("")){
+                artistsquery = "WHERE ARTISTNAME LIKE '%"+artist.toLowerCase()+"%'";
+            }
+        }
         String query =
-                "SELECT SONGTABLE.TITLE, SONGTABLE.AUDIOMOOD, SONGTABLE.SLENGTH, SONGTABLE.ARTISTID, ARTISTS.ARTISTNAME FROM SONGTABLE INNER JOIN ARTISTS ON SONGTABLE.ARTISTID = ARTISTS.ARTISTID " + lengthsquery + moodsquery;
+                "SELECT SONGTABLE.TITLE, SONGTABLE.AUDIOMOOD, SONGTABLE.SLENGTH, SONGTABLE.ARTISTID, ARTISTS.ARTISTNAME FROM SONGTABLE INNER JOIN ARTISTS ON SONGTABLE.ARTISTID = ARTISTS.ARTISTID " + lengthsquery + moodsquery + namesquery + artistsquery;
         System.out.println(query);
         try {
             stmt = con.createStatement();
