@@ -11,6 +11,7 @@ import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;  
 import java.io.FilenameFilter;
+import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -31,6 +32,13 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
 import javax.swing.SwingUtilities;
 import javazoom.jl.player.Player;
+import org.jaudiotagger.audio.AudioFile;
+import org.jaudiotagger.audio.AudioFileIO;
+import org.jaudiotagger.audio.AudioHeader;
+import org.jaudiotagger.audio.exceptions.CannotReadException;
+import org.jaudiotagger.audio.exceptions.InvalidAudioFrameException;
+import org.jaudiotagger.tag.FieldKey;
+import org.jaudiotagger.tag.Tag;
 
 /**
  * Code for GUI
@@ -851,35 +859,55 @@ public class GUI extends javax.swing.JFrame {
         }
         //</editor-fold>
         /* Create and display the form */
-        String mp3mdir = "F:\\Jeffrey\\Music\\Songs"; //directory for MP3
-        File musicdir = new File(mp3mdir);
-        //array of MP3 files (to get artist and title)
-        File[] allmp3files = musicdir.listFiles(new FilenameFilter(){ //use filter to make sure we don't read any album art files (.jpg)
-            @Override
-            public boolean accept(File dir, String name){
-                if(name.toLowerCase().endsWith(".jpg")){
-                    return false;
-                }
-                return true;
-            }
-        }
-        );
-        
-        String wavmdir = "F:\\Jeffrey\\Music\\Songs\\wav\\0"; //directory for WAV
-        musicdir = new File(wavmdir);
-        //array of WAV files (to play)
-        File[] allwavfiles = musicdir.listFiles(new FilenameFilter(){ //use filter to make sure we don't read any album art files (.jpg)
-            @Override
-            public boolean accept(File dir, String name){
-                if(name.toLowerCase().endsWith(".jpg")){
-                    return false;
-                }
-                return true;
-            }
-        }
-        );
-        
-        
+//        String mp3mdir = "F:\\Jeffrey\\Music\\Songs"; //directory for MP3
+//        File musicdir = new File(mp3mdir);
+//        //array of MP3 files (to get artist and title)
+//        File[] allmp3files = musicdir.listFiles(new FilenameFilter(){ //use filter to make sure we don't read any album art files (.jpg)
+//            @Override
+//            public boolean accept(File dir, String name){
+//                if(name.toLowerCase().endsWith(".jpg")){
+//                    return false;
+//                }
+//                return true;
+//            }
+//        }
+//        );
+//        
+//        String wavmdir = "F:\\Jeffrey\\Music\\Songs\\wav\\0"; //directory for WAV
+//        musicdir = new File(wavmdir);
+//        //array of WAV files (to play)
+//        File[] allwavfiles = musicdir.listFiles(new FilenameFilter(){ //use filter to make sure we don't read any album art files (.jpg)
+//            @Override
+//            public boolean accept(File dir, String name){
+//                if(name.toLowerCase().endsWith(".wav")){
+//                    return true;
+//                }
+//                return false;
+//            }
+//        }
+//        );
+//        
+//        MP3Info[] mp3info = new MP3Info[allmp3files.length];
+//        String filedir;
+//        for(int i = 0; i<allmp3files.length; i++){ //loop where there are files that haven't been run through
+//            mp3info[i] = new MP3Info();
+//            if(allmp3files[i].isFile()){ //if it is a file
+//                filedir = allmp3files[i].getAbsolutePath(); //get absolute path of the files
+//                
+//                File currentfile = new File(filedir); //file loaded here
+//                AudioFile f = null;
+//                try {
+//                    f = AudioFileIO.read(currentfile);
+//                } catch (Exception ex) {
+//                    ex.printStackTrace();
+//                }
+//                Tag tag = f.getTag();
+//                AudioHeader AudioHeader = f.getAudioHeader(); //get tags
+//                mp3info[i].artist = tag.getFirst(FieldKey.ARTIST).toLowerCase().replaceAll("[']","").replaceAll("\\(.*\\)","").replaceAll("[é]","e"); //make lowercase so any capitalization issues are gone
+//                mp3info[i].name = tag.getFirst(FieldKey.TITLE).toLowerCase().replaceAll("[']","").replaceAll("\\(.*\\)","").replaceAll("[é]","e");
+//                mp3info[i].length = f.getAudioHeader().getTrackLength(); //gives length in seconds
+//            }
+//        }
         
         //newfile = new File("C:\\Users\\Mitchell\\Documents\\leftright.wav");
 

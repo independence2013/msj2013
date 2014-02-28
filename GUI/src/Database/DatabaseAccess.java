@@ -60,7 +60,7 @@ public class DatabaseAccess {
             stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery(query);
             if(rs.next()) { //get the first song in the resultset (there should only be one)
-                for(int i = 0; i < 20; i++){
+                for(int i = 0; i < 31; i++){
                     song[i] = rs.getInt("S" + i);
                 }
             }
@@ -71,34 +71,6 @@ public class DatabaseAccess {
         }
         return song;
     }
-     
-    public static void setsubsong(Connection con, String title, int artistid, int[] values) throws SQLException{
-        Statement stmt = null;
-        try {
-            stmt = con.createStatement();
-            stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,
-                   ResultSet.CONCUR_UPDATABLE);
-            ResultSet uprs = stmt.executeQuery(
-            "SELECT S0, S1, S2, S3, S4, S5, S6, S7, S8, S9, S10, S11, S12, S13, S14, S15, S16, S17, S18, S19, S20, S21, S22, S23, S24, S25, S26, S27, S28, S29, S30 FROM SONGTABLE WHERE TITLE = '" + title + "' AND ARTISTID = '" + artistid + "'");
-            while (uprs.next()) {
-                if(values.length <= 20){
-                    for(int i = 0; i < values.length; i++){
-                        uprs.updateInt("S" + i, values[i]);
-                    }
-                }
-                else{
-                    for(int i = 0; i < 20; i++){
-                        uprs.updateInt("S" + i, values[i]);
-                    }
-                }
-                uprs.updateRow(); //update database
-            }
-        } catch (SQLException e) {
-            System.err.println(e);
-        } finally {
-            if (stmt != null) { stmt.close(); } //close connection
-        }
-    }    
     
     public static DBRow[] getSearchResults(Connection con, int[] mood, int length, String name, String artist) throws SQLException{
         String moodsquery = "";
@@ -160,4 +132,32 @@ public class DatabaseAccess {
         }
         return output;
     }
+    
+        public static void setsubsong(Connection con, String title, int artistid, int[] values) throws SQLException{
+        Statement stmt = null;
+        try {
+            stmt = con.createStatement();
+            stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,
+                   ResultSet.CONCUR_UPDATABLE);
+            ResultSet uprs = stmt.executeQuery(
+            "SELECT S0, S1, S2, S3, S4, S5, S6, S7, S8, S9, S10, S11, S12, S13, S14, S15, S16, S17, S18, S19, S20, S21, S22, S23, S24, S25, S26, S27, S28, S29, S30 FROM SONGTABLE WHERE TITLE = '" + title + "' AND ARTISTID = '" + artistid + "'");
+            while (uprs.next()) {
+                if(values.length <= 20){
+                    for(int i = 0; i < values.length; i++){
+                        uprs.updateInt("S" + i, values[i]);
+                    }
+                }
+                else{
+                    for(int i = 0; i < 20; i++){
+                        uprs.updateInt("S" + i, values[i]);
+                    }
+                }
+                uprs.updateRow(); //update database
+            }
+        } catch (SQLException e) {
+            System.err.println(e);
+        } finally {
+            if (stmt != null) { stmt.close(); } //close connection
+        }
+    }    
 }
