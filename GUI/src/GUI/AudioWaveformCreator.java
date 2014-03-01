@@ -1,6 +1,6 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ * Generates the waveform image
+ * From: http://stackoverflow.com/questions/11017283/program-to-create-a-png-waveform-for-an-audio-file
  */
 package GUI;
 
