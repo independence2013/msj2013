@@ -159,5 +159,24 @@ public class DatabaseAccess {
         } finally {
             if (stmt != null) { stmt.close(); } //close connection
         }
-    }    
+    }
+        
+    public static String retrievelyrics(Connection con, String title, String artistname) throws SQLException{
+        String lyrics = "";
+        Statement stmt = null;
+        String query =
+                "SELECT SONGTABLE.LYRICS FROM SONGTABLE INNER JOIN ARTISTS ON SONGTABLE.ARTISTID = ARTISTS.ARTISTID WHERE ARTISTNAME = '" + artistname + "' AND TITLE = '"+ title +"'";
+        try {
+            stmt = con.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+            if(rs.next()) { //get the first song in the resultset (there should only be one)
+                lyrics = rs.getString("LYRICS");
+            }
+        } catch (SQLException e) {
+            System.err.println(e);
+        } finally {
+            if (stmt != null) { stmt.close(); } //close connection
+        }
+        return lyrics;
+    }
 }
