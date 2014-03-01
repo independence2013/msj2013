@@ -12,4 +12,6 @@ public class MP3Info {
     public String name;
     public String artist;
     public int length;
+    public String album;
+    public String path;
 }

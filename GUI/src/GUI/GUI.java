@@ -32,11 +32,10 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
 import javax.swing.SwingUtilities;
 import javazoom.jl.player.Player;
+import org.apache.commons.io.FilenameUtils;
 import org.jaudiotagger.audio.AudioFile;
 import org.jaudiotagger.audio.AudioFileIO;
 import org.jaudiotagger.audio.AudioHeader;
-import org.jaudiotagger.audio.exceptions.CannotReadException;
-import org.jaudiotagger.audio.exceptions.InvalidAudioFrameException;
 import org.jaudiotagger.tag.FieldKey;
 import org.jaudiotagger.tag.Tag;
 
@@ -99,15 +98,24 @@ public class GUI extends javax.swing.JFrame {
     public File loadsong(String name, String artist){
         int i,j;
         for(j = 0; j < mp3info.length; j++){
-            if((mp3info[j].name).equals(name) && (mp3info[j].artist).equals(artist)){
-                break;  
+            if(mp3info[j].name!=null&&mp3info[j].artist!=null){
+                if((mp3info[j].name.toLowerCase()).equals(name.toLowerCase()) && (mp3info[j].artist.toLowerCase()).equals(artist.toLowerCase())){
+                    break;  
+                }
             }
+        }
+        if(j==mp3info.length){
+            j-=1;
         }
         for(i = 0; i < allwavfiles.length; i++){
             int length = (int)getDurationOfWavInSeconds(allwavfiles[i]);
             if(mp3info[j].length == length){
                 break;
             }
+        }
+        if(i==allwavfiles.length){
+            i-=1;
+            return null;
         }
         playloc = 0;
         currenttime.setText("0:00");
@@ -142,11 +150,9 @@ public class GUI extends javax.swing.JFrame {
                 long totminutes = ((slength/1000000)-(slength/1000000)%60)/60;
                 String totseconds = Long.toString((slength/1000000)%60);
                 if(Integer.parseInt(totseconds)<10){
-                    totseconds = "0" + totseconds;
+                   totseconds = "0" + totseconds;
                 }
-                timeleft.setText(totminutes + ":" + totseconds);
-//                                audioProgressSlider1.setValue(i); //Set value
-//				audioProgressSlider1.repaint(); //Refresh graphics
+                timeleft.setText(totminutes+":"+totseconds);
                 try{Thread.sleep(50);} //Sleep 50 milliseconds
                 catch (InterruptedException err){
                     return;
@@ -172,7 +178,6 @@ public class GUI extends javax.swing.JFrame {
 
         jLabel1 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
-        jSplitPane2 = new javax.swing.JSplitPane();
         jPanel3 = new javax.swing.JPanel();
         jLabel18 = new javax.swing.JLabel();
         mood5 = new javax.swing.JCheckBox();
@@ -190,7 +195,6 @@ public class GUI extends javax.swing.JFrame {
         artist = new javax.swing.JTextField();
         jLabel23 = new javax.swing.JLabel();
         mood2 = new javax.swing.JCheckBox();
-        searchButton2 = new javax.swing.JButton();
         mood3 = new javax.swing.JCheckBox();
         length2 = new javax.swing.JTextField();
         mood7 = new javax.swing.JCheckBox();
@@ -206,6 +210,7 @@ public class GUI extends javax.swing.JFrame {
         year4 = new javax.swing.JCheckBox();
         year0 = new javax.swing.JCheckBox();
         genreselect = new javax.swing.JComboBox();
+        searchButton2 = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jLabel25 = new javax.swing.JLabel();
         lyrics = new javax.swing.JScrollPane();
@@ -220,6 +225,15 @@ public class GUI extends javax.swing.JFrame {
         timeleft = new javax.swing.JLabel();
         currenttime = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
+        color0 = new javax.swing.JLabel();
+        color1 = new javax.swing.JLabel();
+        color2 = new javax.swing.JLabel();
+        color3 = new javax.swing.JLabel();
+        color4 = new javax.swing.JLabel();
+        color5 = new javax.swing.JLabel();
+        color6 = new javax.swing.JLabel();
+        color7 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         viewSongs = new javax.swing.JMenuItem();
@@ -239,10 +253,6 @@ public class GUI extends javax.swing.JFrame {
         jPanel2.setMinimumSize(new java.awt.Dimension(1024, 576));
         jPanel2.setPreferredSize(new java.awt.Dimension(1280, 720));
         jPanel2.setLayout(new java.awt.BorderLayout());
-
-        jSplitPane2.setEnabled(false);
-        jSplitPane2.setMinimumSize(new java.awt.Dimension(1024, 576));
-        jSplitPane2.setName(""); // NOI18N
 
         jPanel3.setToolTipText("");
         jPanel3.setAutoscrolls(true);
@@ -307,13 +317,6 @@ public class GUI extends javax.swing.JFrame {
 
         mood2.setText("Mood 2");
 
-        searchButton2.setText("Search");
-        searchButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                searchButton2searchButtonActionPerformed(evt);
-            }
-        });
-
         mood3.setText("Mood 3");
 
         length2.addActionListener(new java.awt.event.ActionListener() {
@@ -363,6 +366,18 @@ public class GUI extends javax.swing.JFrame {
         });
 
         genreselect.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Choose One:", "Alternative", "Christian", "Classical", "Country", "Dance", "Electronic", "Gospel", "Hip Hop", "Holiday", "Pop", "R&B", "Rap", "Rock", "Soul", "Soundtrack", " " }));
+        genreselect.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                genreselectActionPerformed(evt);
+            }
+        });
+
+        searchButton2.setText("Search");
+        searchButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                searchButton2searchButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -371,60 +386,56 @@ public class GUI extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel22)
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(mood0)
-                                .addGap(18, 18, 18)
-                                .addComponent(mood4))
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(mood1)
-                                .addGap(18, 18, 18)
-                                .addComponent(mood5))
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(mood2)
-                                .addGap(18, 18, 18)
-                                .addComponent(mood6))
-                            .addComponent(jLabel3)
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(mood3)
-                                .addGap(18, 18, 18)
-                                .addComponent(mood7))
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(year0)
-                                .addGap(18, 18, 18)
-                                .addComponent(year4))
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(year1)
-                                .addGap(18, 18, 18)
-                                .addComponent(year5))
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(year2)
-                                .addGap(18, 18, 18)
-                                .addComponent(year6))
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(year3)
-                                .addGap(18, 18, 18)
-                                .addComponent(year7))
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel18)
-                            .addComponent(jLabel24)
-                            .addComponent(jLabel23)
-                            .addComponent(jLabel21)
-                            .addComponent(jLabel20)
-                            .addComponent(albumtext)
-                            .addComponent(artist)
-                            .addComponent(jLabel19)
-                            .addComponent(lyrictext)
-                            .addComponent(length2)
-                            .addComponent(title))
-                        .addContainerGap(51, Short.MAX_VALUE))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(genreselect, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(searchButton2)
-                        .addGap(32, 32, 32))))
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jLabel22)
+                        .addGroup(jPanel3Layout.createSequentialGroup()
+                            .addComponent(mood0)
+                            .addGap(18, 18, 18)
+                            .addComponent(mood4))
+                        .addGroup(jPanel3Layout.createSequentialGroup()
+                            .addComponent(mood1)
+                            .addGap(18, 18, 18)
+                            .addComponent(mood5))
+                        .addGroup(jPanel3Layout.createSequentialGroup()
+                            .addComponent(mood2)
+                            .addGap(18, 18, 18)
+                            .addComponent(mood6))
+                        .addComponent(jLabel3)
+                        .addGroup(jPanel3Layout.createSequentialGroup()
+                            .addComponent(mood3)
+                            .addGap(18, 18, 18)
+                            .addComponent(mood7))
+                        .addGroup(jPanel3Layout.createSequentialGroup()
+                            .addComponent(year0)
+                            .addGap(18, 18, 18)
+                            .addComponent(year4))
+                        .addGroup(jPanel3Layout.createSequentialGroup()
+                            .addComponent(year1)
+                            .addGap(18, 18, 18)
+                            .addComponent(year5))
+                        .addGroup(jPanel3Layout.createSequentialGroup()
+                            .addComponent(year2)
+                            .addGap(18, 18, 18)
+                            .addComponent(year6))
+                        .addGroup(jPanel3Layout.createSequentialGroup()
+                            .addComponent(year3)
+                            .addGap(18, 18, 18)
+                            .addComponent(year7))
+                        .addComponent(jLabel4)
+                        .addComponent(jLabel18)
+                        .addComponent(jLabel24)
+                        .addComponent(jLabel23)
+                        .addComponent(jLabel21)
+                        .addComponent(jLabel20)
+                        .addComponent(albumtext)
+                        .addComponent(artist)
+                        .addComponent(jLabel19)
+                        .addComponent(lyrictext)
+                        .addComponent(length2)
+                        .addComponent(title))
+                    .addComponent(genreselect, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(searchButton2))
+                .addContainerGap(51, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -471,12 +482,10 @@ public class GUI extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(genreselect, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(searchButton2))
-                .addGap(18, 18, 18)
+                .addComponent(genreselect, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(9, 9, 9)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(year0)
                     .addComponent(year4))
@@ -492,10 +501,10 @@ public class GUI extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(year3)
                     .addComponent(year7))
-                .addContainerGap(671, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(searchButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-
-        jSplitPane2.setLeftComponent(jPanel3);
 
         jLabel25.setText("Lyrics");
 
@@ -569,12 +578,59 @@ public class GUI extends javax.swing.JFrame {
 
         audioProgressSlider1.setMaximum(1000);
         audioProgressSlider1.setValue(0);
+        audioProgressSlider1.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                audioProgressSlider1MouseDragged(evt);
+            }
+        });
 
         timeleft.setText("0:00");
 
         currenttime.setText("0:00");
 
         jLabel11.setText("jLabel11");
+
+        color0.setBackground(new java.awt.Color(255, 255, 0));
+        color0.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        color0.setText("0");
+        color0.setOpaque(true);
+
+        color1.setBackground(new java.awt.Color(255, 102, 0));
+        color1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        color1.setText("1");
+        color1.setOpaque(true);
+
+        color2.setBackground(new java.awt.Color(0, 153, 0));
+        color2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        color2.setText("2");
+        color2.setOpaque(true);
+
+        color3.setBackground(new java.awt.Color(153, 153, 153));
+        color3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        color3.setText("3");
+        color3.setOpaque(true);
+
+        color4.setBackground(new java.awt.Color(102, 0, 204));
+        color4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        color4.setText("4");
+        color4.setOpaque(true);
+
+        color5.setBackground(new java.awt.Color(0, 51, 255));
+        color5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        color5.setText("5");
+        color5.setOpaque(true);
+
+        color6.setBackground(new java.awt.Color(255, 0, 0));
+        color6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        color6.setText("6");
+        color6.setOpaque(true);
+
+        color7.setBackground(new java.awt.Color(0, 128, 128));
+        color7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        color7.setText("7");
+        color7.setOpaque(true);
+
+        jLabel2.setText("Mood Color Key");
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -599,9 +655,24 @@ public class GUI extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(timeleft))
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel4Layout.createSequentialGroup()
-                                .addComponent(playpause1, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(stopButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel4Layout.createSequentialGroup()
+                                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                            .addComponent(color3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 27, Short.MAX_VALUE)
+                                            .addComponent(color0, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(color1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(color2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                        .addGap(18, 18, 18)
+                                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(color4, javax.swing.GroupLayout.DEFAULT_SIZE, 27, Short.MAX_VALUE)
+                                            .addComponent(color7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(color5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(color6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                    .addGroup(jPanel4Layout.createSequentialGroup()
+                                        .addComponent(playpause1, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(stopButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jLabel2))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 343, Short.MAX_VALUE)
                                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(lyrics, javax.swing.GroupLayout.PREFERRED_SIZE, 450, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -631,18 +702,32 @@ public class GUI extends javax.swing.JFrame {
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(playpause1)
                             .addComponent(stopButton1))
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel2)
+                        .addGap(12, 12, 12)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(color0)
+                            .addComponent(color4))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(color1)
+                            .addComponent(color5))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(color2)
+                            .addComponent(color6))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(color3)
+                            .addComponent(color7))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
                         .addComponent(jLabel25)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lyrics, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lyrics, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap())))
         );
-
-        jSplitPane2.setRightComponent(jPanel4);
-
-        jPanel2.add(jSplitPane2, java.awt.BorderLayout.CENTER);
 
         jMenuBar1.setMaximumSize(new java.awt.Dimension(3840, 21));
         jMenuBar1.setMinimumSize(new java.awt.Dimension(1024, 21));
@@ -685,16 +770,24 @@ public class GUI extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(0, 2, Short.MAX_VALUE)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 1275, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 3, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(5, 5, 5)
+                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 1275, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(0, 14, Short.MAX_VALUE)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 671, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 14, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0))
         );
 
         pack();
@@ -727,6 +820,9 @@ public class GUI extends javax.swing.JFrame {
     private void playpauseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_playpauseActionPerformed
         // TODO add your handling code here:
         if(x == true){
+            if(audioProgressSlider1.getValue()!=0){
+                playloc = clip.getMicrosecondLength()*audioProgressSlider1.getValue()/1000;
+            }
             playpause1.setText("Pause");
             x = false;
             System.out.println(x);
@@ -882,6 +978,14 @@ public class GUI extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_outputtableMouseClicked
 
+    private void genreselectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_genreselectActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_genreselectActionPerformed
+
+    private void audioProgressSlider1MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_audioProgressSlider1MouseDragged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_audioProgressSlider1MouseDragged
+
     /**
      * @param args the command line arguments
      */
@@ -956,6 +1060,8 @@ public class GUI extends javax.swing.JFrame {
                 mp3info[i].artist = tag.getFirst(FieldKey.ARTIST).toLowerCase().replaceAll("[']","").replaceAll("\\(.*\\)","").replaceAll("[é]","e"); //make lowercase so any capitalization issues are gone
                 mp3info[i].name = tag.getFirst(FieldKey.TITLE).toLowerCase().replaceAll("[']","").replaceAll("\\(.*\\)","").replaceAll("[é]","e");
                 mp3info[i].length = f.getAudioHeader().getTrackLength(); //gives length in seconds
+                mp3info[i].album = tag.getFirst(FieldKey.ALBUM).toLowerCase().replaceAll("[']","").replaceAll("\\(.*\\)","").replaceAll("[é]","e");
+                mp3info[i].path = filedir;
             }
         }
         
@@ -975,12 +1081,21 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JTextField albumtext;
     private javax.swing.JTextField artist;
     private javax.swing.JSlider audioProgressSlider1;
+    private javax.swing.JLabel color0;
+    private javax.swing.JLabel color1;
+    private javax.swing.JLabel color2;
+    private javax.swing.JLabel color3;
+    private javax.swing.JLabel color4;
+    private javax.swing.JLabel color5;
+    private javax.swing.JLabel color6;
+    private javax.swing.JLabel color7;
     private javax.swing.JLabel currenttime;
     private javax.swing.JComboBox genreselect;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
@@ -998,7 +1113,6 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JSplitPane jSplitPane2;
     private javax.swing.JTextArea jTextArea2;
     private javax.swing.JTextField length2;
     private javax.swing.JMenuItem loadClassifier;
