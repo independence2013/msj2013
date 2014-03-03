@@ -207,6 +207,6 @@ public class DatabaseAccess {
         } finally {
             if (stmt != null) { stmt.close(); } //close connection
         }
-        return "..\\Songs\\"+dir;
+        return "..\\Songs\\wav\\"+dir;
     }
 }

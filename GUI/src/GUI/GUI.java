@@ -47,7 +47,7 @@ public class GUI extends javax.swing.JFrame {
     
     static MP3Info[] mp3info;
     static File[] allwavfiles;
-    static File songfile = new File("F:\\Jeffrey\\Music\\Songs\\wav\\0\\Dynamite.wav");
+    static File songfile = null;
     Clip clip = null;
     boolean x = true;
     Thread thread = new Thread(new thread1());
