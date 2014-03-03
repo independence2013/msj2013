@@ -97,26 +97,11 @@ public class GUI extends javax.swing.JFrame {
     }
     
     public File loadsong(String name, String artist){
-        int i,j;
-        for(j = 0; j < mp3info.length; j++){
-            if(mp3info[j].name!=null&&mp3info[j].artist!=null){
-                if((mp3info[j].name.toLowerCase()).equals(name.toLowerCase()) && (mp3info[j].artist.toLowerCase()).equals(artist.toLowerCase())){
-                    break;  
-                }
-            }
-        }
-        if(j==mp3info.length){
-            j-=1;
-        }
-        for(i = 0; i < allwavfiles.length; i++){
-            int length = (int)getDurationOfWavInSeconds(allwavfiles[i]);
-            if(mp3info[j].length == length){
-                break;
-            }
-        }
-        if(i==allwavfiles.length){
-            i-=1;
-            return null;
+        File out = null;
+        try{
+            out = new File(dba.songdir(con,null,name,artist));
+        } catch (Exception e){
+            e.printStackTrace();
         }
         playloc = 0;
         currenttime.setText("0:00");
@@ -129,7 +114,7 @@ public class GUI extends javax.swing.JFrame {
         if(clip != null){
             clip.close();
         }
-        return allwavfiles[i];
+        return out;
     }
 
     //File newfile = new File("C:\\Users\\Mitchell\\Documents\\leftright.wav");
@@ -212,6 +197,8 @@ public class GUI extends javax.swing.JFrame {
         year0 = new javax.swing.JCheckBox();
         genreselect = new javax.swing.JComboBox();
         searchButton2 = new javax.swing.JButton();
+        overallmood = new javax.swing.JCheckBox();
+        subsongmood = new javax.swing.JCheckBox();
         jPanel4 = new javax.swing.JPanel();
         jLabel25 = new javax.swing.JLabel();
         lyrics = new javax.swing.JScrollPane();
@@ -243,6 +230,7 @@ public class GUI extends javax.swing.JFrame {
         jMenuItem3 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         loadClassifier = new javax.swing.JMenuItem();
+        jMenuItem1 = new javax.swing.JMenuItem();
 
         jLabel1.setText("jLabel1");
 
@@ -381,62 +369,75 @@ public class GUI extends javax.swing.JFrame {
             }
         });
 
+        overallmood.setText("Overall");
+
+        subsongmood.setText("Subsong");
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel22)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(mood0)
-                        .addGap(18, 18, 18)
-                        .addComponent(mood4))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(mood1)
-                        .addGap(18, 18, 18)
-                        .addComponent(mood5))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(mood2)
-                        .addGap(18, 18, 18)
-                        .addComponent(mood6))
-                    .addComponent(jLabel3)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(mood3)
-                        .addGap(18, 18, 18)
-                        .addComponent(mood7))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(year0)
-                        .addGap(18, 18, 18)
-                        .addComponent(year4))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(year1)
-                        .addGap(18, 18, 18)
-                        .addComponent(year5))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(year2)
-                        .addGap(18, 18, 18)
-                        .addComponent(year6))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(year3)
-                        .addGap(18, 18, 18)
-                        .addComponent(year7))
-                    .addComponent(jLabel4)
-                    .addComponent(jLabel18)
-                    .addComponent(jLabel24)
-                    .addComponent(jLabel23)
-                    .addComponent(jLabel21)
-                    .addComponent(jLabel20)
-                    .addComponent(albumtext)
-                    .addComponent(artist)
-                    .addComponent(jLabel19)
-                    .addComponent(lyrictext)
-                    .addComponent(length2)
-                    .addComponent(title)
-                    .addComponent(genreselect, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(searchButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel22)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(mood2)
+                                .addGap(18, 18, 18)
+                                .addComponent(mood6))
+                            .addComponent(jLabel3)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(mood3)
+                                .addGap(18, 18, 18)
+                                .addComponent(mood7))
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(year0)
+                                .addGap(18, 18, 18)
+                                .addComponent(year4))
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(year1)
+                                .addGap(18, 18, 18)
+                                .addComponent(year5))
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(year2)
+                                .addGap(18, 18, 18)
+                                .addComponent(year6))
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(year3)
+                                .addGap(18, 18, 18)
+                                .addComponent(year7))
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel18)
+                            .addComponent(jLabel24)
+                            .addComponent(jLabel23)
+                            .addComponent(jLabel21)
+                            .addComponent(jLabel20)
+                            .addComponent(albumtext)
+                            .addComponent(artist)
+                            .addComponent(jLabel19)
+                            .addComponent(lyrictext)
+                            .addComponent(length2)
+                            .addComponent(title)
+                            .addComponent(genreselect, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(searchButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(mood0)
+                                .addGap(18, 18, 18)
+                                .addComponent(mood4))
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(mood1)
+                                .addGap(18, 18, 18)
+                                .addComponent(mood5)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(subsongmood)
+                            .addComponent(overallmood))))
+                .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -468,11 +469,13 @@ public class GUI extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(mood0)
-                    .addComponent(mood4))
+                    .addComponent(mood4)
+                    .addComponent(overallmood))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(mood1)
-                    .addComponent(mood5))
+                    .addComponent(mood5)
+                    .addComponent(subsongmood))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(mood2)
@@ -600,49 +603,41 @@ public class GUI extends javax.swing.JFrame {
         color0.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         color0.setText("0");
         color0.setOpaque(true);
-        color0.setPreferredSize(new java.awt.Dimension(6, 14));
 
         color1.setBackground(new java.awt.Color(255, 102, 0));
         color1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         color1.setText("1");
         color1.setOpaque(true);
-        color1.setPreferredSize(new java.awt.Dimension(6, 14));
 
         color2.setBackground(new java.awt.Color(0, 153, 0));
         color2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         color2.setText("2");
         color2.setOpaque(true);
-        color2.setPreferredSize(new java.awt.Dimension(6, 14));
 
         color3.setBackground(new java.awt.Color(153, 153, 153));
         color3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         color3.setText("3");
         color3.setOpaque(true);
-        color3.setPreferredSize(new java.awt.Dimension(6, 14));
 
         color4.setBackground(new java.awt.Color(102, 0, 204));
         color4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         color4.setText("4");
         color4.setOpaque(true);
-        color4.setPreferredSize(new java.awt.Dimension(6, 14));
 
         color5.setBackground(new java.awt.Color(0, 51, 255));
         color5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         color5.setText("5");
         color5.setOpaque(true);
-        color5.setPreferredSize(new java.awt.Dimension(6, 14));
 
         color6.setBackground(new java.awt.Color(255, 0, 0));
         color6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         color6.setText("6");
         color6.setOpaque(true);
-        color6.setPreferredSize(new java.awt.Dimension(6, 14));
 
         color7.setBackground(new java.awt.Color(0, 128, 128));
         color7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         color7.setText("7");
         color7.setOpaque(true);
-        color7.setPreferredSize(new java.awt.Dimension(6, 14));
 
         moodkeylabel.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         moodkeylabel.setText("Mood Color Key");
@@ -775,6 +770,14 @@ public class GUI extends javax.swing.JFrame {
         loadClassifier.setText("Load Classifier");
         jMenu2.add(loadClassifier);
 
+        jMenuItem1.setText("Change Directory");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItem1);
+
         jMenuBar1.add(jMenu2);
 
         setJMenuBar(jMenuBar1);
@@ -800,7 +803,7 @@ public class GUI extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 1, Short.MAX_VALUE))
-                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 723, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -889,6 +892,7 @@ public class GUI extends javax.swing.JFrame {
     }//GEN-LAST:event_length2lengthActionPerformed
 
     private void searchButton2searchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchButton2searchButtonActionPerformed
+        int moodlevel = 0;
         String titleText = title.getText();
         String artistText = artist.getText();
         ArrayList<Integer> moodt = new ArrayList<Integer>();
@@ -916,6 +920,14 @@ public class GUI extends javax.swing.JFrame {
         if(mood7.isSelected()){
             moodt.add(7);
         }
+        
+        if(subsongmood.isSelected()){
+            moodlevel = 1;
+            if(overallmood.isSelected()){
+                moodlevel = 2;
+            }
+        }
+        
         int[] moods = convertIntegers(moodt);
         int seconds = 0;
         if(!length2.getText().equals("")){
@@ -925,7 +937,7 @@ public class GUI extends javax.swing.JFrame {
         }
         //get results from database
         try{
-            result = dba.getSearchResults(con,moods,seconds,titleText,artistText);
+            result = dba.getSearchResults(con,moods,seconds,titleText,artistText,moodlevel);
         } catch (SQLException e){
             e.printStackTrace();
         }
@@ -1003,6 +1015,20 @@ public class GUI extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_audioProgressSlider1MouseDragged
 
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        // TODO add your handling code here:
+        int row = outputtable.getSelectedRow();
+        String[] selectrow = new String[6];
+        for(int i = 0; i<6; i++){
+            selectrow[i] = String.valueOf(outputtable.getModel().getValueAt(row, i));
+        }
+        try{
+            dba.songdir(con,title.getText(),selectrow[0],selectrow[1]);
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1030,61 +1056,59 @@ public class GUI extends javax.swing.JFrame {
         }
         //</editor-fold>
         /* Create and display the form */
-        String mp3mdir = "F:\\Jeffrey\\Music\\Songs"; //directory for MP3
-        File musicdir = new File(mp3mdir);
-        //array of MP3 files (to get artist and title)
-        File[] allmp3files = musicdir.listFiles(new FilenameFilter(){ //use filter to make sure we don't read any album art files (.jpg)
-            @Override
-            public boolean accept(File dir, String name){
-                if(name.toLowerCase().endsWith(".jpg")){
-                    return false;
-                }
-                return true;
-            }
-        }
-        );
+//        String mp3mdir = "F:\\Jeffrey\\Music\\Songs"; //directory for MP3
+//        File musicdir = new File(mp3mdir);
+//        //array of MP3 files (to get artist and title)
+//        File[] allmp3files = musicdir.listFiles(new FilenameFilter(){ //use filter to make sure we don't read any album art files (.jpg)
+//            @Override
+//            public boolean accept(File dir, String name){
+//                if(name.toLowerCase().endsWith(".jpg")){
+//                    return false;
+//                }
+//                return true;
+//            }
+//        }
+//        );
+//        
+//        String wavmdir = "..\\Songs"; //directory for WAV
+//        musicdir = new File(wavmdir);
+//        //array of WAV files (to play)
+//        allwavfiles = musicdir.listFiles(new FilenameFilter(){ //use filter to make sure we don't read any album art files (.jpg)
+//            @Override
+//            public boolean accept(File dir, String name){
+//                if(name.toLowerCase().endsWith(".wav")){
+//                    return true;
+//                }
+//                return false;
+//            }
+//        }
+//        );
+//        
+//        mp3info = new MP3Info[allmp3files.length];
+//        String filedir;
+//        for(int i = 0; i<allmp3files.length; i++){ //loop where there are files that haven't been run through
+//            mp3info[i] = new MP3Info();
+//            if(allmp3files[i].isFile()){ //if it is a file
+//                filedir = allmp3files[i].getAbsolutePath(); //get absolute path of the files
+//                
+//                File currentfile = new File(filedir); //file loaded here
+//                AudioFile f = null;
+//                try {
+//                    f = AudioFileIO.read(currentfile);
+//                } catch (Exception ex) {
+//                    ex.printStackTrace();
+//                }
+//                Tag tag = f.getTag();
+//                AudioHeader AudioHeader = f.getAudioHeader(); //get tags
+//                mp3info[i].artist = tag.getFirst(FieldKey.ARTIST).toLowerCase().replaceAll("[']","").replaceAll("\\(.*\\)","").replaceAll("[é]","e"); //make lowercase so any capitalization issues are gone
+//                mp3info[i].name = tag.getFirst(FieldKey.TITLE).toLowerCase().replaceAll("[']","").replaceAll("\\(.*\\)","").replaceAll("[é]","e");
+//                mp3info[i].length = f.getAudioHeader().getTrackLength(); //gives length in seconds
+//                mp3info[i].album = tag.getFirst(FieldKey.ALBUM).toLowerCase().replaceAll("[']","").replaceAll("\\(.*\\)","").replaceAll("[é]","e");
+//                mp3info[i].path = filedir;
+//            }
+//        }
         
-        String wavmdir = "F:\\Jeffrey\\Desktop\\wavsongs"; //directory for WAV
-        musicdir = new File(wavmdir);
-        //array of WAV files (to play)
-        allwavfiles = musicdir.listFiles(new FilenameFilter(){ //use filter to make sure we don't read any album art files (.jpg)
-            @Override
-            public boolean accept(File dir, String name){
-                if(name.toLowerCase().endsWith(".wav")){
-                    return true;
-                }
-                return false;
-            }
-        }
-        );
-        
-        mp3info = new MP3Info[allmp3files.length];
-        String filedir;
-        for(int i = 0; i<allmp3files.length; i++){ //loop where there are files that haven't been run through
-            mp3info[i] = new MP3Info();
-            if(allmp3files[i].isFile()){ //if it is a file
-                filedir = allmp3files[i].getAbsolutePath(); //get absolute path of the files
-                
-                File currentfile = new File(filedir); //file loaded here
-                AudioFile f = null;
-                try {
-                    f = AudioFileIO.read(currentfile);
-                } catch (Exception ex) {
-                    ex.printStackTrace();
-                }
-                Tag tag = f.getTag();
-                AudioHeader AudioHeader = f.getAudioHeader(); //get tags
-                mp3info[i].artist = tag.getFirst(FieldKey.ARTIST).toLowerCase().replaceAll("[']","").replaceAll("\\(.*\\)","").replaceAll("[é]","e"); //make lowercase so any capitalization issues are gone
-                mp3info[i].name = tag.getFirst(FieldKey.TITLE).toLowerCase().replaceAll("[']","").replaceAll("\\(.*\\)","").replaceAll("[é]","e");
-                mp3info[i].length = f.getAudioHeader().getTrackLength(); //gives length in seconds
-                mp3info[i].album = tag.getFirst(FieldKey.ALBUM).toLowerCase().replaceAll("[']","").replaceAll("\\(.*\\)","").replaceAll("[é]","e");
-                mp3info[i].path = filedir;
-            }
-        }
-        
-        //newfile = new File("C:\\Users\\Mitchell\\Documents\\leftright.wav");
-
-        songfile = new File("F:\\Jeffrey\\Music\\Songs\\wav\\0\\Dynamite.wav");
+        songfile = null;
         
         int[] moodtest = {0,1,2,3,4,5,6,7,-1,-1,-1};
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -1123,6 +1147,7 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -1143,9 +1168,11 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JCheckBox mood7;
     private javax.swing.JLabel moodkeylabel;
     private javax.swing.JTable outputtable;
+    private javax.swing.JCheckBox overallmood;
     private javax.swing.JButton playpause1;
     private javax.swing.JButton searchButton2;
     private javax.swing.JButton stopButton1;
+    private javax.swing.JCheckBox subsongmood;
     private javax.swing.JScrollPane table;
     private javax.swing.JLabel timeleft;
     private javax.swing.JTextField title;

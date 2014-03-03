@@ -72,7 +72,7 @@ public class DatabaseAccess {
         return song;
     }
     
-    public static DBRow[] getSearchResults(Connection con, int[] mood, int length, String name, String artist) throws SQLException{
+    public static DBRow[] getSearchResults(Connection con, int[] mood, int length, String name, String artist, int moodlevel) throws SQLException{
         String moodsquery = "";
         String lengthsquery = "";
         String namesquery = "";
@@ -92,10 +92,15 @@ public class DatabaseAccess {
             lengthsquery = "WHERE SLENGTH BETWEEN " + lowerlength + " AND " + upperlength;
         }
         if(!moods.equals("")){
-            moods = moods.substring(0, moods.lastIndexOf(","));
-            moodsquery = " AND AUDIOMOOD IN ("+moods+")";
-            if(lengthsquery.equals("")){
-                moodsquery = "WHERE AUDIOMOOD IN ("+moods+")";
+            if(moodlevel == 0){
+                moods = moods.substring(0, moods.lastIndexOf(","));
+                moodsquery = " AND AUDIOMOOD IN ("+moods+")";
+                if(lengthsquery.equals("")){
+                    moodsquery = "WHERE AUDIOMOOD IN ("+moods+")";
+                }
+            }
+            if(moodlevel == 1){
+                
             }
         }
         if(!name.equals("")){
@@ -133,7 +138,7 @@ public class DatabaseAccess {
         return output;
     }
     
-        public static void setsubsong(Connection con, String title, int artistid, int[] values) throws SQLException{
+    public static void setsubsong(Connection con, String title, int artistid, int[] values) throws SQLException{
         Statement stmt = null;
         try {
             stmt = con.createStatement();
@@ -178,5 +183,30 @@ public class DatabaseAccess {
             if (stmt != null) { stmt.close(); } //close connection
         }
         return lyrics;
+    }
+    
+    public static String songdir(Connection con, String newdir, String title, String artistname) throws SQLException{
+        String dir = "";
+        Statement stmt = null;
+        try {
+            stmt = con.createStatement();
+            stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,
+                   ResultSet.CONCUR_UPDATABLE);
+            ResultSet uprs = stmt.executeQuery(
+            "SELECT DIR FROM SONGTABLE INNER JOIN ARTISTS ON SONGTABLE.ARTISTID = ARTISTS.ARTISTID WHERE ARTISTNAME = '" + artistname + "' AND TITLE = '"+ title +"'");
+            if (uprs.next()) {
+                if(newdir == null){
+                    dir = uprs.getString("DIR");
+                } else{
+                    uprs.updateString("DIR",newdir);
+                    uprs.updateRow(); //update database
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            if (stmt != null) { stmt.close(); } //close connection
+        }
+        return "..\\Songs\\"+dir;
     }
 }
