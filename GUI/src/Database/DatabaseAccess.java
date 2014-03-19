@@ -105,13 +105,13 @@ public class DatabaseAccess {
         }
         if(!name.equals("")){
             namesquery = " AND TITLE LIKE '%"+name.toLowerCase()+"%'";
-            if(moodsquery.equals("")){
+            if(moodsquery.equals("")&&lengthsquery.equals("")){
                 namesquery = "WHERE TITLE LIKE '%"+name.toLowerCase()+"%'";
             }
         }
         if(!artist.equals("")){
             artistsquery = " AND ARTISTNAME LIKE '%"+artist.toLowerCase()+"%'";
-            if(namesquery.equals("")){
+            if(namesquery.equals("")&&moodsquery.equals("")&&lengthsquery.equals("")){
                 artistsquery = "WHERE ARTISTNAME LIKE '%"+artist.toLowerCase()+"%'";
             }
         }
@@ -120,7 +120,10 @@ public class DatabaseAccess {
         System.out.println(query);
         try {
             stmt = con.createStatement();
+            long startTime = System.nanoTime();  
             ResultSet rs = stmt.executeQuery(query);
+            long estimatedTime = System.nanoTime() - startTime;
+            System.out.println(estimatedTime);
             int i = 0;
             while(rs.next()&&(i<25)) {
                 output[i] = new DBRow();
