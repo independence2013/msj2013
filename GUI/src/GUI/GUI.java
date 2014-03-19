@@ -6,6 +6,7 @@ package GUI;
 
 import Database.DatabaseAccess;
 import java.awt.Image;
+import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.io.BufferedInputStream;  
 import java.io.File;
@@ -235,8 +236,12 @@ public class GUI extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(1024, 600));
-        setPreferredSize(new java.awt.Dimension(1275, 860));
         setResizable(false);
+        addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                formKeyPressed(evt);
+            }
+        });
 
         jPanel2.setFocusCycleRoot(true);
         jPanel2.setMaximumSize(new java.awt.Dimension(3840, 2160));
@@ -251,6 +256,11 @@ public class GUI extends javax.swing.JFrame {
         jPanel3.setName(""); // NOI18N
         jPanel3.setOpaque(false);
         jPanel3.setPreferredSize(new java.awt.Dimension(320, 720));
+        jPanel3.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jPanel3KeyPressed(evt);
+            }
+        });
 
         jLabel18.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel18.setText("Search");
@@ -414,6 +424,12 @@ public class GUI extends javax.swing.JFrame {
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(mood4)
                             .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(albumtext)
+                                .addComponent(artist)
+                                .addComponent(lyrictext)
+                                .addComponent(length2)
+                                .addComponent(title)
+                                .addComponent(searchButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jLabel22)
                                 .addComponent(jLabel3)
                                 .addComponent(jLabel4)
@@ -422,19 +438,10 @@ public class GUI extends javax.swing.JFrame {
                                 .addComponent(jLabel23)
                                 .addComponent(jLabel21)
                                 .addComponent(jLabel20)
-                                .addComponent(albumtext)
-                                .addComponent(artist)
                                 .addComponent(jLabel19)
-                                .addComponent(lyrictext)
-                                .addComponent(length2)
-                                .addComponent(title)
                                 .addComponent(genreselect, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(searchButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(jPanel3Layout.createSequentialGroup()
-                                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(mood2)
-                                        .addComponent(mood3))
-                                    .addGap(26, 26, 26)))
+                                .addComponent(mood2)
+                                .addComponent(mood3))
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addComponent(year1)
                                 .addGap(18, 18, 18)
@@ -494,6 +501,7 @@ public class GUI extends javax.swing.JFrame {
                     .addComponent(subsongmood))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(mood2)
+                .addGap(0, 0, 0)
                 .addComponent(mood3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(mood4)
@@ -501,6 +509,7 @@ public class GUI extends javax.swing.JFrame {
                 .addComponent(mood5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(mood6)
+                .addGap(0, 0, 0)
                 .addComponent(mood7)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel3)
@@ -1070,6 +1079,17 @@ public class GUI extends javax.swing.JFrame {
     private void viewSongsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewSongsActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_viewSongsActionPerformed
+
+    private void formKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_formKeyPressed
+
+    private void jPanel3KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jPanel3KeyPressed
+        // TODO add your handling code here:
+        if (evt.getKeyCode()==KeyEvent.VK_ENTER){
+            System.out.println("Hello");
+        }
+    }//GEN-LAST:event_jPanel3KeyPressed
 
     /**
      * @param args the command line arguments
