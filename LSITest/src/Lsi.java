@@ -200,18 +200,13 @@ class Lsi {
         int n = input[0].length; //total documents
         
         double[] docwords = new double[n]; //holds how many words are in each document
-        for(int i = 0; i< n; i++){
-            for(int j = 0; j< m; j++){
-                docwords[i] += input[j][i];
-            }
-        }
-        
         double[] term = new double[m]; //holds how many documents have a term
         for(int i = 0; i< m; i++){
             for(int j = 0; j< n; j++){
                 if(input[i][j] > 0){
                     term[i]++;
                 }
+                docwords[j] += input[i][j];
             }
         }
         
@@ -222,7 +217,7 @@ class Lsi {
             System.out.printf("%10s ", TERMS[i]);
             for(int j = 0; j<n; j++){
                 double tf = input[i][j] / docwords[j]; //tf = term frequency in document / number of words in document
-                double idf = Math.log10(n / term[i]); //idf = log(total number of documents / documents with the term)
+                double idf = Math.log10(1 + (n / term[i])); //idf = log(total number of documents / 1 + documents with the term) the 1 + is to prevent a divide by zero
                 input[i][j] *= tf * idf; //weight
                 System.out.printf("%.2f", input[i][j]);
                 System.out.print(", ");
