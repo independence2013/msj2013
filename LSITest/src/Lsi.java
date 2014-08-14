@@ -199,14 +199,14 @@ class Lsi {
         int m = input.length; //total terms
         int n = input[0].length; //total documents
         
-        double[] docwords = new double[n]; //holds how many words are in each document
         double[] term = new double[m]; //holds how many documents have a term
+        double[] docwords = new double[n]; //holds how many words are in each document
         for(int i = 0; i< m; i++){
             for(int j = 0; j< n; j++){
-                if(input[i][j] > 0){
-                    term[i]++;
+                if(input[i][j] > 0){ //if the term is in the document
+                    term[i]++; //add one to the document counter of that term
                 }
-                docwords[j] += input[i][j];
+                docwords[j] += input[i][j]; //add the number of times that term occurs in that document
             }
         }
         
